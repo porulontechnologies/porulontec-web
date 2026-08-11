@@ -55,10 +55,10 @@ secrets.json
 # ------------------------------------------------------------------------------
 # 4. User Uploaded Files & Runtime Storage (Preserve directory with .gitkeep)
 # ------------------------------------------------------------------------------
-uploads/*
-**/uploads/*
-!uploads/.gitkeep
-!**/uploads/.gitkeep
+# uploads/*
+# **/uploads/*
+# !uploads/.gitkeep
+# !**/uploads/.gitkeep
 *.sqlite
 *.sqlite3
 *.db
