@@ -65,7 +65,7 @@ export default function AIBot() {
       } else if (lower.includes('quote') || lower.includes('project') || lower.includes('price') || lower.includes('cost')) {
         botResponse = 'You can request a free project consultation and quote by visiting our Contact page or emailing info@porulontech.com. Our architects respond within 24 hours!';
       } else if (lower.includes('contact') || lower.includes('phone') || lower.includes('email') || lower.includes('sales')) {
-        botResponse = 'Reach our team directly:\n• Sales: +91 97918 82387\n• HR: +91 99005 59922\n• Projects: +91 97900 05442\n• Email: info@porulontech.com';
+        botResponse = 'Reach our team directly:\n• tel: +914227141668\n• Sales: +91 63851 86664\n• HR: +91 90470 99277\n• \n• Email: info@porulontech.com';
       } else if (lower.includes('cloud') || lower.includes('devops') || lower.includes('aws') || lower.includes('azure')) {
         botResponse = 'Our Cloud Architecture services cover AWS/Azure/GCP cloud-native migrations, microservices, serverless scaling, and zero-downtime DevOps pipelines.';
       }

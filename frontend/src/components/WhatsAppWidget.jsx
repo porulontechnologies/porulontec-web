@@ -3,7 +3,7 @@ import { FaWhatsapp } from 'react-icons/fa';
 
 export default function WhatsAppWidget() {
   const [isHidden, setIsHidden] = useState(false);
-  const phoneNumber = '919791882387';
+  const phoneNumber = '919047099277';
   const defaultMessage = encodeURIComponent(
     'Hello Porulon Technologies! I would like to know more about your AI solutions and services.'
   );

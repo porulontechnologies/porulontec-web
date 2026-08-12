@@ -133,9 +133,9 @@ export default function Contact() {
     {
       icon: 'HiOutlinePhone',
       title: 'Sales & HR Phone',
-      lines: ['+91 97918 82387', '+91 99005 59922'],
+      lines: ['+91 63851 86664', '+91 90470 99277'],
       sub: 'Mon-Fri, 9AM-6PM IST',
-      href: 'tel:+919791882387',
+      href: 'tel:+914227141668',
     },
     {
       icon: 'HiOutlineMapPin',
