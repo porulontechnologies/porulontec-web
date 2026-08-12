@@ -28,10 +28,10 @@ const defaultCompanyLinks = [
 ];
 
 const defaultSocialLinks = [
-  { icon: <FaFacebook className="text-sm" />, href: 'https://www.facebook.com/', label: 'Facebook' },
+  { icon: <FaFacebook className="text-sm" />, href: 'https://www.facebook.com/share/1H1t8X4oKd/', label: 'Facebook' },
   { icon: <FaLinkedin className="text-sm" />, href: 'https://www.linkedin.com/company/porulon-technologies/', label: 'LinkedIn' },
   { icon: <FaXTwitter className="text-sm" />, href: 'https://x.com/', label: 'X (Twitter)' },
-  { icon: <FaInstagram className="text-sm" />, href: 'https://www.instagram.com/', label: 'Instagram' },
+  { icon: <FaInstagram className="text-sm" />, href: 'https://www.instagram.com/porulon_technologies?utm_source=qr&igsh=YjZ4bjV0MzdsODNl', label: 'Instagram' },
 ];
 
 const defaultContactRows = [
