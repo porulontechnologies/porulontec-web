@@ -11,14 +11,25 @@ export const uploadMedia = async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ message: 'No file uploaded' });
     }
-    const fileUrl = `/uploads/${req.file.filename}`;
+
+    // Support both Cloudinary secure HTTPS URLs and local disk relative paths
+    let fileUrl = `/uploads/${req.file.filename}`;
+    if (req.file.path && (req.file.path.startsWith('http://') || req.file.path.startsWith('https://'))) {
+      fileUrl = req.file.path;
+    } else if (req.file.secure_url) {
+      fileUrl = req.file.secure_url;
+    }
+
+    const filename = req.file.filename || req.file.originalname || `file-${Date.now()}`;
+
     const media = await Media.create({
-      filename: req.file.filename,
+      filename: filename,
       originalName: req.file.originalname,
       url: fileUrl,
       mimetype: req.file.mimetype,
-      size: req.file.size,
+      size: req.file.size || 0,
     });
+
     return res.status(201).json(mapMedia(media));
   } catch (error) {
     return res.status(500).json({ message: error.message });
