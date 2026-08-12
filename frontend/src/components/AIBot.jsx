@@ -55,7 +55,7 @@ export default function AIBot() {
     setIsTyping(true);
 
     setTimeout(() => {
-      let botResponse = 'Thank you for asking! Our engineering team specializes in AI, ML, and enterprise software. Feel free to contact us at info@porulontech.com or call +91 97918 82387 for immediate support.';
+      let botResponse = 'Thank you for asking! Our engineering team specializes in AI, ML, and enterprise software. Feel free to contact us at info@porulontech.com, call Sales at +91 63851 86664, or General at +91 90470 99277.';
       const lower = query.toLowerCase();
 
       if (lower.includes('ai') || lower.includes('machine learning') || lower.includes('ml') || lower.includes('solution')) {

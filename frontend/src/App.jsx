@@ -16,6 +16,9 @@ import TrainingDetail from './pages/TrainingDetail.jsx';
 import Blog from './pages/Blog.jsx';
 import BlogDetail from './pages/BlogDetail.jsx';
 import Products from './pages/Products.jsx';
+import PrivacyPolicy from './pages/PrivacyPolicy.jsx';
+import TermsOfService from './pages/TermsOfService.jsx';
+import CookiePolicy from './pages/CookiePolicy.jsx';
 import { ContactModalProvider } from './contexts/ContactModalContext.jsx';
 import ContactModal from './components/ContactModal.jsx';
 
@@ -91,9 +94,9 @@ export default function App() {
         <Route path="/academy/:slug" element={<Navigate to="/training" replace />} />
         <Route path="/careers" element={<PlaceholderPage title="Careers" />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/privacy-policy" element={<PlaceholderPage title="Privacy Policy" />} />
-        <Route path="/terms-of-service" element={<PlaceholderPage title="Terms of Service" />} />
-        <Route path="/cookie-policy" element={<PlaceholderPage title="Cookie Policy" />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-of-service" element={<TermsOfService />} />
+        <Route path="/cookie-policy" element={<CookiePolicy />} />
         <Route path="*" element={<PlaceholderPage title="Page Not Found" />} />
       </Routes>
       <FloatingAssistant />

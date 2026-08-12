@@ -35,7 +35,8 @@ const defaultSocialLinks = [
 ];
 
 const defaultContactRows = [
-  { icon: <FiPhone className="text-base shrink-0 text-purple-600 dark:text-purple-400 mt-0.5" />, label: 'Contact: +91 90470 99277', href: 'tel:+919047099277' },
+  { icon: <FiPhone className="text-base shrink-0 text-purple-600 dark:text-purple-400 mt-0.5" />, label: 'Sales: +91 63851 86664', href: 'tel:+916385186664' },
+  { icon: <FiPhone className="text-base shrink-0 text-purple-600 dark:text-purple-400 mt-0.5" />, label: 'General: +91 90470 99277', href: 'tel:+919047099277' },
   { icon: <LuHeadset className="text-base shrink-0 text-purple-600 dark:text-purple-400 mt-0.5" />, label: 'Telephone: +91 422 714 1668', href: 'tel:+914227141668' },
   { icon: <IoIosMail className="text-base shrink-0 text-purple-600 dark:text-purple-400 mt-0.5" />, label: 'info@porulontech.com', href: 'mailto:info@porulontech.com' },
   {

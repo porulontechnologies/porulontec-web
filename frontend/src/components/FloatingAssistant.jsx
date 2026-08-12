@@ -21,7 +21,7 @@ export default function FloatingAssistant() {
   const containerRef = useRef(null);
   const messagesEndRef = useRef(null);
 
-  const phoneNumber = '919791882387';
+  const phoneNumber = '919047099277';
   const defaultMessage = encodeURIComponent(
     'Hello Porulon Technologies! I would like to know more about your AI solutions and services.'
   );
@@ -292,7 +292,7 @@ export default function FloatingAssistant() {
       q.includes('reach')
     ) {
       return {
-        text: '📞 Contact Porulon Team:\n• Sales: +91 97918 82387\n• HR: +91 99005 59922\n• New Projects: +91 97900 05442\n• Email: info@porulontech.com\n• WhatsApp: Click WhatsApp option in the menu!',
+        text: '📞 Contact Porulon Team:\n• Sales: +91 63851 86664\n• General: +91 90470 99277\n• Telephone: +91 422 714 1668\n• Email: info@porulontech.com\n• WhatsApp: Click WhatsApp option in the menu!',
       };
     }
     if (
@@ -309,7 +309,7 @@ export default function FloatingAssistant() {
 
     // GENERAL FALLBACK RESPONSE
     return {
-      text: `Thank you for your question! As Porulon's AI assistant, I can answer general knowledge queries as well as details about Porulon Technologies.\n\nFor custom technical inquiries or project quotes, you can connect directly with our engineering team at info@porulontech.com or +91 97918 82387.`,
+      text: `Thank you for your question! As Porulon's AI assistant, I can answer general knowledge queries as well as details about Porulon Technologies.\n\nFor custom technical inquiries or project quotes, connect directly with our sales team at info@porulontech.com or +91 63851 86664.`,
     };
   };
 
@@ -406,10 +406,10 @@ export default function FloatingAssistant() {
                       </p>
                       <div className="flex flex-col gap-1.5 pt-1">
                         <a
-                          href="tel:+919791882387"
+                          href="tel:+916385186664"
                           className="inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white transition-colors shadow-sm"
                         >
-                          <FaPhoneAlt className="text-xs" /> Call Sales (+91 97918 82387)
+                          <FaPhoneAlt className="text-xs" /> Call Sales (+91 63851 86664)
                         </a>
                         <a
                           href="mailto:info@porulontech.com"
