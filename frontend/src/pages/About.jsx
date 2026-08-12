@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import GlowImage from '../components/GlowImage.jsx';
 import { fetchSections } from '../api/client.js';
+import { useContactModal } from '../contexts/ContactModalContext.jsx';
 import { getCleanMediaUrl } from '../utils/media.js';
 import { GoArrowRight, GoArrowLeft } from 'react-icons/go';
 import {
@@ -188,6 +189,15 @@ const defaultHeroSlides = [
 ];
 
 export default function About() {
+  const { openModal } = useContactModal();
+
+  const handleContactClick = (e, link) => {
+    if (link === '/contact' || link === '/contact/') {
+      e.preventDefault();
+      openModal();
+    }
+  };
+
   const [dbSections, setDbSections] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -370,6 +380,7 @@ export default function About() {
                     <a
                       key={idx}
                       href={btn.link || "/contact"}
+                      onClick={(e) => handleContactClick(e, btn.link || "/contact")}
                       className={
                         idx === 0
                           ? "group no-underline px-7 py-3.5 rounded-full bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:from-purple-500 hover:to-indigo-500 text-white font-extrabold text-xs sm:text-sm tracking-wide shadow-lg shadow-purple-600/35 hover:shadow-purple-600/55 hover:scale-[1.03] active:scale-95 transition-all duration-300 flex items-center gap-2"
@@ -461,6 +472,7 @@ export default function About() {
                       <a
                         key={bIdx}
                         href={btn.link || "/contact"}
+                        onClick={(e) => handleContactClick(e, btn.link || "/contact")}
                         className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm tracking-wide shadow-lg shadow-purple-600/30 hover:scale-105 transition-all no-underline"
                       >
                         <span>{btn.label}</span>
@@ -470,6 +482,7 @@ export default function About() {
                   ) : (
                     <a
                       href="/contact"
+                      onClick={(e) => handleContactClick(e, "/contact")}
                       className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm tracking-wide shadow-lg shadow-purple-600/30 hover:scale-105 transition-all no-underline"
                     >
                       <span>Talk to Leadership</span>
@@ -745,6 +758,7 @@ export default function About() {
                       <a
                         key={bIdx}
                         href={btn.link || '/contact'}
+                        onClick={(e) => handleContactClick(e, btn.link || '/contact')}
                         className={
                           bIdx === 0
                             ? 'group no-underline px-8 py-3.5 rounded-full bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm tracking-wide shadow-lg shadow-purple-600/30 hover:scale-105 transition-all flex items-center gap-2'

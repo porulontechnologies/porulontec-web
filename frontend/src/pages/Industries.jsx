@@ -3,6 +3,7 @@ import SectionBackground from '../components/SectionBackground.jsx';
 import GlowImage from '../components/GlowImage.jsx';
 import { GoArrowRight } from 'react-icons/go';
 import { fetchSections } from '../api/client.js';
+import { useContactModal } from '../contexts/ContactModalContext.jsx';
 import { getCleanMediaUrl } from '../utils/media.js';
 
 function FormattedTitle({ title, defaultText, accentClass = "text-gradient font-normal", highlightWords = 2 }) {
@@ -199,6 +200,15 @@ const industries = [
 ];
 
 export default function Industries() {
+  const { openModal } = useContactModal();
+
+  const handleContactClick = (e, link) => {
+    if (link === '/contact' || link === '/contact/') {
+      e.preventDefault();
+      openModal();
+    }
+  };
+
   const [dbSections, setDbSections] = useState(null);
   const [activeCategory, setActiveCategory] = useState('All');
 
@@ -331,6 +341,7 @@ export default function Industries() {
                   <a
                     key={idx}
                     href={btn.link || "/contact"}
+                    onClick={(e) => handleContactClick(e, btn.link || "/contact")}
                     className={
                       idx === 0
                         ? "group no-underline px-7 py-3.5 rounded-full bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:from-purple-500 hover:to-indigo-500 text-white font-extrabold text-xs sm:text-sm tracking-wide shadow-lg shadow-purple-600/35 hover:shadow-purple-600/55 hover:scale-[1.03] active:scale-95 transition-all duration-300 flex items-center gap-2"
@@ -523,6 +534,7 @@ export default function Industries() {
                     <div className="px-6 pb-6 pt-0 relative z-10">
                       <a
                         href={ind.ctaLink || '/contact'}
+                        onClick={(e) => handleContactClick(e, ind.ctaLink || '/contact')}
                         className="pt-1 flex items-center justify-between group/link no-underline"
                       >
                         <span className="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover/link:text-purple-600 dark:group-hover/link:text-purple-400 transition-colors">
@@ -583,6 +595,7 @@ export default function Industries() {
                     <a
                       key={idx}
                       href={btn.link || "/contact"}
+                      onClick={(e) => handleContactClick(e, btn.link || "/contact")}
                       className={
                         idx === 0
                           ? "group px-8 py-3.5 rounded-full bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm tracking-wide shadow-lg shadow-purple-600/30 hover:shadow-purple-600/50 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2 no-underline"

@@ -497,7 +497,8 @@ const getAdvantageIcon = (iconKey, fallbackIdx = 0) => {
 };
 import { motion } from 'framer-motion';
 import SectionBackground from '../components/SectionBackground.jsx';
-import GlowImage from '../components/GlowImage.jsx';
+import FloatingAssistant from '../components/FloatingAssistant.jsx';
+import { useContactModal } from '../contexts/ContactModalContext.jsx';
 import { fetchSections } from '../api/client.js';
 import { getCleanMediaUrl } from '../utils/media.js';
 import {
@@ -552,97 +553,6 @@ const techStacks = [
   { name: "Embedded Systems", icon: <SiRaspberrypi className="w-12 h-12 md:w-14 md:h-14 text-[#A22846] shrink-0" /> },
 ];
 
-// const techStacks = [
-//   {
-//     name: "AI & Machine Learning",
-//     badge: "AI PLATFORMS",
-//     icon: (
-//       <svg className="w-5 h-5 text-primary-strong shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-//         <path d="M12 2a10 10 0 1 0 10 10H12V2z" />
-//         <path d="M12 12L2.1 12" />
-//         <path d="M12 12l4.3-8.7" />
-//         <circle cx="12" cy="12" r="3" />
-//       </svg>
-//     ),
-//   },
-//   {
-//     name: "IoT & Smart Hardware",
-//     badge: "IOT AUTOMATION",
-//     icon: (
-//       <svg className="w-5 h-5 text-teal shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-//         <rect x="4" y="4" width="16" height="16" rx="2" />
-//         <rect x="9" y="9" width="6" height="6" />
-//         <line x1="9" y1="1" x2="9" y2="4" />
-//         <line x1="15" y1="1" x2="15" y2="4" />
-//         <line x1="9" y1="20" x2="9" y2="23" />
-//         <line x1="15" y1="20" x2="15" y2="23" />
-//         <line x1="20" y1="9" x2="23" y2="9" />
-//         <line x1="20" y1="15" x2="23" y2="15" />
-//         <line x1="1" y1="9" x2="4" y2="9" />
-//         <line x1="1" y1="15" x2="4" y2="15" />
-//       </svg>
-//     ),
-//   },
-//   {
-//     name: "Full-Stack Software",
-//     badge: "WEB & MOBILE",
-//     icon: (
-//       <svg className="w-5 h-5 text-purple-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-//         <polyline points="16 18 22 12 16 6" />
-//         <polyline points="8 6 2 12 8 18" />
-//       </svg>
-//     ),
-//   },
-//   {
-//     name: "Cloud Architecture",
-//     badge: "CLOUD INFRA",
-//     icon: (
-//       <svg className="w-5 h-5 text-sky-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-//         <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
-//       </svg>
-//     ),
-//   },
-//   {
-//     name: "Cybersecurity & Audit",
-//     badge: "ZERO TRUST",
-//     icon: (
-//       <svg className="w-5 h-5 text-emerald-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-//         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-//       </svg>
-//     ),
-//   },
-//   {
-//     name: "Edge Computing",
-//     badge: "EDGE TECH",
-//     icon: (
-//       <svg className="w-5 h-5 text-amber-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-//         <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-//       </svg>
-//     ),
-//   },
-//   {
-//     name: "Generative AI Models",
-//     badge: "GEN AI",
-//     icon: (
-//       <svg className="w-5 h-5 text-pink-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-//         <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-//       </svg>
-//     ),
-//   },
-//   {
-//     name: "Embedded Robotics",
-//     badge: "ROBOTICS",
-//     icon: (
-//       <svg className="w-5 h-5 text-indigo-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-//         <rect x="3" y="11" width="18" height="10" rx="2" />
-//         <circle cx="12" cy="5" r="2" />
-//         <path d="M12 7v4" />
-//         <line x1="8" y1="16" x2="8" y2="16" strokeWidth="3" />
-//         <line x1="16" y1="16" x2="16" y2="16" strokeWidth="3" />
-//       </svg>
-//     ),
-// ];
-
 const services = [
   { title: 'AI & Machine Learning', desc: 'Building predictive engines and cognitive agents that automate decision-making at scale.', points: ['Predictive ML & NLP Engines', 'Generative AI & LLM Models'], img: '/images/service-ai.jpg' },
   { title: 'Cloud Architecture', desc: 'Scalable, cloud-native infrastructures designed for high availability and zero downtime.', points: ['Multi-Cloud Infrastructure', 'Serverless Auto-Scaling'], img: '/images/service-cloud.jpg' },
@@ -673,7 +583,6 @@ const whyUs = [
   },
 ];
 
-// Stats config: numeric target + suffix, parsed so we can animate the count
 const stats = [
   { value: 15, suffix: '+', label: 'Projects Delivered' },
   { value: 10, suffix: '+', label: 'Enterprise Clients' },
@@ -681,9 +590,6 @@ const stats = [
   { value: 3, suffix: '+', label: 'Industries Served' },
 ];
 
-/**
- * Animated counter that counts up from 0 to `value` once it scrolls into view.
- */
 function AnimatedStat({ value, suffix, label, decimals = 0, duration = 1800 }) {
   const [display, setDisplay] = useState(0);
   const [started, setStarted] = useState(false);
@@ -717,7 +623,6 @@ function AnimatedStat({ value, suffix, label, decimals = 0, duration = 1800 }) {
     const tick = (now) => {
       const elapsed = now - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      // ease-out cubic for a nice deceleration
       const eased = 1 - Math.pow(1 - progress, 3);
       const current = eased * value;
       setDisplay(current);
@@ -747,9 +652,6 @@ function AnimatedStat({ value, suffix, label, decimals = 0, duration = 1800 }) {
   );
 }
 
-/**
- * Inline Animated counter for About Preview section that counts up on scroll into view.
- */
 function CountUpInline({ value, suffix = '+', label, colorClass = 'text-primary-strong', decimals = 0, duration = 1800 }) {
   const [display, setDisplay] = useState(0);
   const [started, setStarted] = useState(false);
@@ -810,9 +712,6 @@ function CountUpInline({ value, suffix = '+', label, colorClass = 'text-primary-
   );
 }
 
-/**
- * Motion animated stat card for Stats section using Framer Motion & dynamic count-up on scroll.
- */
 function MotionStatCard({ targetNum, suffix, rawText, title, desc, index }) {
   const [count, setCount] = useState(0);
   const [hasStarted, setHasStarted] = useState(false);
@@ -956,7 +855,6 @@ function Carousel3D({ services }) {
       className="relative mx-auto flex items-center justify-center select-none touch-pan-y cursor-grab active:cursor-grabbing"
       style={{ height: "480px", perspective: "1600px" }}
     >
-      {/* Manual Control Buttons */}
       <button
         onClick={() => rotateTo(activeIndex - 1)}
         aria-label="Previous service"
@@ -973,7 +871,6 @@ function Carousel3D({ services }) {
         <GoArrowRight className="text-xl" />
       </button>
 
-      {/* Dual-Theme Reflective Floor Glow Disc */}
       <div
         className="absolute bottom-2 left-1/2 w-[360px] h-[50px] rounded-full pointer-events-none transition-all duration-700"
         style={{
@@ -1016,7 +913,6 @@ function Carousel3D({ services }) {
                 transform: `rotateY(${rotation}deg) translateZ(${radius}px) scale(${isActive ? 1 : 0.92})`,
               }}
             >
-              {/* Active Card Glass Reflective Sweep Line */}
               {isActive && (
                 <div className="absolute inset-0 rounded-2xl pointer-events-none overflow-hidden z-1">
                   <div
@@ -1032,7 +928,6 @@ function Carousel3D({ services }) {
               )}
 
               <div className="relative z-10 flex flex-col h-full justify-between">
-                {/* Prominent Image Slot (Reflective in Light & Dark Mode) */}
                 <div className="h-36 sm:h-40 w-full mb-2.5 rounded-xl overflow-hidden relative bg-slate-100 dark:bg-slate-900/80 shrink-0 flex items-center justify-center border border-slate-200/50 dark:border-white/10 shadow-xs">
                   {imgUrl ? (
                     <img
@@ -1045,7 +940,6 @@ function Carousel3D({ services }) {
                       }}
                     />
                   ) : null}
-                  {/* Resilient Fallback Icon Graphic */}
                   <div
                     className={`absolute inset-0 bg-gradient-to-br from-purple-100 via-indigo-50 to-slate-100 dark:from-purple-950/70 dark:via-indigo-950/50 dark:to-slate-950/90 p-4 flex flex-col items-center justify-center text-center ${
                       imgUrl ? 'hidden' : 'flex'
@@ -1058,7 +952,6 @@ function Carousel3D({ services }) {
                   </div>
                 </div>
 
-                {/* Bold Title & Description */}
                 <div>
                   <h3 className="text-base sm:text-[17px] font-semibold text-slate-900 dark:text-white tracking-tight mb-1 leading-snug line-clamp-1">
                     {s.title || 'Service Title'}
@@ -1068,7 +961,6 @@ function Carousel3D({ services }) {
                   </p>
                 </div>
 
-                {/* Bullet Points List */}
                 <ul className="space-y-1 text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 font-light tracking-tight border-none">
                   {(s.points?.length > 0
                     ? s.points
@@ -1176,7 +1068,6 @@ function IndustriesCarousel({ section }) {
   return (
     <section className="py-12 md:py-16 bg-transparent relative overflow-hidden">
       <div className="max-w-container mx-auto px-gutter">
-        {/* Section Header with Navigation Arrows */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 md:mb-12 gap-6">
           <div>
             {kicker && (
@@ -1209,7 +1100,6 @@ function IndustriesCarousel({ section }) {
           </div>
         </div>
 
-        {/* Scroll-snapping track */}
         <div
           ref={scrollRef}
           className="flex gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-6 pt-2 px-1 -mx-1"
@@ -1223,7 +1113,6 @@ function IndustriesCarousel({ section }) {
                 key={idx}
                 className="w-[270px] sm:w-[290px] h-[390px] sm:h-[410px] shrink-0 snap-start rounded-3xl relative overflow-hidden group glass-card flex flex-col justify-between p-5 sm:p-6 shadow-xl border border-white/10 hover:border-purple-500/40 transition-all duration-500"
               >
-                {/* Background Image Container with Fallback Protection */}
                 {imgUrl ? (
                   <img
                     src={imgUrl}
@@ -1236,7 +1125,6 @@ function IndustriesCarousel({ section }) {
                   />
                 ) : null}
 
-                {/* Fallback Tech Graphic Background if Image is missing/corrupted (Space Preserved 100%) */}
                 <div
                   className={`absolute inset-0 bg-gradient-to-br from-purple-950/90 via-slate-950 to-indigo-950 p-6 flex flex-col items-center justify-center text-center transition-all duration-500 ${
                     imgUrl ? 'hidden' : 'flex'
@@ -1248,16 +1136,13 @@ function IndustriesCarousel({ section }) {
                   <span className="text-[11px] font-semibold tracking-wider uppercase text-purple-300/80">Porulon Industry</span>
                 </div>
 
-                {/* Dark Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-slate-950/20 pointer-events-none group-hover:via-slate-950/50 transition-all duration-500 z-1" />
 
-                {/* Color Accent Bloom */}
                 <div
                   className="absolute -bottom-12 -right-12 w-48 h-48 rounded-full blur-3xl opacity-0 group-hover:opacity-60 transition-opacity duration-500 pointer-events-none z-1"
                   style={{ backgroundColor: ind.color }}
                 />
 
-                {/* Top Row: Index Number & Tag */}
                 <div className="flex items-center justify-between relative z-10">
                   <span className="text-xs font-mono tracking-widest text-white/90 px-3 py-1 rounded-full bg-slate-950/60 backdrop-blur-md border border-white/15 shadow-sm">
                     {ind.index}
@@ -1267,7 +1152,6 @@ function IndustriesCarousel({ section }) {
                   </span>
                 </div>
 
-                {/* Bottom Content: Title & Smooth Hover Revealed Description (Original Structure Retained) */}
                 <div className="relative z-10 space-y-1.5">
                   <h3 className="text-lg sm:text-xl font-light text-white tracking-tight leading-snug">
                     {ind.title}
@@ -1281,7 +1165,6 @@ function IndustriesCarousel({ section }) {
                   </div>
                 </div>
 
-                {/* Animated Bottom Border in Industry Color */}
                 <div
                   className="absolute bottom-0 left-0 h-[4px] w-0 group-hover:w-full transition-all duration-500 ease-out z-10"
                   style={{
@@ -1293,7 +1176,6 @@ function IndustriesCarousel({ section }) {
             );
           })}
 
-          {/* "+7 More" Dashed Card Cap */}
           <a
             href="/industries"
             className="w-[270px] sm:w-[290px] h-[390px] sm:h-[410px] shrink-0 snap-start rounded-3xl border-2 border-dashed border-purple-500/40 hover:border-purple-500 bg-white/5 dark:bg-white/[0.03] backdrop-blur-md flex flex-col items-center justify-center text-center p-5 sm:p-6 hover:bg-purple-500/10 hover:scale-[1.02] transition-all duration-300 group cursor-pointer"
@@ -1315,9 +1197,6 @@ function IndustriesCarousel({ section }) {
   );
 }
 
-/**
- * Helper component to format titles dynamically while preserving primary accent/gradient font colors on key words.
- */
 function FormattedTitle({ title, defaultText, accentClass = "text-gradient font-light", highlightWords = 1 }) {
   const text = title || defaultText;
   if (!text) return null;
@@ -1338,6 +1217,15 @@ function FormattedTitle({ title, defaultText, accentClass = "text-gradient font-
 }
 
 export default function Home() {
+  const { openModal } = useContactModal();
+
+  const handleContactClick = (e, link) => {
+    if (link === '/contact' || link === '/contact/') {
+      e.preventDefault();
+      openModal();
+    }
+  };
+
   const [dbSections, setDbSections] = useState(null);
 
   useEffect(() => {
@@ -1471,6 +1359,7 @@ export default function Home() {
                 <a
                   key={bIdx}
                   href={btn.link || btn.href || '/contact'}
+                  onClick={(e) => handleContactClick(e, btn.link || btn.href || '/contact')}
                   className={
                     bIdx === 0
                       ? 'group px-7 py-3 sm:py-3.5 rounded-full bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm tracking-wide shadow-lg shadow-purple-600/30 hover:shadow-purple-600/50 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2'
@@ -1918,6 +1807,7 @@ export default function Home() {
                             <a
                               key={idx}
                               href={btn.link || "/contact"}
+                              onClick={(e) => handleContactClick(e, btn.link || "/contact")}
                               className={
                                 idx === 0
                                   ? "group btn-primary px-7 py-3.5 rounded-full font-semibold tracking-tight text-xs sm:text-sm text-white hover:scale-105 transition-all duration-300 shadow-xl shadow-purple-500/25 inline-flex items-center gap-2"

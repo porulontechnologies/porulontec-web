@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import GlowImage from '../components/GlowImage.jsx';
 import { fetchSections } from '../api/client.js';
+import { useContactModal } from '../contexts/ContactModalContext.jsx';
 import { getCleanMediaUrl } from '../utils/media.js';
 import { GoArrowRight, GoCheck } from 'react-icons/go';
 import {
@@ -341,6 +342,15 @@ const defaultTestimonials = [
 ];
 
 export default function Products() {
+  const { openModal } = useContactModal();
+
+  const handleContactClick = (e, link) => {
+    if (link === '/contact' || link === '/contact/') {
+      e.preventDefault();
+      openModal();
+    }
+  };
+
   const [dbSections, setDbSections] = useState(null);
 
   // Fetch Section Settings Dynamically from Backend DB
@@ -692,6 +702,7 @@ export default function Products() {
                       <div className="pt-1">
                         <a
                           href="/contact"
+                          onClick={(e) => handleContactClick(e, "/contact")}
                           className="btn-primary w-full py-3.5 rounded-2xl text-xs sm:text-sm font-semibold tracking-tight inline-flex items-center justify-center gap-2 group-hover:shadow-lg group-hover:shadow-purple-500/25 transition-all duration-300 no-underline"
                         >
                           <span>Explore Product & Request Demo</span>
@@ -1027,6 +1038,7 @@ export default function Products() {
                   <a
                     key={bIdx}
                     href={btn.link || '/contact'}
+                    onClick={(e) => handleContactClick(e, btn.link || '/contact')}
                     className={
                       bIdx === 0
                         ? 'group btn-primary px-8 py-3.5 rounded-full font-light tracking-tight text-sm sm:text-base hover:scale-105 transition-all duration-300 shadow-lg shadow-primary-strong/25 inline-flex items-center gap-2'

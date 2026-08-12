@@ -74,6 +74,7 @@ export default function Contact() {
     subject: '',
     message: '',
   });
+  const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle');
 
   useEffect(() => {
@@ -212,10 +213,30 @@ export default function Contact() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((f) => ({ ...f, [name]: value }));
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: '' }));
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!form.firstName.trim()) newErrors.firstName = 'First Name is required';
+    if (!form.lastName.trim()) newErrors.lastName = 'Last Name is required';
+    if (!form.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+    if (!form.subject.trim()) newErrors.subject = 'Subject is required';
+    if (!form.message.trim()) newErrors.message = 'Message is required';
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
     setStatus('submitting');
     try {
       await submitContactInquiry({
@@ -228,7 +249,8 @@ export default function Contact() {
       setStatus('sent');
     } catch (err) {
       console.error(err);
-      setStatus('sent');
+      setErrors({ form: 'An error occurred. Please try again.' });
+      setStatus('idle');
     }
   };
 
@@ -575,6 +597,11 @@ export default function Contact() {
                 className="lg:col-span-7 p-6 sm:p-8 rounded-3xl border border-purple-500/15 dark:border-purple-500/20 bg-bg/70 backdrop-blur-xl shadow-xl space-y-4"
                 data-aos="fade-left"
               >
+                {errors.form && (
+                  <div className="p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900 text-red-600 dark:text-red-400 text-xs font-semibold rounded-xl text-center">
+                    {errors.form}
+                  </div>
+                )}
                 {/* Project Area Dropdown Field */}
                 {topicList.length > 0 && (
                   <div>
@@ -622,9 +649,10 @@ export default function Contact() {
                       required
                       value={form.firstName}
                       onChange={handleChange}
-                      className="w-full rounded-xl bg-slate-100/80 dark:bg-[#141028]/80 border border-slate-300/80 dark:border-purple-500/20 px-3.5 py-2.5 text-text text-xs placeholder:text-text-muted/60 focus:outline-none focus:ring-2 focus:ring-purple-500/40 focus:border-purple-500 transition-all font-medium"
+                      className={`w-full rounded-xl bg-slate-100/80 dark:bg-[#141028]/80 border ${errors.firstName ? 'border-red-400 focus:ring-red-500/50 focus:border-red-500' : 'border-slate-300/80 dark:border-purple-500/20 focus:ring-purple-500/40 focus:border-purple-500'} px-3.5 py-2.5 text-text text-xs placeholder:text-text-muted/60 focus:outline-none focus:ring-2 transition-all font-medium`}
                       placeholder="Jane"
                     />
+                      {errors.firstName && <p className="text-red-500 text-[11px] mt-1 font-semibold">{errors.firstName}</p>}
                   </div>
                   <div>
                     <label htmlFor="lastName" className="block text-[11px] font-extrabold uppercase tracking-wider text-text mb-1">
@@ -637,9 +665,10 @@ export default function Contact() {
                       required
                       value={form.lastName}
                       onChange={handleChange}
-                      className="w-full rounded-xl bg-slate-100/80 dark:bg-[#141028]/80 border border-slate-300/80 dark:border-purple-500/20 px-3.5 py-2.5 text-text text-xs placeholder:text-text-muted/60 focus:outline-none focus:ring-2 focus:ring-purple-500/40 focus:border-purple-500 transition-all font-medium"
+                      className={`w-full rounded-xl bg-slate-100/80 dark:bg-[#141028]/80 border ${errors.lastName ? 'border-red-400 focus:ring-red-500/50 focus:border-red-500' : 'border-slate-300/80 dark:border-purple-500/20 focus:ring-purple-500/40 focus:border-purple-500'} px-3.5 py-2.5 text-text text-xs placeholder:text-text-muted/60 focus:outline-none focus:ring-2 transition-all font-medium`}
                       placeholder="Doe"
                     />
+                      {errors.lastName && <p className="text-red-500 text-[11px] mt-1 font-semibold">{errors.lastName}</p>}
                   </div>
                 </div>
 
@@ -656,9 +685,10 @@ export default function Contact() {
                       required
                       value={form.email}
                       onChange={handleChange}
-                      className="w-full rounded-xl bg-slate-100/80 dark:bg-[#141028]/80 border border-slate-300/80 dark:border-purple-500/20 px-3.5 py-2.5 text-text text-xs placeholder:text-text-muted/60 focus:outline-none focus:ring-2 focus:ring-purple-500/40 focus:border-purple-500 transition-all font-medium"
+                      className={`w-full rounded-xl bg-slate-100/80 dark:bg-[#141028]/80 border ${errors.email ? 'border-red-400 focus:ring-red-500/50 focus:border-red-500' : 'border-slate-300/80 dark:border-purple-500/20 focus:ring-purple-500/40 focus:border-purple-500'} px-3.5 py-2.5 text-text text-xs placeholder:text-text-muted/60 focus:outline-none focus:ring-2 transition-all font-medium`}
                       placeholder="jane@company.com"
                     />
+                      {errors.email && <p className="text-red-500 text-[11px] mt-1 font-semibold">{errors.email}</p>}
                   </div>
                   <div>
                     <label htmlFor="company" className="block text-[11px] font-extrabold uppercase tracking-wider text-text mb-1">
@@ -688,9 +718,10 @@ export default function Contact() {
                     required
                     value={form.subject}
                     onChange={handleChange}
-                    className="w-full rounded-xl bg-slate-100/80 dark:bg-[#141028]/80 border border-slate-300/80 dark:border-purple-500/20 px-3.5 py-2.5 text-text text-xs placeholder:text-text-muted/60 focus:outline-none focus:ring-2 focus:ring-purple-500/40 focus:border-purple-500 transition-all font-medium"
+                    className={`w-full rounded-xl bg-slate-100/80 dark:bg-[#141028]/80 border ${errors.subject ? 'border-red-400 focus:ring-red-500/50 focus:border-red-500' : 'border-slate-300/80 dark:border-purple-500/20 focus:ring-purple-500/40 focus:border-purple-500'} px-3.5 py-2.5 text-text text-xs placeholder:text-text-muted/60 focus:outline-none focus:ring-2 transition-all font-medium`}
                     placeholder="Tell us what you need..."
                   />
+                      {errors.subject && <p className="text-red-500 text-[11px] mt-1 font-semibold">{errors.subject}</p>}
                 </div>
 
                 {/* Message */}
@@ -705,9 +736,10 @@ export default function Contact() {
                     rows={3}
                     value={form.message}
                     onChange={handleChange}
-                    className="w-full rounded-xl bg-slate-100/80 dark:bg-[#141028]/80 border border-slate-300/80 dark:border-purple-500/20 px-3.5 py-2.5 text-text text-xs placeholder:text-text-muted/60 focus:outline-none focus:ring-2 focus:ring-purple-500/40 focus:border-purple-500 transition-all resize-none font-medium"
+                    className={`w-full rounded-xl bg-slate-100/80 dark:bg-[#141028]/80 border ${errors.message ? 'border-red-400 focus:ring-red-500/50 focus:border-red-500' : 'border-slate-300/80 dark:border-purple-500/20 focus:ring-purple-500/40 focus:border-purple-500'} px-3.5 py-2.5 text-text text-xs placeholder:text-text-muted/60 focus:outline-none focus:ring-2 transition-all resize-none font-medium`}
                     placeholder="Share a bit about your project requirements or goals..."
                   />
+                  {errors.message && <p className="text-red-500 text-[11px] mt-1 font-semibold">{errors.message}</p>}
                 </div>
 
                 {/* Submit Button */}

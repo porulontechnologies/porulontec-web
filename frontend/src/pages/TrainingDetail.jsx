@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { trainingPrograms, getTrainingBySlug } from '../data/training.js';
 import { renderTrainingIcon, getCleanTrackImage } from './Training.jsx';
+import { useContactModal } from '../contexts/ContactModalContext.jsx';
 import { fetchTraining, fetchTrainingBySlug } from '../api/client.js';
 import {
   GoArrowRight,
@@ -39,6 +40,15 @@ function FormattedTitle({ title, defaultText, accentClass = "text-purple-600 dar
 }
 
 export default function TrainingDetail() {
+  const { openModal } = useContactModal();
+
+  const handleContactClick = (e, link) => {
+    if (link === '/contact') {
+      e.preventDefault();
+      openModal();
+    }
+  };
+
   const { slug } = useParams();
   const [apiProgram, setApiProgram] = useState(null);
   const [allPrograms, setAllPrograms] = useState([]);
@@ -379,6 +389,7 @@ export default function TrainingDetail() {
 
               <a
                 href="/contact"
+                onClick={(e) => handleContactClick(e, '/contact')}
                 className="btn-primary w-full py-3.5 rounded-full text-xs font-extrabold tracking-wide inline-flex items-center justify-center gap-2 shadow-lg shadow-purple-600/25 hover:scale-105 transition-all no-underline"
               >
                 <span>Enroll Now</span>

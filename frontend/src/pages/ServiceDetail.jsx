@@ -3,6 +3,7 @@ import { useParams, Navigate, Link } from 'react-router-dom';
 import { renderServiceIcon } from './Services.jsx';
 import { fetchServices, fetchServiceBySlug } from '../api/client.js';
 import { getCleanMediaUrl } from '../utils/media.js';
+import { useContactModal } from '../contexts/ContactModalContext.jsx';
 import {
   GoArrowRight,
   GoChevronRight,
@@ -33,6 +34,15 @@ function FormattedTitle({ title, defaultText, accentClass = "text-purple-600 dar
 }
 
 export default function ServiceDetail() {
+  const { openModal } = useContactModal();
+
+  const handleContactClick = (e, link) => {
+    if (link === '/contact') {
+      e.preventDefault();
+      openModal();
+    }
+  };
+
   const { slug } = useParams();
   const [apiService, setApiService] = useState(null);
   const [allServices, setAllServices] = useState([]);
@@ -353,6 +363,7 @@ export default function ServiceDetail() {
 
               <Link
                 to="/contact"
+                onClick={(e) => handleContactClick(e, '/contact')}
                 className="btn-primary w-full py-3.5 rounded-full text-xs font-extrabold tracking-wide inline-flex items-center justify-center gap-2 shadow-lg shadow-purple-600/25 hover:scale-105 transition-all no-underline"
               >
                 <span>Schedule Consultation</span>

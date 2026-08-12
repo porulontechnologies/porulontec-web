@@ -16,6 +16,8 @@ import TrainingDetail from './pages/TrainingDetail.jsx';
 import Blog from './pages/Blog.jsx';
 import BlogDetail from './pages/BlogDetail.jsx';
 import Products from './pages/Products.jsx';
+import { ContactModalProvider } from './contexts/ContactModalContext.jsx';
+import ContactModal from './components/ContactModal.jsx';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -67,7 +69,8 @@ export default function App() {
     });
   }, []);
   return (
-    <div className="min-h-screen bg-bg text-text">
+    <ContactModalProvider>
+      <div className="min-h-screen bg-bg text-text">
       <ScrollToTop />
       <Navbar />
       <Routes>
@@ -95,6 +98,8 @@ export default function App() {
       </Routes>
       <FloatingAssistant />
       <Footer />
+      <ContactModal />
     </div>
+    </ContactModalProvider>
   );
 }
