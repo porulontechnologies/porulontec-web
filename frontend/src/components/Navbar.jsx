@@ -86,7 +86,7 @@ const servicesMenu = [
     shortCode: 'Data',
     cardBg: 'bg-[#f0fdf4] dark:bg-[#0c2415]/90 hover:bg-[#dcfce7] dark:hover:bg-[#11311d] border-0',
     glowBg: 'from-teal-500/30 via-emerald-500/20 to-green-500/20',
-    iconBg: 'bg-gradient-to-br from-teal-600 to-emerald-600 text-white shadow-md shadow-teal-600/30',
+    iconBg: 'bg-gradient-to-br from-cyan-500 via-blue-600 to-indigo-600 text-white shadow-md shadow-cyan-500/30',
   },
 ];
 
@@ -273,11 +273,26 @@ export default function Navbar() {
     loadDbData();
   }, []);
 
+  const ICON_GRADIENT_PALETTES = [
+    'bg-gradient-to-br from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-600/30',
+    'bg-gradient-to-br from-emerald-600 to-teal-600 text-white shadow-md shadow-emerald-600/30',
+    'bg-gradient-to-br from-amber-500 to-orange-600 text-white shadow-md shadow-amber-500/30',
+    'bg-gradient-to-br from-pink-600 to-rose-600 text-white shadow-md shadow-pink-600/30',
+    'bg-gradient-to-br from-cyan-600 to-blue-600 text-white shadow-md shadow-cyan-600/30',
+    'bg-gradient-to-br from-indigo-600 to-purple-600 text-white shadow-md shadow-indigo-600/30',
+    'bg-gradient-to-br from-orange-600 to-amber-600 text-white shadow-md shadow-orange-600/30',
+    'bg-gradient-to-br from-cyan-500 via-blue-600 to-indigo-600 text-white shadow-md shadow-cyan-500/30',
+  ];
+
   const dynamicServicesMenu = (dbServices && dbServices.length > 0)
     ? dbServices.map((item, idx) => {
         const fallback = servicesMenu[idx % servicesMenu.length] || servicesMenu[0];
         const itemSlug = item.slug || item._id || item.id || `service-${idx + 1}`;
         const itemTitle = item.title || fallback.label;
+        const iconBg = (item.iconBg && !item.iconBg.includes('bg-white') && !item.iconBg.includes('bg-slate') && !item.iconBg.includes('bg-emerald-50') && !item.iconBg.includes('bg-gray'))
+          ? item.iconBg
+          : ICON_GRADIENT_PALETTES[idx % ICON_GRADIENT_PALETTES.length];
+
         return {
           id: `#0${idx + 1}`,
           label: itemTitle,
@@ -286,7 +301,7 @@ export default function Navbar() {
           shortCode: getShortCode(itemTitle, fallback.shortCode),
           cardBg: fallback.cardBg,
           glowBg: fallback.glowBg,
-          iconBg: fallback.iconBg,
+          iconBg: iconBg,
         };
       })
     : servicesMenu;
