@@ -233,9 +233,7 @@ export default function About() {
       if (sec.isActive === false || sec.visible === false || sec.enabled === false || sec.isArchived === true) {
         return false;
       }
-      return true;
     }
-    if (hasPageConfig) return false;
     return true;
   };
 
@@ -256,8 +254,6 @@ export default function About() {
         mediaUrl: item.mediaUrl || item.img || heroSec?.mediaUrl || '',
         buttons: item.buttons?.length ? item.buttons : heroSec?.buttons?.length ? heroSec.buttons : [{ label: 'Explore Our Story', link: '#our-story' }]
       }))
-    : isLoaded
-    ? defaultHeroSlides
     : defaultHeroSlides;
 
   // Auto-Slide Timer for Hero Carousel (6 seconds)
@@ -277,8 +273,6 @@ export default function About() {
         l: item.l || item.label || defaultStats[idx]?.l || 'Stat',
         icon: item.icon || defaultStats[idx]?.icon || 'HiOutlineSparkles',
       }))
-    : isLoaded
-    ? []
     : defaultStats;
 
   const displayValues = (valuesSec?.items && valuesSec.items.length > 0)

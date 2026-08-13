@@ -242,9 +242,7 @@ export default function Industries() {
       if (sec.isActive === false || sec.visible === false || sec.enabled === false || sec.isArchived === true) {
         return false;
       }
-      return true;
     }
-    if (hasPageConfig) return false;
     return true;
   };
 
@@ -264,8 +262,6 @@ export default function Industries() {
         ctaText: item.ctaText || 'Discuss Solution',
         ctaLink: item.ctaLink || '/contact',
       }))
-    : isLoaded
-    ? []
     : industries;
 
   const categories = ['All', ...new Set(displayIndustriesList.map(i => i.category || 'General'))];
