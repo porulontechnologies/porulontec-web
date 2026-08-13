@@ -3653,20 +3653,39 @@ export default function SectionsManager() {
 
                             {/* Avatar Photo URL & Upload Button */}
                             <div>
-                              <label className="text-[10px] font-semibold text-slate-400 block mb-0.5">Avatar Image / Photo URL</label>
+                              <label className="text-[10px] font-semibold text-slate-400 block mb-0.5">
+                                Avatar Image / Photo URL (Optional — Leave empty or click X to remove)
+                              </label>
                               <div className="flex items-center gap-2">
                                 <input
                                   type="text"
-                                  value={getCleanMediaValue(item.avatar || item.img || item.mediaUrl || '')}
+                                  value={item.avatar !== undefined ? item.avatar : (item.img || item.mediaUrl || '')}
                                   onChange={(e) => {
-                                    updateArrayField('items', idx, 'avatar', e.target.value);
-                                    updateArrayField('items', idx, 'img', e.target.value);
+                                    const val = e.target.value;
+                                    updateArrayField('items', idx, 'avatar', val);
+                                    updateArrayField('items', idx, 'img', val);
+                                    updateArrayField('items', idx, 'mediaUrl', val);
                                   }}
-                                  placeholder="https://images.unsplash.com/... or click Upload"
-                                  className={`w-full rounded-lg px-3 py-1.5 text-xs font-mono border ${
+                                  placeholder="No photo uploaded — Click Upload or enter URL (Leave blank to remove)"
+                                  className={`w-full flex-1 rounded-lg px-3 py-1.5 text-xs font-mono border ${
                                     isDark ? 'bg-[#1a2233] border-[#1f293d] text-white' : 'bg-white border-slate-200 text-slate-900'
                                   }`}
                                 />
+                                {(item.avatar || item.img || item.mediaUrl) && (
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      updateArrayField('items', idx, 'avatar', '');
+                                      updateArrayField('items', idx, 'img', '');
+                                      updateArrayField('items', idx, 'mediaUrl', '');
+                                    }}
+                                    className="px-2.5 py-1.5 text-xs font-bold text-red-500 bg-red-500/10 hover:bg-red-500/20 rounded-lg transition shrink-0 flex items-center gap-1 cursor-pointer"
+                                    title="Remove Photo"
+                                  >
+                                    <X className="w-3.5 h-3.5" />
+                                    <span>Remove Photo</span>
+                                  </button>
+                                )}
                                 <label className="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-white rounded-lg text-xs font-bold flex items-center gap-1 cursor-pointer shrink-0 transition">
                                   {uploading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Upload className="w-3.5 h-3.5" />}
                                   <span>Upload</span>
@@ -3679,6 +3698,7 @@ export default function SectionsManager() {
                                         handleFileUpload(e.target.files[0], (url) => {
                                           updateArrayField('items', idx, 'avatar', url);
                                           updateArrayField('items', idx, 'img', url);
+                                          updateArrayField('items', idx, 'mediaUrl', url);
                                         });
                                       }
                                     }}
