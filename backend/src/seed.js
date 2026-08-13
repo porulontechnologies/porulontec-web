@@ -288,17 +288,17 @@ const initialSections = [
   },
 ];
 
-export async function autoSeedData(standalone = false) {
+async function seedData() {
   try {
-    if (standalone) {
-      const isConnected = await connectDB();
-      if (!isConnected) {
-        console.error(`❌ Could not connect to PostgreSQL!`);
-        process.exit(1);
-      }
-      await sequelize.sync({ alter: true });
-      console.log(`[PostgreSQL] Sequelize Models Synced Successfully`);
+    const isConnected = await connectDB();
+    if (!isConnected) {
+      console.error(`❌ Could not connect to PostgreSQL!`);
+      process.exit(1);
     }
+
+    // Sync PostgreSQL Tables automatically
+    await sequelize.sync({ alter: true });
+    console.log(`[PostgreSQL] Sequelize Models Synced Successfully`);
 
     // Seed Admin User safely
     const existingUser = await User.findOne({ where: { email: 'admin@porulon.com' } });
@@ -310,6 +310,8 @@ export async function autoSeedData(standalone = false) {
         role: 'admin',
       });
       console.log(`[Seed] Admin user created in PostgreSQL: admin@porulon.com / admin123`);
+    } else {
+      console.log(`[Seed] Admin user already exists in PostgreSQL (preserved)`);
     }
 
     // Seed Site Settings safely
@@ -317,6 +319,8 @@ export async function autoSeedData(standalone = false) {
     if (!existingSettings) {
       await SiteSetting.create({});
       console.log(`[Seed] Default Site Settings created in PostgreSQL`);
+    } else {
+      console.log(`[Seed] Site Settings preserved`);
     }
 
     // Seed Services safely
@@ -326,6 +330,7 @@ export async function autoSeedData(standalone = false) {
         await Service.create(serviceData);
       }
     }
+    console.log(`[Seed] Services check complete`);
 
     // Seed Training Programs safely
     for (const trainingData of initialTraining) {
@@ -334,6 +339,7 @@ export async function autoSeedData(standalone = false) {
         await Training.create(trainingData);
       }
     }
+    console.log(`[Seed] Training Programs check complete`);
 
     // Seed Sections safely
     for (const secData of initialSections) {
@@ -344,22 +350,14 @@ export async function autoSeedData(standalone = false) {
         await existingSec.update({ items: secData.items });
       }
     }
-    console.log(`[Seed] Dynamic Sections & Content check complete`);
+    console.log(`[Seed] Dynamic Home Sections check complete (all 6 industry cards synced)`);
 
-    if (standalone) {
-      console.log(`\n✅ PostgreSQL Database Sync Completed Successfully!`);
-      process.exit(0);
-    }
+    console.log(`\n✅ PostgreSQL Database Sync Completed Successfully!`);
+    process.exit(0);
   } catch (error) {
-    console.error(`❌ PostgreSQL Seeding notice: ${error.message}`);
-    if (standalone) process.exit(1);
+    console.error(`❌ PostgreSQL Seeding failed: ${error.message}`);
+    process.exit(1);
   }
 }
 
-// Execute standalone if run directly
-const isDirectRun = process.argv[1] && (process.argv[1].endsWith('seed.js') || process.argv[1].includes('seed'));
-if (isDirectRun) {
-  autoSeedData(true);
-}
-
-export default autoSeedData;
+seedData();

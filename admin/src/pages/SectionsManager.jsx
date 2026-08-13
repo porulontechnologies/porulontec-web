@@ -1293,11 +1293,23 @@ export default function SectionsManager() {
       const pageSecs = allSecs.filter(s => (s.page || 'home') === targetTab);
       const existingKeys = new Set(pageSecs.map(s => s.sectionKey));
       
-      const isMissingRequiredSections = targetTab === 'training'
-        ? (!existingKeys.has('training_process') || !existingKeys.has('training_faq'))
+      const REQUIRED_KEYS_MAP = {
+        home: ['hero', 'tech_stacks_marquee', 'about_preview', 'featured_services', 'industries_carousel', 'why_choose_us', 'final_cta'],
+        industries: ['industries_hero', 'industries_grid', 'industries_cta'],
+        services: ['services_hero', 'services_grid', 'services_process', 'services_cta'],
+        training: ['training_hero', 'training_tracks', 'training_why_us', 'training_process', 'training_faq', 'training_cta'],
+        about: ['about_hero', 'about_story', 'about_stats', 'about_values', 'about_cta'],
+        contact: ['contact_hero', 'contact_info', 'contact_form'],
+        blog: ['blog_hero', 'blog_grid', 'blog_cta'],
+        projects: ['projects_hero', 'projects_trust_bar', 'projects_grid', 'projects_client_stories', 'projects_tech_stack', 'projects_testimonials', 'projects_cta'],
+      };
+
+      const requiredKeys = REQUIRED_KEYS_MAP[targetTab] || [];
+      const isMissingRequiredSections = requiredKeys.length > 0
+        ? requiredKeys.some(key => !existingKeys.has(key))
         : pageSecs.length === 0;
 
-      if (isMissingRequiredSections && (targetTab === 'home' || targetTab === 'industries' || targetTab === 'services' || targetTab === 'training' || targetTab === 'about' || targetTab === 'contact' || targetTab === 'blog' || targetTab === 'projects')) {
+      if (isMissingRequiredSections && REQUIRED_KEYS_MAP[targetTab]) {
         await restoreDefaultSections(targetTab);
         const res2 = await getSections();
         allSecs = res2.data || [];
