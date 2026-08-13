@@ -2639,21 +2639,6 @@ export default function SectionsManager() {
                       />
                     </div>
 
-                    <div>
-                      <label className={`block text-xs font-bold mb-1.5 ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>
-                        Section Main Title (Optional)
-                      </label>
-                      <input
-                        type="text"
-                        value={formData.title || ''}
-                        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                        placeholder="Our Trusted Partners"
-                        className={`w-full rounded-xl px-4 py-2.5 text-xs font-medium border ${
-                          isDark ? 'bg-[#1a2233] border-[#1f293d] text-slate-100' : 'bg-slate-50 border-slate-300 text-slate-900'
-                        }`}
-                      />
-                    </div>
-
                     {/* Brand Names Marquee Items Array Editor */}
                     <div className={`p-4 sm:p-5 rounded-2xl border space-y-4 ${
                       isDark ? 'bg-[#1a2233]/40 border-[#1f293d]' : 'bg-slate-50 border-slate-200'
@@ -2681,7 +2666,7 @@ export default function SectionsManager() {
                       </div>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 max-h-[360px] overflow-y-auto pr-1 pt-1">
-                        {(formData.items && formData.items.length > 0 ? formData.items : [
+                        {(formData.items !== undefined ? formData.items : [
                           { title: 'MedHealth Diagnostics Network' },
                           { title: 'GlobalLogistics AP' },
                           { title: 'Apex Banking Core' },
