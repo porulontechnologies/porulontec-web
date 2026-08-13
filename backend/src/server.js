@@ -5,6 +5,7 @@ import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { connectDB, sequelize } from './config/db.js';
+import { autoSeedData } from './seed.js';
 
 import authRoutes from './routes/authRoutes.js';
 import settingRoutes from './routes/settingRoutes.js';
@@ -98,6 +99,7 @@ const startServer = async () => {
     try {
       await sequelize.sync({ alter: true });
       console.log(`[PostgreSQL] Sequelize Models Synced Successfully`);
+      await autoSeedData(false);
     } catch (err) {
       console.warn(`[PostgreSQL Sync Notice]: ${err.message}`);
     }
