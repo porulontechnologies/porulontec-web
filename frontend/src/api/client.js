@@ -6,7 +6,7 @@ const API_BASE = import.meta.env.VITE_API_URL || 'https://porulon-backend.onrend
 
 const api = axios.create({
   baseURL: API_BASE,
-  timeout: 5000,
+  timeout: 25000,
 });
 
 export const fetchSiteSettings = async () => {

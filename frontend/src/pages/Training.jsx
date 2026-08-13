@@ -157,13 +157,20 @@ export default function Training() {
   const faqSec = dbSections?.training_faq;
   const ctaSec = dbSections?.training_cta;
 
-  const isLoaded = dbSections !== null;
-  const showHero = !isLoaded || !!heroSec;
-  const showTracks = !isLoaded || !!tracksSec;
-  const showWhyUs = !isLoaded || !!whyUsSec;
-  const showProcess = !isLoaded || !!processSec || true;
-  const showFaq = !isLoaded || !!faqSec || true;
-  const showCta = !isLoaded || !!ctaSec;
+  const isSecVisible = (sec) => {
+    if (!sec) return true;
+    if (sec.isActive === false || sec.visible === false || sec.enabled === false || sec.isArchived === true) {
+      return false;
+    }
+    return true;
+  };
+
+  const showHero = isSecVisible(heroSec);
+  const showTracks = isSecVisible(tracksSec);
+  const showWhyUs = isSecVisible(whyUsSec);
+  const showProcess = isSecVisible(processSec);
+  const showFaq = isSecVisible(faqSec);
+  const showCta = isSecVisible(ctaSec);
 
   const displayTracks = (apiTraining && apiTraining.length > 0)
     ? apiTraining.map((item, idx) => ({

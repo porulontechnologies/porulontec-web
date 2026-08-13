@@ -240,11 +240,18 @@ export default function Services() {
   const processSec = dbSections?.services_process;
   const ctaSec = dbSections?.services_cta;
 
-  const isLoaded = dbSections !== null;
-  const showHero = !isLoaded || !!heroSec;
-  const showGrid = !isLoaded || !!gridSec;
-  const showProcess = !isLoaded || !!processSec;
-  const showCta = !isLoaded || !!ctaSec;
+  const isSecVisible = (sec) => {
+    if (!sec) return true;
+    if (sec.isActive === false || sec.visible === false || sec.enabled === false || sec.isArchived === true) {
+      return false;
+    }
+    return true;
+  };
+
+  const showHero = isSecVisible(heroSec);
+  const showGrid = isSecVisible(gridSec);
+  const showProcess = isSecVisible(processSec);
+  const showCta = isSecVisible(ctaSec);
 
   const bgMediaUrl = getCleanMediaUrl(heroSec?.mediaUrl);
   const isVideo = bgMediaUrl && (
@@ -276,14 +283,12 @@ export default function Services() {
       }))
     : defaultServices;
 
-  const displayProcessSteps = (processSec?.items !== undefined && Array.isArray(processSec.items))
+  const displayProcessSteps = (processSec?.items !== undefined && Array.isArray(processSec.items) && processSec.items.length > 0)
     ? processSec.items.map((item, idx) => ({
         n: item.n || item.step || (idx < 9 ? `0${idx + 1}` : `${idx + 1}`),
         title: item.title || item.name || 'Process Step',
         desc: item.desc || '',
       }))
-    : isLoaded
-    ? []
     : defaultProcessSteps;
 
   return (

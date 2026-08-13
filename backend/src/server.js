@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { connectDB, sequelize } from './config/db.js';
 
@@ -59,8 +60,10 @@ app.use(express.urlencoded({ extended: true }));
 // Serve static uploads, images, and videos
 app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 const frontendPublicDir = path.join(process.cwd(), '../frontend/public');
-app.use('/images', express.static(path.join(frontendPublicDir, 'images')));
-app.use('/videos', express.static(path.join(frontendPublicDir, 'videos')));
+if (fs.existsSync(frontendPublicDir)) {
+  app.use('/images', express.static(path.join(frontendPublicDir, 'images')));
+  app.use('/videos', express.static(path.join(frontendPublicDir, 'videos')));
+}
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
