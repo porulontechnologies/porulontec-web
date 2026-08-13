@@ -24,7 +24,7 @@ const defaultCompanyLinks = [
   { label: 'Products', href: '/products' },
   { label: 'Academy & Training', href: '/training' },
   { label: 'Blogs & Insights', href: '/blog' },
-  { label: 'Contact Us', href: '/contact' },
+  { label: 'Contact Us', href: '/contactus' },
 ];
 
 const defaultSocialLinks = [
