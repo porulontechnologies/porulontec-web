@@ -431,11 +431,9 @@ export default function About() {
               <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                 {/* Left Side: Story Details (Skip empty items cleanly) */}
                 <div data-aos="fade-right">
-                  {storySec?.kicker && (
-                    <span className="inline-block px-3.5 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-600 dark:text-purple-400 text-xs font-bold tracking-[0.2em] uppercase mb-3 shadow-2xs">
-                      {storySec.kicker}
-                    </span>
-                  )}
+                  <span className="inline-block px-3.5 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-600 dark:text-purple-400 text-xs font-bold tracking-[0.2em] uppercase mb-3 shadow-2xs">
+                    {storySec?.kicker || 'Our Journey & Conviction'}
+                  </span>
 
                   <h2 className="text-3xl sm:text-4xl md:text-5xl font-extralight text-text tracking-tight mt-2 mb-6 leading-tight">
                     <FormattedTitle
@@ -446,29 +444,23 @@ export default function About() {
                     />
                   </h2>
                   
-                  {storySec?.subtitle && (
-                    <p className="text-base text-text-muted leading-relaxed font-light mb-6">
-                      {storySec.subtitle}
-                    </p>
-                  )}
+                  <p className="text-base text-text-muted leading-relaxed font-light mb-6">
+                    {storySec?.subtitle || 'Porulon Technologies was founded with a clear conviction: that the transformative power of Artificial Intelligence and Machine Learning should be accessible to businesses of every size.'}
+                  </p>
 
-                  {storySec?.content && (
-                    <p className="text-base text-text-muted leading-relaxed font-light mb-8">
-                      {storySec.content}
-                    </p>
-                  )}
+                  <p className="text-base text-text-muted leading-relaxed font-light mb-8">
+                    {storySec?.content || 'We specialize in designing, developing, and deploying AI, ML, and automation-based software solutions and cloud-based systems.'}
+                  </p>
 
-                  {/* Key Milestone Chips (Skip if empty) */}
-                  {storySec?.points?.length > 0 && (
-                    <div className="grid sm:grid-cols-3 gap-3 pt-2 mb-8">
-                      {storySec.points.map((pt, pIdx) => (
-                        <div key={pIdx} className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-100/70 dark:bg-white/[0.05] border border-slate-200/50 dark:border-white/10 hover:border-purple-500/40 transition-colors">
-                          <HiCheckCircle className="text-purple-600 dark:text-purple-400 text-lg shrink-0" />
-                          <span className="text-xs font-medium text-text truncate">{pt}</span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                  {/* Key Milestone Chips */}
+                  <div className="grid sm:grid-cols-3 gap-3 pt-2 mb-8">
+                    {((storySec?.points && storySec.points.length > 0) ? storySec.points : ['Bespoke AI Models', 'Enterprise Automation', 'Academy Programs']).map((pt, pIdx) => (
+                      <div key={pIdx} className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-100/70 dark:bg-white/[0.05] border border-slate-200/50 dark:border-white/10 hover:border-purple-500/40 transition-colors">
+                        <HiCheckCircle className="text-purple-600 dark:text-purple-400 text-lg shrink-0" />
+                        <span className="text-xs font-medium text-text truncate">{pt}</span>
+                      </div>
+                    ))}
+                  </div>
 
                   {/* Optional Action Button */}
                   {storySec?.buttons?.length > 0 ? (
@@ -555,11 +547,9 @@ export default function About() {
         <section className="py-16 md:py-24 relative overflow-hidden">
           <div className="max-w-container mx-auto px-gutter relative z-10">
             <div className="text-center max-w-2xl mx-auto mb-12 md:mb-16" data-aos="fade-up">
-              {statsSec?.kicker && (
-                <span className="inline-block px-3.5 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-600 dark:text-purple-400 text-xs font-bold tracking-[0.2em] uppercase mb-2.5 shadow-2xs">
-                  {statsSec.kicker}
-                </span>
-              )}
+              <span className="inline-block px-3.5 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-600 dark:text-purple-400 text-xs font-bold tracking-[0.2em] uppercase mb-2.5 shadow-2xs">
+                {statsSec?.kicker || 'Proven Track Record'}
+              </span>
               <h2 className="text-3xl md:text-5xl font-extralight text-text tracking-tight mt-2">
                 <FormattedTitle
                   title={statsSec?.title}
@@ -568,11 +558,9 @@ export default function About() {
                   highlightWords={2}
                 />
               </h2>
-              {statsSec?.subtitle && (
-                <p className="text-text-muted text-sm sm:text-base mt-3 max-w-xl mx-auto font-light leading-relaxed">
-                  {statsSec.subtitle}
-                </p>
-              )}
+              <p className="text-text-muted text-sm sm:text-base mt-3 max-w-xl mx-auto font-light leading-relaxed">
+                {statsSec?.subtitle || 'Quantifiable engineering performance across high-stakes client deployments.'}
+              </p>
             </div>
 
             {/* Sleek Horizontal 6-Column Grid Metric Cards with 3D Shimmer Sweep Effect */}
@@ -639,11 +627,9 @@ export default function About() {
         <section className="py-16 md:py-24 relative overflow-hidden">
           <div className="max-w-container mx-auto px-gutter relative z-10">
             <div className="text-center max-w-2xl mx-auto mb-12 md:mb-16" data-aos="fade-up">
-              {valuesSec?.kicker && (
-                <span className="inline-block px-3.5 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-600 dark:text-purple-400 text-xs font-bold tracking-[0.2em] uppercase mb-2.5 shadow-2xs">
-                  {valuesSec.kicker}
-                </span>
-              )}
+              <span className="inline-block px-3.5 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-600 dark:text-purple-400 text-xs font-bold tracking-[0.2em] uppercase mb-2.5 shadow-2xs">
+                {valuesSec?.kicker || 'Our Values'}
+              </span>
               <h2 className="text-3xl md:text-5xl font-extralight text-text tracking-tight mt-2">
                 <FormattedTitle
                   title={valuesSec?.title}
@@ -652,11 +638,9 @@ export default function About() {
                   highlightWords={3}
                 />
               </h2>
-              {valuesSec?.subtitle && (
-                <p className="text-text-muted text-sm sm:text-base mt-3 max-w-xl mx-auto font-light leading-relaxed">
-                  {valuesSec.subtitle}
-                </p>
-              )}
+              <p className="text-text-muted text-sm sm:text-base mt-3 max-w-xl mx-auto font-light leading-relaxed">
+                {valuesSec?.subtitle || 'Core engineering ethics and client-first principles driving our innovation.'}
+              </p>
             </div>
 
             {/* Bento Glass Cards with 3D Shimmer Sweep Effect (100% Collapse-Proof Layout) */}
@@ -725,14 +709,10 @@ export default function About() {
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] aurora-blur opacity-25 pointer-events-none" />
 
               <div className="relative z-10 max-w-3xl mx-auto">
-                {/* Kicker Badge (Skip if empty) */}
-                {ctaSec?.kicker && (
-                  <span className="inline-block px-3.5 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-600 dark:text-purple-400 text-xs font-bold tracking-[0.2em] uppercase mb-3 shadow-2xs">
-                    {ctaSec.kicker}
-                  </span>
-                )}
+                <span className="inline-block px-3.5 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-600 dark:text-purple-400 text-xs font-bold tracking-[0.2em] uppercase mb-3 shadow-2xs">
+                  {ctaSec?.kicker || 'Careers & Culture'}
+                </span>
 
-                {/* Section Title */}
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-light text-text tracking-tight mb-4 leading-tight">
                   <FormattedTitle
                     title={ctaSec?.title}
@@ -742,12 +722,9 @@ export default function About() {
                   />
                 </h2>
 
-                {/* Section Subtitle Description */}
-                {ctaSec?.subtitle && (
-                  <p className="text-sm sm:text-base text-text-muted mb-8 max-w-xl mx-auto leading-relaxed font-light tracking-tight">
-                    {ctaSec.subtitle}
-                  </p>
-                )}
+                <p className="text-sm sm:text-base text-text-muted mb-8 max-w-xl mx-auto leading-relaxed font-light tracking-tight">
+                  {ctaSec?.subtitle || "Whether you're looking to transform your enterprise infrastructure or build your technical career, we'd love to connect."}
+                </p>
 
                 {/* Action Buttons (100% DB-driven flex container, skip if empty) */}
                 {(ctaSec?.buttons && ctaSec.buttons.length > 0 ? ctaSec.buttons : (isLoaded ? [] : [
