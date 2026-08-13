@@ -100,16 +100,16 @@ export default function Contact() {
 
   const getSec = (key) => sections?.find((s) => s.sectionKey === key && s.isActive && !s.isArchived);
 
-  const hasPageConfig = sections !== null && sections.length > 0;
+  const heroSec = getSec('contact_hero');
+  const infoSec = getSec('contact_info');
+  const formSec = getSec('contact_form');
 
   const isSecVisible = (sec) => {
     if (sec) {
       if (sec.isActive === false || sec.visible === false || sec.enabled === false || sec.isArchived === true) {
         return false;
       }
-      return true;
     }
-    if (hasPageConfig) return false;
     return true;
   };
 
