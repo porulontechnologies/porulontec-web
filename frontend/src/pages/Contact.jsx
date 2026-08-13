@@ -104,12 +104,16 @@ export default function Contact() {
   const infoSec = getSec('contact_info');
   const formSec = getSec('contact_form');
 
+  const hasPageConfig = sections !== null && sections.length > 0;
+
   const isSecVisible = (sec) => {
     if (sec) {
       if (sec.isActive === false || sec.visible === false || sec.enabled === false || sec.isArchived === true) {
         return false;
       }
+      return true;
     }
+    if (hasPageConfig) return false;
     return true;
   };
 
