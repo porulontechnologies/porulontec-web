@@ -1288,7 +1288,8 @@ export default function SectionsManager() {
     setLoading(true);
     try {
       const res = await getSections();
-      setSections(res.data || []);
+      const allSecs = res.data || [];
+      setSections(allSecs);
     } catch (err) {
       console.error('Error fetching sections:', err);
     } finally {

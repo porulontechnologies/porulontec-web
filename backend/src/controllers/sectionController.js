@@ -1339,7 +1339,9 @@ export const restoreDefaults = async (req, res) => {
         where: { page: secData.page, sectionKey: secData.sectionKey },
       });
       if (existing) {
-        await existing.update({ ...secData, isArchived: false, archivedAt: null });
+        if (existing.isArchived) {
+          await existing.update({ isArchived: false, archivedAt: null });
+        }
       } else {
         await Section.create(secData);
       }
