@@ -500,584 +500,596 @@ export default function Products() {
       {/* ============================================================ */}
       {/* SECTION 1: HERO BANNER & VALUE PROPOSITION */}
       {/* ============================================================ */}
-      <section className="relative min-h-[85vh] lg:min-h-screen flex items-center pt-28 sm:pt-36 md:pt-40 pb-20 md:pb-28 overflow-hidden">
-        
-        {/* Background Media (Ultra-High Visibility Photo/Video in Light & Dark Themes) or Ambient Aurora Glow */}
-        {bgMediaUrl ? (
-          <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            {isVideo ? (
-              <video
-                src={bgMediaUrl}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-full object-cover opacity-95 sm:opacity-100 brightness-115 contrast-105 scale-105 transition-opacity duration-500"
-              />
-            ) : (
-              <img
-                src={bgMediaUrl}
-                alt="Products Hero Background"
-                className="w-full h-full object-cover object-right md:object-center opacity-95 sm:opacity-100 brightness-115 contrast-105 scale-105 transition-transform duration-1000"
-              />
-            )}
-            {/* High Contrast Dark Overlay matching Industries page */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/65 to-transparent" />
-          </div>
-        ) : (
-          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] aurora-blur opacity-25 pointer-events-none" />
-        )}
-
-        {/* Top & Bottom Seamless Blending Fade Gradients (Soft, Light & Line-Free) */}
-        <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-bg via-bg/40 to-transparent pointer-events-none z-10" />
-        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-bg via-bg/40 to-transparent pointer-events-none z-10" />
-
-        {/* Soft ambient glow behind left content */}
-        <div className="absolute -left-20 top-1/3 w-[450px] h-[450px] bg-purple-500/25 rounded-full blur-[120px] pointer-events-none z-10" />
-
-        <div className="max-w-container mx-auto px-gutter text-center relative z-20">
+      {showHero && (
+        <section className="relative min-h-[85vh] lg:min-h-screen flex items-center pt-28 sm:pt-36 md:pt-40 pb-20 md:pb-28 overflow-hidden">
           
-          {/* Kicker Chip */}
-          <span className="inline-block px-5 py-2 rounded-full bg-purple-500/20 border border-purple-500/30 backdrop-blur-md text-purple-300 text-xs font-extrabold tracking-[0.18em] uppercase mb-5 shadow-2xs">
-            {heroSec?.kicker || 'Enterprise Products & Client Engineering'}
-          </span>
-
-          {/* Main Headline Title */}
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-extralight tracking-tight text-white max-w-5xl mx-auto mb-6 leading-[1.15] drop-shadow-md">
-            <FormattedTitle
-              title={heroSec?.title}
-              defaultText="Engineering Flagship Digital Products & Client Solutions"
-              accentClass="text-purple-400 font-normal"
-              highlightWords={2}
-            />
-          </h1>
-
-          {/* Subtitle Description */}
-          <p className="text-base sm:text-lg text-slate-200 max-w-3xl mx-auto font-normal leading-relaxed tracking-tight mb-12">
-            {heroSec?.subtitle ||
-              'Explore Porulon’s proprietary AI engines, IoT platforms, multi-cloud suites, and real-world enterprise projects delivered for leading global organizations.'}
-          </p>
-
-          {/* Resilient Responsive Metric Counters Grid (Flex-wrap prevents ANY layout collapse!) */}
-          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 max-w-5xl mx-auto">
-            {(heroSec?.stats && heroSec.stats.length > 0 ? heroSec.stats : [
-              { label: 'Products & Projects', value: '120+' },
-              { label: 'System Uptime SLA', value: '99.9%' },
-              { label: 'Industry Verticals', value: '15+' },
-              { label: 'Client Value Created', value: '$45M+' },
-            ]).map((st, sIdx) => (
-              <div key={sIdx} className="flex-1 min-w-[140px] max-w-[220px]">
-                <StatCounterItem
-                  rawValue={st.value}
-                  label={st.label}
-                  delay={sIdx * 150}
+          {/* Background Media (Ultra-High Visibility Photo/Video in Light & Dark Themes) or Ambient Aurora Glow */}
+          {bgMediaUrl ? (
+            <div className="absolute inset-0 pointer-events-none overflow-hidden">
+              {isVideo ? (
+                <video
+                  src={bgMediaUrl}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover opacity-95 sm:opacity-100 brightness-115 contrast-105 scale-105 transition-opacity duration-500"
                 />
-              </div>
-            ))}
+              ) : (
+                <img
+                  src={bgMediaUrl}
+                  alt="Products Hero Background"
+                  className="w-full h-full object-cover object-right md:object-center opacity-95 sm:opacity-100 brightness-115 contrast-105 scale-105 transition-transform duration-1000"
+                />
+              )}
+              {/* High Contrast Dark Overlay matching Industries page */}
+              <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/65 to-transparent" />
+            </div>
+          ) : (
+            <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] aurora-blur opacity-25 pointer-events-none" />
+          )}
+
+          {/* Top & Bottom Seamless Blending Fade Gradients (Soft, Light & Line-Free) */}
+          <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-bg via-bg/40 to-transparent pointer-events-none z-10" />
+          <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-bg via-bg/40 to-transparent pointer-events-none z-10" />
+
+          {/* Soft ambient glow behind left content */}
+          <div className="absolute -left-20 top-1/3 w-[450px] h-[450px] bg-purple-500/25 rounded-full blur-[120px] pointer-events-none z-10" />
+
+          <div className="max-w-container mx-auto px-gutter text-center relative z-20">
+            
+            {/* Kicker Chip */}
+            <span className="inline-block px-5 py-2 rounded-full bg-purple-500/20 border border-purple-500/30 backdrop-blur-md text-purple-300 text-xs font-extrabold tracking-[0.18em] uppercase mb-5 shadow-2xs">
+              {heroSec?.kicker || 'Enterprise Products & Client Engineering'}
+            </span>
+
+            {/* Main Headline Title */}
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-extralight tracking-tight text-white max-w-5xl mx-auto mb-6 leading-[1.15] drop-shadow-md">
+              <FormattedTitle
+                title={heroSec?.title}
+                defaultText="Engineering Flagship Digital Products & Client Solutions"
+                accentClass="text-purple-400 font-normal"
+                highlightWords={2}
+              />
+            </h1>
+
+            {/* Subtitle Description */}
+            <p className="text-base sm:text-lg text-slate-200 max-w-3xl mx-auto font-normal leading-relaxed tracking-tight mb-12">
+              {heroSec?.subtitle ||
+                'Explore Porulon’s proprietary AI engines, IoT platforms, multi-cloud suites, and real-world enterprise projects delivered for leading global organizations.'}
+            </p>
+
+            {/* Resilient Responsive Metric Counters Grid (Flex-wrap prevents ANY layout collapse!) */}
+            <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 max-w-5xl mx-auto">
+              {(heroSec?.stats && heroSec.stats.length > 0 ? heroSec.stats : [
+                { label: 'Products & Projects', value: '120+' },
+                { label: 'System Uptime SLA', value: '99.9%' },
+                { label: 'Industry Verticals', value: '15+' },
+                { label: 'Client Value Created', value: '$45M+' },
+              ]).map((st, sIdx) => (
+                <div key={sIdx} className="flex-1 min-w-[140px] max-w-[220px]">
+                  <StatCounterItem
+                    rawValue={st.value}
+                    label={st.label}
+                    delay={sIdx * 150}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ============================================================ */}
       {/* SECTION 2: CLIENT TRUST MARQUEE TICKER (MULTI-COLOR UNIQUE BRAND TEXT) */}
       {/* ============================================================ */}
-      <section className="py-10 bg-transparent relative overflow-hidden">
-        <div className="max-w-container mx-auto px-gutter text-center space-y-6">
-          <span className="text-primary-strong text-xs font-semibold tracking-[0.2em] uppercase block">
-            {trustSec?.kicker || 'Trusted by Engineering Leaders & Global Client Brands'}
-          </span>
+      {showTrust && (
+        <section className="py-10 bg-transparent relative overflow-hidden">
+          <div className="max-w-container mx-auto px-gutter text-center space-y-6">
+            <span className="text-primary-strong text-xs font-semibold tracking-[0.2em] uppercase block">
+              {trustSec?.kicker || 'Trusted by Engineering Leaders & Global Client Brands'}
+            </span>
 
-          {/* Smooth Infinite Running Marquee Track (Multi-Color Distinct Brand Names) */}
-          <div className="relative overflow-hidden w-full py-4">
-            {/* Gradient Mask Edge Blending */}
-            <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-bg via-bg/85 to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-bg via-bg/85 to-transparent z-10 pointer-events-none" />
+            {/* Smooth Infinite Running Marquee Track (Multi-Color Distinct Brand Names) */}
+            <div className="relative overflow-hidden w-full py-4">
+              {/* Gradient Mask Edge Blending */}
+              <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-bg via-bg/85 to-transparent z-10 pointer-events-none" />
+              <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-bg via-bg/85 to-transparent z-10 pointer-events-none" />
 
-            <div className="marquee flex items-center gap-14">
-              {trustMarqueeItems.map((tr, tIdx) => {
-                const colorGradient = BRAND_GRADIENT_PALETTES[tIdx % BRAND_GRADIENT_PALETTES.length];
-                return (
-                  <span
-                    key={tIdx}
-                    className={`text-base sm:text-lg md:text-xl font-extrabold tracking-wider uppercase whitespace-nowrap bg-gradient-to-r ${colorGradient} bg-clip-text text-transparent opacity-95 hover:opacity-100 hover:scale-105 transition-all duration-300 shrink-0 cursor-pointer`}
-                  >
-                    {tr.title || tr.name}
-                  </span>
-                );
-              })}
+              <div className="marquee flex items-center gap-14">
+                {trustMarqueeItems.map((tr, tIdx) => {
+                  const colorGradient = BRAND_GRADIENT_PALETTES[tIdx % BRAND_GRADIENT_PALETTES.length];
+                  return (
+                    <span
+                      key={tIdx}
+                      className={`text-base sm:text-lg md:text-xl font-extrabold tracking-wider uppercase whitespace-nowrap bg-gradient-to-r ${colorGradient} bg-clip-text text-transparent opacity-95 hover:opacity-100 hover:scale-105 transition-all duration-300 shrink-0 cursor-pointer`}
+                    >
+                      {tr.title || tr.name}
+                    </span>
+                  );
+                })}
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ============================================================ */}
       {/* SECTION 3: FLAGSHIP PRODUCTS SHOWCASE GRID (COLLAPSE-PROOF & CLEAN) */}
       {/* ============================================================ */}
-      <section className="py-12 md:py-16 relative overflow-hidden">
-        <div className="max-w-container mx-auto px-gutter">
-          
-          {/* Section Header */}
-          <div className="text-center max-w-3xl mx-auto mb-14">
-            {gridSec?.kicker && (
-              <span className="text-primary-strong text-xs font-semibold tracking-[0.2em] uppercase block mb-3">
-                {gridSec.kicker}
-              </span>
-            )}
-            <h2 className="text-3xl md:text-5xl font-extralight text-text tracking-tight mb-4">
-              <FormattedTitle
-                title={gridSec?.title}
-                defaultText="Our Flagship Software Products"
-                accentClass="text-gradient font-light"
-                highlightWords={2}
-              />
-            </h2>
-            {gridSec?.subtitle && (
-              <p className="text-text-muted text-sm sm:text-base font-light tracking-tight">
-                {gridSec.subtitle}
-              </p>
-            )}
-          </div>
+      {showGrid && (
+        <section className="py-12 md:py-16 relative overflow-hidden">
+          <div className="max-w-container mx-auto px-gutter">
+            
+            {/* Section Header */}
+            <div className="text-center max-w-3xl mx-auto mb-14">
+              {gridSec?.kicker && (
+                <span className="text-primary-strong text-xs font-semibold tracking-[0.2em] uppercase block mb-3">
+                  {gridSec.kicker}
+                </span>
+              )}
+              <h2 className="text-3xl md:text-5xl font-extralight text-text tracking-tight mb-4">
+                <FormattedTitle
+                  title={gridSec?.title}
+                  defaultText="Our Flagship Software Products"
+                  accentClass="text-gradient font-light"
+                  highlightWords={2}
+                />
+              </h2>
+              {gridSec?.subtitle && (
+                <p className="text-text-muted text-sm sm:text-base font-light tracking-tight">
+                  {gridSec.subtitle}
+                </p>
+              )}
+            </div>
 
-          {/* Product Cards Grid (COLLAPSE-PROOF GLASS CARDS WITH FLUID SHEEN SWEEP) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-            {displayProducts.map((prod, pIdx) => {
-              const hasPhoto = Boolean(prod.img);
-              return (
-                <div
-                  key={prod.id || pIdx}
-                  className="group relative rounded-3xl flex flex-col justify-between hover:-translate-y-1.5 shadow-lg shadow-purple-900/5 hover:shadow-[0_20px_50px_rgba(124,58,237,0.22)] bg-white/85 dark:bg-[#100d28]/75 backdrop-blur-xl transition-all duration-500 overflow-hidden border border-slate-200/50 dark:border-purple-500/10 hover:border-purple-500/30 cursor-pointer"
-                >
-                  {/* Fluid Glass Reflection Sheen Sweep Effect on Hover */}
-                  <div className="absolute inset-0 pointer-events-none -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 dark:via-purple-400/10 to-transparent transition-transform duration-1000 ease-in-out z-20" />
+            {/* Product Cards Grid (COLLAPSE-PROOF GLASS CARDS WITH FLUID SHEEN SWEEP) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+              {displayProducts.map((prod, pIdx) => {
+                const hasPhoto = Boolean(prod.img);
+                return (
+                  <div
+                    key={prod.id || pIdx}
+                    className="group relative rounded-3xl flex flex-col justify-between hover:-translate-y-1.5 shadow-lg shadow-purple-900/5 hover:shadow-[0_20px_50px_rgba(124,58,237,0.22)] bg-white/85 dark:bg-[#100d28]/75 backdrop-blur-xl transition-all duration-500 overflow-hidden border border-slate-200/50 dark:border-purple-500/10 hover:border-purple-500/30 cursor-pointer"
+                  >
+                    {/* Fluid Glass Reflection Sheen Sweep Effect on Hover */}
+                    <div className="absolute inset-0 pointer-events-none -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 dark:via-purple-400/10 to-transparent transition-transform duration-1000 ease-in-out z-20" />
 
-                  {/* Full Cover Product Media Header (ZERO PADDING, NO OVERLAPPED TEXT) */}
-                  {hasPhoto && (
-                    <div className="w-full h-56 sm:h-64 overflow-hidden relative bg-slate-950">
-                      <img
-                        src={prod.img}
-                        alt={prod.title || 'Product Cover'}
-                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-                      />
-                    </div>
-                  )}
-
-                  {/* Card Body Content (Clean Padding below the full cover photo) */}
-                  <div className="p-6 sm:p-8 flex flex-col justify-between flex-1 space-y-4 relative z-10">
-                    
-                    <div className="space-y-3 flex-1">
-                      {/* Category Tag Badge */}
-                      {prod.categoryLabel && (
-                        <div>
-                          <span className="inline-block px-3.5 py-1 rounded-full text-[11px] font-bold tracking-tight bg-purple-600/15 text-purple-800 dark:text-purple-300">
-                            {prod.categoryLabel}
-                          </span>
-                        </div>
-                      )}
-
-                      {prod.title && (
-                        <h3 className="text-xl sm:text-2xl font-bold text-text tracking-tight group-hover:text-purple-600 dark:group-hover:text-purple-300 transition-colors leading-snug">
-                          {prod.title}
-                        </h3>
-                      )}
-
-                      {prod.tagline && (
-                        <p className="text-xs font-semibold text-amber-500 dark:text-amber-400 tracking-tight">
-                          {prod.tagline}
-                        </p>
-                      )}
-
-                      {prod.desc && (
-                        <p className="text-text-muted text-xs sm:text-sm leading-relaxed font-light tracking-tight">
-                          {prod.desc}
-                        </p>
-                      )}
-
-                      {/* Feature Bullet Points */}
-                      {prod.features && prod.features.length > 0 && (
-                        <div className="space-y-2 pt-2">
-                          {prod.features.map((feat, fIdx) => (
-                            <div key={fIdx} className="flex items-center gap-2 text-xs font-light text-text tracking-tight">
-                              <HiOutlineCheckCircle className="text-emerald-500 text-base shrink-0 group-hover:scale-110 transition-transform" />
-                              <span>{feat}</span>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Bottom Tech Stack & Action Button */}
-                    <div className="pt-2 space-y-4">
-                      {prod.tech && prod.tech.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5">
-                          {prod.tech.map((t) => (
-                            <span
-                              key={t}
-                              className="text-[10px] font-medium px-2.5 py-1 rounded-md bg-purple-500/10 text-purple-600 dark:text-purple-300 border border-purple-500/20 group-hover:border-purple-500/40 group-hover:bg-purple-500/15 transition-all"
-                            >
-                              {t}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-
-                      <div className="pt-1">
-                        <a
-                          href="/contact"
-                          onClick={(e) => handleContactClick(e, "/contact")}
-                          className="btn-primary w-full py-3.5 rounded-2xl text-xs sm:text-sm font-semibold tracking-tight inline-flex items-center justify-center gap-2 group-hover:shadow-lg group-hover:shadow-purple-500/25 transition-all duration-300 no-underline"
-                        >
-                          <span>Explore Product & Request Demo</span>
-                          <GoArrowRight className="text-sm transition-transform duration-300 group-hover:translate-x-1.5" />
-                        </a>
+                    {/* Full Cover Product Media Header (ZERO PADDING, NO OVERLAPPED TEXT) */}
+                    {hasPhoto && (
+                      <div className="w-full h-56 sm:h-64 overflow-hidden relative bg-slate-950">
+                        <img
+                          src={prod.img}
+                          alt={prod.title || 'Product Cover'}
+                          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                        />
                       </div>
+                    )}
+
+                    {/* Card Body Content (Clean Padding below the full cover photo) */}
+                    <div className="p-6 sm:p-8 flex flex-col justify-between flex-1 space-y-4 relative z-10">
+                      
+                      <div className="space-y-3 flex-1">
+                        {/* Category Tag Badge */}
+                        {prod.categoryLabel && (
+                          <div>
+                            <span className="inline-block px-3.5 py-1 rounded-full text-[11px] font-bold tracking-tight bg-purple-600/15 text-purple-800 dark:text-purple-300">
+                              {prod.categoryLabel}
+                            </span>
+                          </div>
+                        )}
+
+                        {prod.title && (
+                          <h3 className="text-xl sm:text-2xl font-bold text-text tracking-tight group-hover:text-purple-600 dark:group-hover:text-purple-300 transition-colors leading-snug">
+                            {prod.title}
+                          </h3>
+                        )}
+
+                        {prod.tagline && (
+                          <p className="text-xs font-semibold text-amber-500 dark:text-amber-400 tracking-tight">
+                            {prod.tagline}
+                          </p>
+                        )}
+
+                        {prod.desc && (
+                          <p className="text-text-muted text-xs sm:text-sm leading-relaxed font-light tracking-tight">
+                            {prod.desc}
+                          </p>
+                        )}
+
+                        {/* Feature Bullet Points */}
+                        {prod.features && prod.features.length > 0 && (
+                          <div className="space-y-2 pt-2">
+                            {prod.features.map((feat, fIdx) => (
+                              <div key={fIdx} className="flex items-center gap-2 text-xs font-light text-text tracking-tight">
+                                <HiOutlineCheckCircle className="text-emerald-500 text-base shrink-0 group-hover:scale-110 transition-transform" />
+                                <span>{feat}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Bottom Tech Stack & Action Button */}
+                      <div className="pt-2 space-y-4">
+                        {prod.tech && prod.tech.length > 0 && (
+                          <div className="flex flex-wrap gap-1.5">
+                            {prod.tech.map((t) => (
+                              <span
+                                key={t}
+                                className="text-[10px] font-medium px-2.5 py-1 rounded-md bg-purple-500/10 text-purple-600 dark:text-purple-300 border border-purple-500/20 group-hover:border-purple-500/40 group-hover:bg-purple-500/15 transition-all"
+                              >
+                                {t}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+
+                        <div className="pt-1">
+                          <a
+                            href="/contact"
+                            onClick={(e) => handleContactClick(e, "/contact")}
+                            className="btn-primary w-full py-3.5 rounded-2xl text-xs sm:text-sm font-semibold tracking-tight inline-flex items-center justify-center gap-2 group-hover:shadow-lg group-hover:shadow-purple-500/25 transition-all duration-300 no-underline"
+                          >
+                            <span>Explore Product & Request Demo</span>
+                            <GoArrowRight className="text-sm transition-transform duration-300 group-hover:translate-x-1.5" />
+                          </a>
+                        </div>
+                      </div>
+
                     </div>
-
                   </div>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
 
-        </div>
-      </section>
+          </div>
+        </section>
+      )}
 
       {/* ============================================================ */}
       {/* SECTION 4: DELIVERED CLIENT PROJECTS SHOWCASE (ULTRA-EXECUTIVE CASE STUDY DESIGN) */}
       {/* ============================================================ */}
-      <section className="py-12 md:py-16 relative overflow-hidden">
-        <div className="max-w-container mx-auto px-gutter">
-          
-          {/* Section Header */}
-          <div className="text-center max-w-3xl mx-auto mb-14">
-            <span className="text-primary-strong text-xs font-semibold tracking-[0.2em] uppercase block mb-3">
-              {clientSec?.kicker || 'Proven Client Track Record'}
-            </span>
-            <h2 className="text-3xl md:text-5xl font-extralight text-text tracking-tight mb-4">
-              <FormattedTitle
-                title={clientSec?.title}
-                defaultText="Featured Client Projects & Engineering"
-                accentClass="text-gradient font-light"
-                highlightWords={2}
-              />
-            </h2>
-            {clientSec?.subtitle && (
-              <p className="text-text-muted text-sm sm:text-base font-light tracking-tight">
-                {clientSec.subtitle}
-              </p>
-            )}
-          </div>
+      {showClientStories && (
+        <section className="py-12 md:py-16 relative overflow-hidden">
+          <div className="max-w-container mx-auto px-gutter">
+            
+            {/* Section Header */}
+            <div className="text-center max-w-3xl mx-auto mb-14">
+              <span className="text-primary-strong text-xs font-semibold tracking-[0.2em] uppercase block mb-3">
+                {clientSec?.kicker || 'Proven Client Track Record'}
+              </span>
+              <h2 className="text-3xl md:text-5xl font-extralight text-text tracking-tight mb-4">
+                <FormattedTitle
+                  title={clientSec?.title}
+                  defaultText="Featured Client Projects & Engineering"
+                  accentClass="text-gradient font-light"
+                  highlightWords={2}
+                />
+              </h2>
+              {clientSec?.subtitle && (
+                <p className="text-text-muted text-sm sm:text-base font-light tracking-tight">
+                  {clientSec.subtitle}
+                </p>
+              )}
+            </div>
 
-          {/* Client Projects Grid (Ultra-Executive Case Study Cards, 100% Direct Admin Sync, No Harsh Borders) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-            {displayClientProjects.map((proj, pIdx) => (
-              <div
-                key={proj.id || pIdx}
-                className="group relative rounded-3xl p-6 sm:p-8 flex flex-col justify-between hover:-translate-y-1.5 shadow-lg shadow-purple-900/5 hover:shadow-[0_20px_50px_rgba(124,58,237,0.22)] bg-white/85 dark:bg-[#100d28]/75 backdrop-blur-xl transition-all duration-500 overflow-hidden border border-slate-200/50 dark:border-purple-500/10 hover:border-purple-500/30 cursor-pointer"
-              >
-                {/* Fluid Sheen Reflection Sweep Effect */}
-                <div className="absolute inset-0 pointer-events-none -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 dark:via-purple-400/10 to-transparent transition-transform duration-1000 ease-in-out z-20" />
-
-                <div className="space-y-4 relative z-10 flex-1 flex flex-col justify-between">
-                  
-                  <div className="space-y-3">
-                    {/* Header Badges Row: Industry Badge & Client Name */}
-                    {(proj.industry || proj.client) && (
-                      <div className="flex flex-wrap items-center justify-between gap-2">
-                        {proj.industry && (
-                          <span className="px-3.5 py-1 rounded-full bg-amber-500/15 text-amber-700 dark:text-amber-300 text-[11px] font-bold tracking-tight uppercase">
-                            {proj.industry}
-                          </span>
-                        )}
-                        {proj.client && (
-                          <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 tracking-tight">
-                            {proj.client}
-                          </span>
-                        )}
-                      </div>
-                    )}
-
-                    {proj.title && (
-                      <h3 className="text-xl sm:text-2xl font-bold text-text tracking-tight group-hover:text-purple-600 dark:group-hover:text-purple-300 transition-colors leading-snug pt-1">
-                        {proj.title}
-                      </h3>
-                    )}
-
-                    {proj.desc && (
-                      <p className="text-text-muted text-xs sm:text-sm leading-relaxed font-light tracking-tight">
-                        {proj.desc}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Verified Business Impact Badges */}
-                  {proj.impact && proj.impact.length > 0 && (
-                    <div className="pt-4 space-y-3">
-                      <span className="text-[11px] uppercase tracking-wider text-text-muted font-bold block">
-                        Verified Business Impact:
-                      </span>
-
-                      <div className="flex flex-wrap gap-2">
-                        {proj.impact.map((imp, iIdx) => (
-                          <span
-                            key={iIdx}
-                            className="px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-semibold tracking-tight flex items-center gap-1.5 group-hover:border-emerald-500/40 transition-all"
-                          >
-                            <GoCheck className="text-emerald-500 text-sm shrink-0" />
-                            <span>{imp}</span>
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                </div>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/* SECTION 5: PRODUCTION TECH STACK ARCHITECTURE (PURE EXPANDING GRADIENT LINE ONLY - NO BG TRACK) */}
-      {/* ============================================================ */}
-      <section className="py-12 md:py-16 relative overflow-hidden">
-        {/* Ambient Tech Circuit Guidelines Background */}
-        <div className="absolute inset-0 opacity-15 dark:opacity-25 pointer-events-none bg-[radial-gradient(#7c3aed_1px,transparent_1px)] [background-size:24px_24px]" />
-
-        <div className="max-w-container mx-auto px-gutter relative z-10">
-          
-          {/* Section Header */}
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-primary-strong text-xs font-semibold tracking-[0.2em] uppercase block mb-3">
-              {techSec?.kicker || 'Engineering Backbone'}
-            </span>
-            <h2 className="text-3xl md:text-5xl font-extralight text-text tracking-tight mb-4">
-              <FormattedTitle
-                title={techSec?.title}
-                defaultText="Production Tech Stack Architecture"
-                accentClass="text-gradient font-light"
-                highlightWords={2}
-              />
-            </h2>
-            {techSec?.subtitle && (
-              <p className="text-text-muted text-sm sm:text-base font-light tracking-tight">
-                {techSec.subtitle}
-              </p>
-            )}
-          </div>
-
-          {/* Futuristic Constellation Columns with Pure Expanding Line (Guaranteed 100% Visible Top Line for ALL columns) */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 md:gap-12 items-start">
-            {displayTechStack.map((item, tIdx) => {
-              const inlineGradients = [
-                'linear-gradient(90deg, #a855f7 0%, #6366f1 50%, #c084fc 100%)', // Card 1: Vivid Purple/Indigo
-                'linear-gradient(90deg, #3b82f6 0%, #06b6d4 50%, #38bdf8 100%)', // Card 2: Vivid Blue/Cyan
-                'linear-gradient(90deg, #10b981 0%, #14b8a6 50%, #34d399 100%)', // Card 3: Vivid Emerald/Teal
-                'linear-gradient(90deg, #f59e0b 0%, #f97316 50%, #fbbf24 100%)', // Card 4: Vivid Amber/Orange
-                'linear-gradient(90deg, #f43f5e 0%, #ec4899 50%, #fb7185 100%)', // Card 5: Vivid Rose/Pink
-              ];
-              const currentInlineGradient = inlineGradients[tIdx % inlineGradients.length];
-
-              return (
-                <div key={item.id || tIdx} className="group relative space-y-6">
-                  
-                  {/* Pure Top Gradient Line: Short (w-20) unhovered -> Expands across top (w-full) on hover */}
-                  {/* 100% Guaranteed cross-browser glowing linear gradient for EVERY single card */}
-                  <div
-                    style={{ background: currentInlineGradient }}
-                    className="h-1.5 w-20 group-hover:w-full rounded-full transition-all duration-700 ease-out mb-6 shadow-md shadow-purple-500/20"
-                  />
-
-                  {/* Category Title & Dynamic React Icon */}
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-2xl bg-purple-600/15 border border-purple-500/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                        {renderTechIcon(item.icon)}
-                      </div>
-                      {item.title && (
-                        <h3 className="text-xl sm:text-2xl font-bold text-text tracking-tight group-hover:text-purple-600 dark:group-hover:text-purple-300 transition-colors leading-snug">
-                          {item.title}
-                        </h3>
-                      )}
-                    </div>
-
-                    {item.desc && (
-                      <p className="text-text-muted text-xs sm:text-sm leading-relaxed font-light tracking-tight">
-                        {item.desc}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Interactive Floating Tech Pills Cloud */}
-                  {item.tech && item.tech.length > 0 && (
-                    <div className="pt-2">
-                      <div className="flex flex-wrap gap-2.5">
-                        {item.tech.map((t, i) => (
-                          <div
-                            key={i}
-                            className="group/pill relative px-4 py-2 rounded-2xl bg-white/70 dark:bg-purple-950/30 text-slate-800 dark:text-purple-200 border border-slate-200/60 dark:border-purple-500/20 text-xs sm:text-sm font-semibold tracking-tight shadow-xs hover:border-purple-500/50 hover:bg-purple-600 hover:text-white dark:hover:bg-purple-600 dark:hover:text-white transition-all duration-300 hover:scale-105 cursor-pointer flex items-center gap-2"
-                          >
-                            <span className="w-1.5 h-1.5 rounded-full bg-purple-500 group-hover/pill:bg-white transition-colors" />
-                            <span>{t}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                </div>
-              );
-            })}
-          </div>
-
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/* SECTION 6: CLIENT TESTIMONIALS (EXECUTIVE CARDS, ZERO FALLBACK, 100% ADMIN SYNC) */}
-      {/* ============================================================ */}
-      <section className="py-12 md:py-16 relative overflow-hidden">
-        <div className="max-w-container mx-auto px-gutter space-y-12">
-          
-          <div className="text-center max-w-3xl mx-auto">
-            <span className="text-primary-strong text-xs font-semibold tracking-[0.2em] uppercase block mb-3">
-              {testiSec?.kicker || 'Verified Executive Feedback'}
-            </span>
-            <h2 className="text-3xl md:text-5xl font-extralight text-text tracking-tight mb-4">
-              <FormattedTitle
-                title={testiSec?.title}
-                defaultText="What Executive Leaders Say"
-                accentClass="text-gradient font-light"
-                highlightWords={2}
-              />
-            </h2>
-            {testiSec?.subtitle && (
-              <p className="text-text-muted text-sm sm:text-base font-light tracking-tight">
-                {testiSec.subtitle}
-              </p>
-            )}
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
-            {displayTestimonials.map((t, tIdx) => {
-              const hasAvatar = Boolean(t.avatar);
-              return (
+            {/* Client Projects Grid (Ultra-Executive Case Study Cards, 100% Direct Admin Sync, No Harsh Borders) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+              {displayClientProjects.map((proj, pIdx) => (
                 <div
-                  key={t.id || tIdx}
+                  key={proj.id || pIdx}
                   className="group relative rounded-3xl p-6 sm:p-8 flex flex-col justify-between hover:-translate-y-1.5 shadow-lg shadow-purple-900/5 hover:shadow-[0_20px_50px_rgba(124,58,237,0.22)] bg-white/85 dark:bg-[#100d28]/75 backdrop-blur-xl transition-all duration-500 overflow-hidden border border-slate-200/50 dark:border-purple-500/10 hover:border-purple-500/30 cursor-pointer"
                 >
-                  {/* Fluid Glass Reflection Sheen Sweep Effect */}
+                  {/* Fluid Sheen Reflection Sweep Effect */}
                   <div className="absolute inset-0 pointer-events-none -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 dark:via-purple-400/10 to-transparent transition-transform duration-1000 ease-in-out z-20" />
 
-                  <div className="space-y-4 flex-1 flex flex-col justify-between relative z-10">
-                    <div className="space-y-4">
-                      {/* Star Rating Badges */}
-                      <div className="flex items-center gap-1 text-amber-400">
-                        {[...Array(t.rating || 5)].map((_, i) => (
-                          <HiOutlineStar key={i} className="fill-amber-400 text-sm" />
-                        ))}
-                      </div>
+                  <div className="space-y-4 relative z-10 flex-1 flex flex-col justify-between">
+                    
+                    <div className="space-y-3">
+                      {/* Header Badges Row: Industry Badge & Client Name */}
+                      {(proj.industry || proj.client) && (
+                        <div className="flex flex-wrap items-center justify-between gap-2">
+                          {proj.industry && (
+                            <span className="px-3.5 py-1 rounded-full bg-amber-500/15 text-amber-700 dark:text-amber-300 text-[11px] font-bold tracking-tight uppercase">
+                              {proj.industry}
+                            </span>
+                          )}
+                          {proj.client && (
+                            <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 tracking-tight">
+                              {proj.client}
+                            </span>
+                          )}
+                        </div>
+                      )}
 
-                      {t.quote && (
-                        <p className="text-xs sm:text-sm text-text leading-relaxed font-light tracking-tight italic">
-                          "{t.quote}"
+                      {proj.title && (
+                        <h3 className="text-xl sm:text-2xl font-bold text-text tracking-tight group-hover:text-purple-600 dark:group-hover:text-purple-300 transition-colors leading-snug pt-1">
+                          {proj.title}
+                        </h3>
+                      )}
+
+                      {proj.desc && (
+                        <p className="text-text-muted text-xs sm:text-sm leading-relaxed font-light tracking-tight">
+                          {proj.desc}
                         </p>
                       )}
                     </div>
 
-                    {/* Executive Author Header */}
-                    <div className="flex items-center gap-3 pt-2">
-                      <div className="w-11 h-11 rounded-full bg-purple-600/15 text-purple-700 dark:text-purple-300 font-bold flex items-center justify-center overflow-hidden shrink-0 border border-purple-500/20">
-                        {hasAvatar ? (
-                          <img src={t.avatar} alt={t.name || 'Author'} className="w-full h-full object-cover" />
-                        ) : (
-                          <span>{(t.name || 'E').charAt(0)}</span>
+                    {/* Verified Business Impact Badges */}
+                    {proj.impact && proj.impact.length > 0 && (
+                      <div className="pt-4 space-y-3">
+                        <span className="text-[11px] uppercase tracking-wider text-text-muted font-bold block">
+                          Verified Business Impact:
+                        </span>
+
+                        <div className="flex flex-wrap gap-2">
+                          {proj.impact.map((imp, iIdx) => (
+                            <span
+                              key={iIdx}
+                              className="px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-semibold tracking-tight flex items-center gap-1.5 group-hover:border-emerald-500/40 transition-all"
+                            >
+                              <GoCheck className="text-emerald-500 text-sm shrink-0" />
+                              <span>{imp}</span>
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </section>
+      )}
+
+      {/* ============================================================ */}
+      {/* SECTION 5: PRODUCTION TECH STACK ARCHITECTURE (PURE EXPANDING GRADIENT LINE ONLY - NO BG TRACK) */}
+      {/* ============================================================ */}
+      {showTechStack && (
+        <section className="py-12 md:py-16 relative overflow-hidden">
+          {/* Ambient Tech Circuit Guidelines Background */}
+          <div className="absolute inset-0 opacity-15 dark:opacity-25 pointer-events-none bg-[radial-gradient(#7c3aed_1px,transparent_1px)] [background-size:24px_24px]" />
+
+          <div className="max-w-container mx-auto px-gutter relative z-10">
+            
+            {/* Section Header */}
+            <div className="text-center max-w-3xl mx-auto mb-16">
+              <span className="text-primary-strong text-xs font-semibold tracking-[0.2em] uppercase block mb-3">
+                {techSec?.kicker || 'Engineering Backbone'}
+              </span>
+              <h2 className="text-3xl md:text-5xl font-extralight text-text tracking-tight mb-4">
+                <FormattedTitle
+                  title={techSec?.title}
+                  defaultText="Production Tech Stack Architecture"
+                  accentClass="text-gradient font-light"
+                  highlightWords={2}
+                />
+              </h2>
+              {techSec?.subtitle && (
+                <p className="text-text-muted text-sm sm:text-base font-light tracking-tight">
+                  {techSec.subtitle}
+                </p>
+              )}
+            </div>
+
+            {/* Futuristic Constellation Columns with Pure Expanding Line (Guaranteed 100% Visible Top Line for ALL columns) */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 md:gap-12 items-start">
+              {displayTechStack.map((item, tIdx) => {
+                const inlineGradients = [
+                  'linear-gradient(90deg, #a855f7 0%, #6366f1 50%, #c084fc 100%)', // Card 1: Vivid Purple/Indigo
+                  'linear-gradient(90deg, #3b82f6 0%, #06b6d4 50%, #38bdf8 100%)', // Card 2: Vivid Blue/Cyan
+                  'linear-gradient(90deg, #10b981 0%, #14b8a6 50%, #34d399 100%)', // Card 3: Vivid Emerald/Teal
+                  'linear-gradient(90deg, #f59e0b 0%, #f97316 50%, #fbbf24 100%)', // Card 4: Vivid Amber/Orange
+                  'linear-gradient(90deg, #f43f5e 0%, #ec4899 50%, #fb7185 100%)', // Card 5: Vivid Rose/Pink
+                ];
+                const currentInlineGradient = inlineGradients[tIdx % inlineGradients.length];
+
+                return (
+                  <div key={item.id || tIdx} className="group relative space-y-6">
+                    
+                    {/* Pure Top Gradient Line: Short (w-20) unhovered -> Expands across top (w-full) on hover */}
+                    {/* 100% Guaranteed cross-browser glowing linear gradient for EVERY single card */}
+                    <div
+                      style={{ background: currentInlineGradient }}
+                      className="h-1.5 w-20 group-hover:w-full rounded-full transition-all duration-700 ease-out mb-6 shadow-md shadow-purple-500/20"
+                    />
+
+                    {/* Category Title & Dynamic React Icon */}
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-2xl bg-purple-600/15 border border-purple-500/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                          {renderTechIcon(item.icon)}
+                        </div>
+                        {item.title && (
+                          <h3 className="text-xl sm:text-2xl font-bold text-text tracking-tight group-hover:text-purple-600 dark:group-hover:text-purple-300 transition-colors leading-snug">
+                            {item.title}
+                          </h3>
                         )}
                       </div>
-                      <div>
-                        {t.name && (
-                          <h4 className="text-xs sm:text-sm font-bold text-text tracking-tight group-hover:text-purple-600 dark:group-hover:text-purple-300 transition-colors">
-                            {t.name}
-                          </h4>
+
+                      {item.desc && (
+                        <p className="text-text-muted text-xs sm:text-sm leading-relaxed font-light tracking-tight">
+                          {item.desc}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Interactive Floating Tech Pills Cloud */}
+                    {item.tech && item.tech.length > 0 && (
+                      <div className="pt-2">
+                        <div className="flex flex-wrap gap-2.5">
+                          {item.tech.map((t, i) => (
+                            <div
+                              key={i}
+                              className="group/pill relative px-4 py-2 rounded-2xl bg-white/70 dark:bg-purple-950/30 text-slate-800 dark:text-purple-200 border border-slate-200/60 dark:border-purple-500/20 text-xs sm:text-sm font-semibold tracking-tight shadow-xs hover:border-purple-500/50 hover:bg-purple-600 hover:text-white dark:hover:bg-purple-600 dark:hover:text-white transition-all duration-300 hover:scale-105 cursor-pointer flex items-center gap-2"
+                            >
+                              <span className="w-1.5 h-1.5 rounded-full bg-purple-500 group-hover/pill:bg-white transition-colors" />
+                              <span>{t}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                  </div>
+                );
+              })}
+            </div>
+
+          </div>
+        </section>
+      )}
+
+      {/* ============================================================ */}
+      {/* SECTION 6: CLIENT TESTIMONIALS (EXECUTIVE CARDS, ZERO FALLBACK, 100% ADMIN SYNC) */}
+      {/* ============================================================ */}
+      {showTestimonials && (
+        <section className="py-12 md:py-16 relative overflow-hidden">
+          <div className="max-w-container mx-auto px-gutter space-y-12">
+            
+            <div className="text-center max-w-3xl mx-auto">
+              <span className="text-primary-strong text-xs font-semibold tracking-[0.2em] uppercase block mb-3">
+                {testiSec?.kicker || 'Verified Executive Feedback'}
+              </span>
+              <h2 className="text-3xl md:text-5xl font-extralight text-text tracking-tight mb-4">
+                <FormattedTitle
+                  title={testiSec?.title}
+                  defaultText="What Executive Leaders Say"
+                  accentClass="text-gradient font-light"
+                  highlightWords={2}
+                />
+              </h2>
+              {testiSec?.subtitle && (
+                <p className="text-text-muted text-sm sm:text-base font-light tracking-tight">
+                  {testiSec.subtitle}
+                </p>
+              )}
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+              {displayTestimonials.map((t, tIdx) => {
+                const hasAvatar = Boolean(t.avatar);
+                return (
+                  <div
+                    key={t.id || tIdx}
+                    className="group relative rounded-3xl p-6 sm:p-8 flex flex-col justify-between hover:-translate-y-1.5 shadow-lg shadow-purple-900/5 hover:shadow-[0_20px_50px_rgba(124,58,237,0.22)] bg-white/85 dark:bg-[#100d28]/75 backdrop-blur-xl transition-all duration-500 overflow-hidden border border-slate-200/50 dark:border-purple-500/10 hover:border-purple-500/30 cursor-pointer"
+                  >
+                    {/* Fluid Glass Reflection Sheen Sweep Effect */}
+                    <div className="absolute inset-0 pointer-events-none -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 dark:via-purple-400/10 to-transparent transition-transform duration-1000 ease-in-out z-20" />
+
+                    <div className="space-y-4 flex-1 flex flex-col justify-between relative z-10">
+                      <div className="space-y-4">
+                        {/* Star Rating Badges */}
+                        <div className="flex items-center gap-1 text-amber-400">
+                          {[...Array(t.rating || 5)].map((_, i) => (
+                            <HiOutlineStar key={i} className="fill-amber-400 text-sm" />
+                          ))}
+                        </div>
+
+                        {t.quote && (
+                          <p className="text-xs sm:text-sm text-text leading-relaxed font-light tracking-tight italic">
+                            "{t.quote}"
+                          </p>
                         )}
-                        {(t.role || t.company) && (
-                          <span className="text-[11px] text-text-muted font-light tracking-tight block">
-                            {t.role}{t.role && t.company ? ' • ' : ''}
-                            {t.company && <strong className="text-purple-600 dark:text-purple-400 font-semibold">{t.company}</strong>}
-                          </span>
-                        )}
+                      </div>
+
+                      {/* Executive Author Header */}
+                      <div className="flex items-center gap-3 pt-2">
+                        <div className="w-11 h-11 rounded-full bg-purple-600/15 text-purple-700 dark:text-purple-300 font-bold flex items-center justify-center overflow-hidden shrink-0 border border-purple-500/20">
+                          {hasAvatar ? (
+                            <img src={t.avatar} alt={t.name || 'Author'} className="w-full h-full object-cover" />
+                          ) : (
+                            <span>{(t.name || 'E').charAt(0)}</span>
+                          )}
+                        </div>
+                        <div>
+                          {t.name && (
+                            <h4 className="text-xs sm:text-sm font-bold text-text tracking-tight group-hover:text-purple-600 dark:group-hover:text-purple-300 transition-colors">
+                              {t.name}
+                            </h4>
+                          )}
+                          {(t.role || t.company) && (
+                            <span className="text-[11px] text-text-muted font-light tracking-tight block">
+                              {t.role}{t.role && t.company ? ' • ' : ''}
+                              {t.company && <strong className="text-purple-600 dark:text-purple-400 font-semibold">{t.company}</strong>}
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
+
                   </div>
+                );
+              })}
+            </div>
 
-                </div>
-              );
-            })}
           </div>
-
-        </div>
-      </section>
-
-
+        </section>
+      )}
 
       {/* ============================================================ */}
       {/* SECTION 8: HIGH-IMPACT CONSULTATION & DEMO CTA */}
       {/* ============================================================ */}
-      <section className="py-12 md:py-16 relative overflow-hidden">
-        <div className="max-w-container mx-auto px-gutter">
-          <div className="glass-card rounded-3xl md:rounded-[32px] p-8 sm:p-12 md:p-16 text-center relative overflow-hidden border border-primary-strong/20">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] aurora-blur opacity-25 pointer-events-none" />
+      {showCta && (
+        <section className="py-12 md:py-16 relative overflow-hidden">
+          <div className="max-w-container mx-auto px-gutter">
+            <div className="glass-card rounded-3xl md:rounded-[32px] p-8 sm:p-12 md:p-16 text-center relative overflow-hidden border border-primary-strong/20">
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] aurora-blur opacity-25 pointer-events-none" />
 
-            <div className="relative z-10 max-w-3xl mx-auto">
-              <span className="text-primary-strong text-xs font-semibold tracking-[0.2em] uppercase mb-3 inline-block">
-                {ctaSec?.kicker || 'Launch Your Solution'}
-              </span>
+              <div className="relative z-10 max-w-3xl mx-auto">
+                <span className="text-primary-strong text-xs font-semibold tracking-[0.2em] uppercase mb-3 inline-block">
+                  {ctaSec?.kicker || 'Launch Your Solution'}
+                </span>
 
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extralight text-text tracking-tight mb-4 leading-tight">
-                <FormattedTitle
-                  title={ctaSec?.title}
-                  defaultText="Ready to Deploy Our Products?"
-                  accentClass="text-gradient font-light"
-                  highlightWords={1}
-                />
-              </h2>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-extralight text-text tracking-tight mb-4 leading-tight">
+                  <FormattedTitle
+                    title={ctaSec?.title}
+                    defaultText="Ready to Deploy Our Products?"
+                    accentClass="text-gradient font-light"
+                    highlightWords={1}
+                  />
+                </h2>
 
-              <p className="text-sm sm:text-base text-text-muted mb-8 max-w-xl mx-auto leading-relaxed font-light tracking-tight">
-                {ctaSec?.subtitle ||
-                  'Schedule a live product demonstration or consult with our solution architects to design your enterprise software strategy.'}
-              </p>
+                <p className="text-sm sm:text-base text-text-muted mb-8 max-w-xl mx-auto leading-relaxed font-light tracking-tight">
+                  {ctaSec?.subtitle ||
+                    'Schedule a live product demonstration or consult with our solution architects to design your enterprise software strategy.'}
+                </p>
 
-              <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center items-center">
-                {((ctaSec?.buttons !== undefined && Array.isArray(ctaSec.buttons))
-                  ? ctaSec.buttons
-                  : [
-                      { label: 'Schedule Live Demo', link: '/contact' },
-                      { label: 'Request Product Proposal', link: '/contact' },
-                    ]
-                ).map((btn, bIdx) => (
-                  <a
-                    key={bIdx}
-                    href={btn.link || '/contact'}
-                    onClick={(e) => handleContactClick(e, btn.link || '/contact')}
-                    className={
-                      bIdx === 0
-                        ? 'group btn-primary px-8 py-3.5 rounded-full font-light tracking-tight text-sm sm:text-base hover:scale-105 transition-all duration-300 shadow-lg shadow-primary-strong/25 inline-flex items-center gap-2'
-                        : 'btn-ghost px-8 py-3.5 rounded-full font-light tracking-tight text-sm sm:text-base hover:bg-primary-soft transition-colors border border-border/50'
-                    }
-                  >
-                    <span>{btn.label}</span>
-                    {bIdx === 0 && (
-                      <GoArrowRight className="text-lg transition-transform group-hover:translate-x-1" />
-                    )}
-                  </a>
-                ))}
+                <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center items-center">
+                  {((ctaSec?.buttons !== undefined && Array.isArray(ctaSec.buttons))
+                    ? ctaSec.buttons
+                    : [
+                        { label: 'Schedule Live Demo', link: '/contact' },
+                        { label: 'Request Product Proposal', link: '/contact' },
+                      ]
+                  ).map((btn, bIdx) => (
+                    <a
+                      key={bIdx}
+                      href={btn.link || '/contact'}
+                      onClick={(e) => handleContactClick(e, btn.link || '/contact')}
+                      className={
+                        bIdx === 0
+                          ? 'group btn-primary px-8 py-3.5 rounded-full font-light tracking-tight text-sm sm:text-base hover:scale-105 transition-all duration-300 shadow-lg shadow-primary-strong/25 inline-flex items-center gap-2'
+                          : 'btn-ghost px-8 py-3.5 rounded-full font-light tracking-tight text-sm sm:text-base hover:bg-primary-soft transition-colors border border-border/50'
+                      }
+                    >
+                      <span>{btn.label}</span>
+                      {bIdx === 0 && (
+                        <GoArrowRight className="text-lg transition-transform group-hover:translate-x-1" />
+                      )}
+                    </a>
+                  ))}
+                </div>
               </div>
-            </div>
 
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
     </main>
   );
