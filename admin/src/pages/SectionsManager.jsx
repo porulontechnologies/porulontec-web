@@ -2313,49 +2313,171 @@ export default function SectionsManager() {
                 {/* ============================================================ */}
                 {/* 1. HERO SECTION: SHOW ONLY BACKGROUND VIDEO URL */}
                 {/* ============================================================ */}
+                {/* 1. HERO SECTION: FULL EDIT & REMOVE CONTROLS */}
+                {/* ============================================================ */}
                 {formData.sectionKey === 'hero' && (
-                  <div className={`p-5 rounded-2xl border space-y-3 ${
-                    isDark ? 'bg-[#1a2233]/60 border-[#1f293d]' : 'bg-purple-50/50 border-purple-200'
-                  }`}>
-                    <label className="text-xs font-bold flex items-center gap-2 text-[#7c3aed]">
-                      <Video className="w-4 h-4" />
-                      <span>Hero Background Video (Video Only Required)</span>
-                    </label>
-                    <div className="flex flex-col sm:flex-row items-center gap-3">
+                  <div className="space-y-6">
+                    <div>
+                      <label className={`block text-xs font-bold mb-1.5 ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>
+                        Top Kicker Tagline (Badge Chip)
+                      </label>
                       <input
                         type="text"
-                        value={getCleanMediaValue(formData.mediaUrl)}
-                        onChange={(e) => setFormData({ ...formData, mediaUrl: e.target.value })}
-                        placeholder="No video uploaded — Click Upload Video or enter URL"
-                        className={`w-full flex-1 rounded-xl px-4 py-2.5 text-xs font-mono border ${
-                          isDark ? 'bg-[#121824] border-[#1f293d] text-purple-400' : 'bg-white border-slate-300 text-purple-700'
+                        value={formData.kicker || ''}
+                        onChange={(e) => setFormData({ ...formData, kicker: e.target.value })}
+                        placeholder="Pioneering Deep-Tech Excellence (Leave blank to remove)"
+                        className={`w-full rounded-xl px-4 py-2.5 text-xs font-medium border ${
+                          isDark ? 'bg-[#1a2233] border-[#1f293d] text-slate-100' : 'bg-slate-50 border-slate-300 text-slate-900'
                         }`}
                       />
-                      <label className="w-full sm:w-auto px-4 py-2.5 bg-[#7c3aed] hover:bg-[#6d28d9] text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 cursor-pointer shrink-0 shadow-sm transition">
-                        {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
-                        <span>{uploading ? 'Uploading...' : 'Upload Video'}</span>
-                        <input
-                          type="file"
-                          accept="video/*"
-                          className="hidden"
-                          onChange={(e) => {
-                            if (e.target.files?.[0]) {
-                              handleFileUpload(e.target.files[0], (uploadedUrl) => {
-                                setFormData(prev => ({ ...prev, mediaUrl: uploadedUrl }));
-                              }, 'video');
-                            }
-                          }}
-                        />
-                      </label>
                     </div>
-                    {mediaError && (
-                      <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-500 text-xs font-semibold flex items-center justify-between">
-                        <span>{mediaError}</span>
-                        <button type="button" onClick={() => setMediaError('')} className="p-1 rounded-lg hover:bg-black/10 text-red-400">
-                          <X className="w-3.5 h-3.5" />
+
+                    <div>
+                      <label className={`block text-xs font-bold mb-1.5 ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>
+                        Main Hero Headline Title
+                      </label>
+                      <input
+                        type="text"
+                        value={formData.title || ''}
+                        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                        placeholder="Building Enterprise AI Systems, Cloud Applications..."
+                        className={`w-full rounded-xl px-4 py-2.5 text-xs font-medium border ${
+                          isDark ? 'bg-[#1a2233] border-[#1f293d] text-slate-100' : 'bg-slate-50 border-slate-300 text-slate-900'
+                        }`}
+                      />
+                    </div>
+
+                    <div>
+                      <label className={`block text-xs font-bold mb-1.5 ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>
+                        Hero Subtitle / Description Paragraph
+                      </label>
+                      <textarea
+                        rows={3}
+                        value={formData.subtitle || ''}
+                        onChange={(e) => setFormData({ ...formData, subtitle: e.target.value })}
+                        placeholder="From custom machine learning models to high-throughput cloud infrastructure..."
+                        className={`w-full rounded-xl px-4 py-2.5 text-xs font-medium border ${
+                          isDark ? 'bg-[#1a2233] border-[#1f293d] text-slate-100' : 'bg-slate-50 border-slate-300 text-slate-900'
+                        }`}
+                      />
+                    </div>
+
+                    {/* Hero Background Video / Image Uploader */}
+                    <div className={`p-4 rounded-2xl border space-y-3 ${
+                      isDark ? 'bg-[#1a2233]/60 border-[#1f293d]' : 'bg-purple-50/50 border-purple-200'
+                    }`}>
+                      <label className="text-xs font-bold flex items-center gap-2 text-[#7c3aed]">
+                        <Video className="w-4 h-4" />
+                        <span>Hero Background Video / Image (Optional)</span>
+                      </label>
+                      <p className={`text-[11px] ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                        Upload a background video (.mp4) or image. If empty, the aurora gradient fallback background will be shown.
+                      </p>
+
+                      <div className="flex flex-col sm:flex-row items-center gap-3">
+                        <input
+                          type="text"
+                          value={getCleanMediaValue(formData.mediaUrl)}
+                          onChange={(e) => setFormData({ ...formData, mediaUrl: e.target.value })}
+                          placeholder="No video uploaded — Click Upload Video or enter URL"
+                          className={`w-full flex-1 rounded-xl px-4 py-2.5 text-xs font-mono border ${
+                            isDark ? 'bg-[#121824] border-[#1f293d] text-purple-400' : 'bg-white border-slate-300 text-purple-700'
+                          }`}
+                        />
+                        <label className="w-full sm:w-auto px-4 py-2.5 bg-[#7c3aed] hover:bg-[#6d28d9] text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 cursor-pointer shrink-0 shadow-sm transition">
+                          {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
+                          <span>{uploading ? 'Uploading...' : 'Upload Video'}</span>
+                          <input
+                            type="file"
+                            accept="video/*,image/*"
+                            className="hidden"
+                            onChange={(e) => {
+                              if (e.target.files?.[0]) {
+                                handleFileUpload(e.target.files[0], (uploadedUrl) => {
+                                  setFormData(prev => ({ ...prev, mediaUrl: uploadedUrl }));
+                                });
+                              }
+                            }}
+                          />
+                        </label>
+                      </div>
+                      {mediaError && (
+                        <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-500 text-xs font-semibold flex items-center justify-between">
+                          <span>{mediaError}</span>
+                          <button type="button" onClick={() => setMediaError('')} className="p-1 rounded-lg hover:bg-black/10 text-red-400">
+                            <X className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Hero Action Buttons Array Editor */}
+                    <div className={`p-4 rounded-2xl border space-y-4 ${
+                      isDark ? 'bg-[#1a2233]/40 border-[#1f293d]' : 'bg-slate-50 border-slate-200'
+                    }`}>
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h3 className="text-xs font-bold">Hero Action Buttons</h3>
+                          <p className={`text-[11px] ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                            Configure call-to-action buttons (e.g., "Get Started", "Explore Services")
+                          </p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => addArrayItem('buttons', { label: 'New Button', link: '/contact' })}
+                          className="px-3 py-1.5 bg-[#7c3aed] text-white rounded-xl text-xs font-semibold flex items-center gap-1 hover:bg-[#6d28d9] transition cursor-pointer"
+                        >
+                          <Plus className="w-3.5 h-3.5" />
+                          <span>Add Button</span>
                         </button>
                       </div>
-                    )}
+
+                      <div className="grid grid-cols-1 gap-3">
+                        {(formData.buttons && formData.buttons.length > 0 ? formData.buttons : [
+                          { label: 'Get Started', link: '/contact' },
+                          { label: 'Explore Services', link: '/services' }
+                        ]).map((btn, idx) => (
+                          <div key={idx} className={`p-3 rounded-xl border flex flex-col sm:flex-row items-center gap-3 ${
+                            isDark ? 'bg-[#121824] border-[#1f293d]' : 'bg-white border-slate-200'
+                          }`}>
+                            <div className="flex-1 w-full grid grid-cols-1 sm:grid-cols-2 gap-2">
+                              <div>
+                                <label className="text-[10px] font-semibold text-slate-400 block mb-0.5">Button Label</label>
+                                <input
+                                  type="text"
+                                  value={btn.label || ''}
+                                  onChange={(e) => updateArrayField('buttons', idx, 'label', e.target.value)}
+                                  placeholder="Get Started"
+                                  className={`w-full rounded-lg px-3 py-1.5 text-xs font-semibold border ${
+                                    isDark ? 'bg-[#1a2233] border-[#1f293d] text-white' : 'bg-slate-50 border-slate-200 text-slate-900'
+                                  }`}
+                                />
+                              </div>
+                              <div>
+                                <label className="text-[10px] font-semibold text-slate-400 block mb-0.5">Button Link Target</label>
+                                <input
+                                  type="text"
+                                  value={btn.link || ''}
+                                  onChange={(e) => updateArrayField('buttons', idx, 'link', e.target.value)}
+                                  placeholder="/contact or /services"
+                                  className={`w-full rounded-lg px-3 py-1.5 text-xs border ${
+                                    isDark ? 'bg-[#1a2233] border-[#1f293d] text-white' : 'bg-slate-50 border-slate-200 text-slate-900'
+                                  }`}
+                                />
+                              </div>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => removeArrayItem('buttons', idx)}
+                              className="p-2 text-slate-400 hover:text-red-500 rounded-lg transition shrink-0 cursor-pointer"
+                              title="Delete Button"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 )}
 
