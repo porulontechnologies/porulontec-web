@@ -200,23 +200,31 @@ export default function About() {
 
   const [dbSections, setDbSections] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     fetchSections('about')
       .then((data) => {
         if (data && Array.isArray(data)) {
           const secMap = {};
+
           data.forEach((s) => {
-            if (s.sectionKey) secMap[s.sectionKey] = s;
+            if (s.sectionKey) {
+              secMap[s.sectionKey] = s;
+            }
           });
+
           setDbSections(secMap);
         } else {
           setDbSections({});
         }
+
+        setIsLoaded(true);
       })
       .catch((err) => {
         console.error('Failed to fetch about sections:', err);
         setDbSections({});
+        setIsLoaded(true);
       });
   }, []);
 
