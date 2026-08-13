@@ -2620,6 +2620,104 @@ export default function SectionsManager() {
                 )}
 
                 {/* ============================================================ */}
+                {/* PRODUCTS SECTION 2: CLIENT TRUST & PARTNER BRANDS MARQUEE FORM EDITOR */}
+                {/* ============================================================ */}
+                {formData.sectionKey === 'projects_trust_bar' && (
+                  <div className="space-y-6">
+                    <div>
+                      <label className={`block text-xs font-bold mb-1.5 ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>
+                        Top Section Kicker Tagline
+                      </label>
+                      <input
+                        type="text"
+                        value={formData.kicker || ''}
+                        onChange={(e) => setFormData({ ...formData, kicker: e.target.value })}
+                        placeholder="Trusted by Engineering Leaders & Global Client Brands"
+                        className={`w-full rounded-xl px-4 py-2.5 text-xs font-medium border ${
+                          isDark ? 'bg-[#1a2233] border-[#1f293d] text-slate-100' : 'bg-slate-50 border-slate-300 text-slate-900'
+                        }`}
+                      />
+                    </div>
+
+                    <div>
+                      <label className={`block text-xs font-bold mb-1.5 ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>
+                        Section Main Title (Optional)
+                      </label>
+                      <input
+                        type="text"
+                        value={formData.title || ''}
+                        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                        placeholder="Our Trusted Partners"
+                        className={`w-full rounded-xl px-4 py-2.5 text-xs font-medium border ${
+                          isDark ? 'bg-[#1a2233] border-[#1f293d] text-slate-100' : 'bg-slate-50 border-slate-300 text-slate-900'
+                        }`}
+                      />
+                    </div>
+
+                    {/* Brand Names Marquee Items Array Editor */}
+                    <div className={`p-4 rounded-2xl border space-y-4 ${
+                      isDark ? 'bg-[#1a2233]/40 border-[#1f293d]' : 'bg-slate-50 border-slate-200'
+                    }`}>
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h3 className="text-xs font-bold text-purple-400">Partner & Client Brand Names ({(formData.items || []).length})</h3>
+                          <p className={`text-[11px] ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                            Add, edit, or remove client & partner brand names displayed in the infinite running marquee ticker
+                          </p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => addArrayItem('items', { title: 'New Partner Brand' })}
+                          className="px-3 py-1.5 bg-[#7c3aed] text-white rounded-xl text-xs font-semibold flex items-center gap-1 hover:bg-[#6d28d9] transition cursor-pointer"
+                        >
+                          <Plus className="w-3.5 h-3.5" />
+                          <span>Add Brand</span>
+                        </button>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[350px] overflow-y-auto pr-1">
+                        {(formData.items && formData.items.length > 0 ? formData.items : [
+                          { title: 'MedHealth Diagnostics Network' },
+                          { title: 'GlobalLogistics AP' },
+                          { title: 'Apex Banking Core' },
+                          { title: 'AutoSmart Robotics' },
+                          { title: 'CloudScale Networks' },
+                          { title: 'FinTech Sentinel' },
+                        ]).map((brand, idx) => (
+                          <div key={idx} className={`p-3 rounded-xl border flex items-center gap-3 ${
+                            isDark ? 'bg-[#121824] border-[#1f293d]' : 'bg-white border-slate-200'
+                          }`}>
+                            <div className="flex-1">
+                              <label className="text-[10px] font-semibold text-slate-400 block mb-0.5">Brand Name #{idx + 1}</label>
+                              <input
+                                type="text"
+                                value={brand.title || brand.name || ''}
+                                onChange={(e) => {
+                                  updateArrayField('items', idx, 'title', e.target.value);
+                                  updateArrayField('items', idx, 'name', e.target.value);
+                                }}
+                                placeholder="Brand Name"
+                                className={`w-full rounded-lg px-3 py-1.5 text-xs font-bold border ${
+                                  isDark ? 'bg-[#1a2233] border-[#1f293d] text-white' : 'bg-slate-50 border-slate-200 text-slate-900'
+                                }`}
+                              />
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => removeArrayItem('items', idx)}
+                              className="p-2 text-slate-400 hover:text-red-500 rounded-lg transition shrink-0 cursor-pointer"
+                              title="Delete Brand"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* ============================================================ */}
                 {/* PRODUCTS SECTION 3: FLAGSHIP PRODUCTS SHOWCASE GRID FORM EDITOR */}
                 {/* ============================================================ */}
                 {formData.sectionKey === 'projects_grid' && (
