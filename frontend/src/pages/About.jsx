@@ -226,12 +226,24 @@ export default function About() {
   const valuesSec = dbSections?.about_values;
   const ctaSec = dbSections?.about_cta;
 
-  const isLoaded = dbSections !== null;
-  const showHero = !isLoaded || !!heroSec;
-  const showStory = !isLoaded || !!storySec;
-  const showStats = !isLoaded || !!statsSec;
-  const showValues = !isLoaded || !!valuesSec;
-  const showCta = !isLoaded || !!ctaSec;
+  const hasPageConfig = dbSections && Object.keys(dbSections).length > 0;
+
+  const isSecVisible = (sec) => {
+    if (sec) {
+      if (sec.isActive === false || sec.visible === false || sec.enabled === false || sec.isArchived === true) {
+        return false;
+      }
+      return true;
+    }
+    if (hasPageConfig) return false;
+    return true;
+  };
+
+  const showHero = isSecVisible(heroSec);
+  const showStory = isSecVisible(storySec);
+  const showStats = isSecVisible(statsSec);
+  const showValues = isSecVisible(valuesSec);
+  const showCta = isSecVisible(ctaSec);
 
   // Process Hero Slides
   const heroSlides = (heroSec?.slides && heroSec.slides.length > 0)

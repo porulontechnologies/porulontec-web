@@ -387,6 +387,27 @@ export default function Products() {
   const secSec = dbSections?.projects_security;
   const ctaSec = dbSections?.projects_cta;
 
+  const hasPageConfig = dbSections && Object.keys(dbSections).length > 0;
+
+  const isSecVisible = (sec) => {
+    if (sec) {
+      if (sec.isActive === false || sec.visible === false || sec.enabled === false || sec.isArchived === true) {
+        return false;
+      }
+      return true;
+    }
+    if (hasPageConfig) return false;
+    return true;
+  };
+
+  const showHero = isSecVisible(heroSec);
+  const showTrust = isSecVisible(trustSec);
+  const showGrid = isSecVisible(gridSec);
+  const showClientStories = isSecVisible(clientSec);
+  const showTechStack = isSecVisible(techSec);
+  const showTestimonials = isSecVisible(testiSec);
+  const showCta = isSecVisible(ctaSec);
+
   // Background Media Parsing for Section 1 Hero Banner
   const bgMediaUrl = getCleanMediaUrl(heroSec?.mediaUrl || heroSec?.heroMedia);
   const isVideo = bgMediaUrl && (

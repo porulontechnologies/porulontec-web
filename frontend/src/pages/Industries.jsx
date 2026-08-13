@@ -235,10 +235,22 @@ export default function Industries() {
   const gridSec = dbSections?.industries_grid;
   const ctaSec = dbSections?.industries_cta;
 
-  const isLoaded = dbSections !== null;
-  const showHero = !isLoaded || !!heroSec;
-  const showGrid = !isLoaded || !!gridSec;
-  const showCta = !isLoaded || !!ctaSec;
+  const hasPageConfig = dbSections && Object.keys(dbSections).length > 0;
+
+  const isSecVisible = (sec) => {
+    if (sec) {
+      if (sec.isActive === false || sec.visible === false || sec.enabled === false || sec.isArchived === true) {
+        return false;
+      }
+      return true;
+    }
+    if (hasPageConfig) return false;
+    return true;
+  };
+
+  const showHero = isSecVisible(heroSec);
+  const showGrid = isSecVisible(gridSec);
+  const showCta = isSecVisible(ctaSec);
 
   const displayIndustriesList = (gridSec?.items && gridSec.items.length > 0)
     ? gridSec.items.map((item) => ({

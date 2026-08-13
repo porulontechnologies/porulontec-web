@@ -1250,14 +1250,26 @@ export default function Home() {
   const whyUsSec = dbSections?.why_choose_us;
   const ctaSec = dbSections?.final_cta;
 
-  const isLoaded = dbSections !== null;
-  const showHero = !isLoaded || !!heroSec;
-  const showMarquee = !isLoaded || !!marqueeSec;
-  const showAbout = !isLoaded || !!aboutSec;
-  const showServices = !isLoaded || !!servicesSec;
-  const showIndustries = !isLoaded || !!industriesSec;
-  const showWhyUs = !isLoaded || !!whyUsSec;
-  const showCta = !isLoaded || !!ctaSec;
+  const hasPageConfig = dbSections && Object.keys(dbSections).length > 0;
+
+  const isSecVisible = (sec) => {
+    if (sec) {
+      if (sec.isActive === false || sec.visible === false || sec.enabled === false || sec.isArchived === true) {
+        return false;
+      }
+      return true;
+    }
+    if (hasPageConfig) return false;
+    return true;
+  };
+
+  const showHero = isSecVisible(heroSec);
+  const showMarquee = isSecVisible(marqueeSec);
+  const showAbout = isSecVisible(aboutSec);
+  const showServices = isSecVisible(servicesSec);
+  const showIndustries = isSecVisible(industriesSec);
+  const showWhyUs = isSecVisible(whyUsSec);
+  const showCta = isSecVisible(ctaSec);
 
   const activeTechItems = (marqueeSec?.items && marqueeSec.items.length > 0)
     ? marqueeSec.items.map(item => ({

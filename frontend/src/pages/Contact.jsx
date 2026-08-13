@@ -100,14 +100,22 @@ export default function Contact() {
 
   const getSec = (key) => sections?.find((s) => s.sectionKey === key && s.isActive && !s.isArchived);
 
-  const isLoaded = sections !== null;
-  const heroSec = getSec('contact_hero');
-  const infoSec = getSec('contact_info');
-  const formSec = getSec('contact_form');
+  const hasPageConfig = sections !== null && sections.length > 0;
 
-  const showHero = !isLoaded || !!heroSec;
-  const showInfo = !isLoaded || !!infoSec;
-  const showForm = !isLoaded || !!formSec;
+  const isSecVisible = (sec) => {
+    if (sec) {
+      if (sec.isActive === false || sec.visible === false || sec.enabled === false || sec.isArchived === true) {
+        return false;
+      }
+      return true;
+    }
+    if (hasPageConfig) return false;
+    return true;
+  };
+
+  const showHero = isSecVisible(heroSec);
+  const showInfo = isSecVisible(infoSec);
+  const showForm = isSecVisible(formSec);
 
   // Defaults fallback
   const heroKicker = heroSec?.kicker || 'Contact Porulon';

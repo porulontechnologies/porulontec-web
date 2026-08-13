@@ -157,11 +157,16 @@ export default function Training() {
   const faqSec = dbSections?.training_faq;
   const ctaSec = dbSections?.training_cta;
 
+  const hasPageConfig = dbSections && Object.keys(dbSections).length > 0;
+
   const isSecVisible = (sec) => {
-    if (!sec) return true;
-    if (sec.isActive === false || sec.visible === false || sec.enabled === false || sec.isArchived === true) {
-      return false;
+    if (sec) {
+      if (sec.isActive === false || sec.visible === false || sec.enabled === false || sec.isArchived === true) {
+        return false;
+      }
+      return true;
     }
+    if (hasPageConfig) return false;
     return true;
   };
 

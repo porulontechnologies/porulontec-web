@@ -240,11 +240,16 @@ export default function Services() {
   const processSec = dbSections?.services_process;
   const ctaSec = dbSections?.services_cta;
 
+  const hasPageConfig = dbSections && Object.keys(dbSections).length > 0;
+
   const isSecVisible = (sec) => {
-    if (!sec) return true;
-    if (sec.isActive === false || sec.visible === false || sec.enabled === false || sec.isArchived === true) {
-      return false;
+    if (sec) {
+      if (sec.isActive === false || sec.visible === false || sec.enabled === false || sec.isArchived === true) {
+        return false;
+      }
+      return true;
     }
+    if (hasPageConfig) return false;
     return true;
   };
 

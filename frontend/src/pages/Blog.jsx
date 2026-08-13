@@ -62,8 +62,22 @@ export default function Blog() {
   const gridSec = getSec('blog_grid');
   const ctaSec = getSec('blog_cta');
 
-  const showHero = !isLoaded || !!heroSec || true;
-  const showCta = !isLoaded || !!ctaSec;
+  const hasPageConfig = sections !== null && sections.length > 0;
+
+  const isSecVisible = (sec) => {
+    if (sec) {
+      if (sec.isActive === false || sec.visible === false || sec.enabled === false || sec.isArchived === true) {
+        return false;
+      }
+      return true;
+    }
+    if (hasPageConfig) return false;
+    return true;
+  };
+
+  const showHero = isSecVisible(heroSec);
+  const showGrid = isSecVisible(gridSec);
+  const showCta = isSecVisible(ctaSec);
 
   const heroMediaSrc = getCleanMediaUrl(heroSec?.mediaUrl);
 
