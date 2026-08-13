@@ -281,8 +281,6 @@ export default function About() {
         title: item.title || item.name || defaultValues[idx]?.title || 'Value',
         desc: item.desc || defaultValues[idx]?.desc || '',
       }))
-    : isLoaded
-    ? []
     : defaultValues;
 
   const heroMetrics = (heroSec?.stats && heroSec.stats.length > 0)
@@ -340,12 +338,12 @@ export default function About() {
               );
             })()}
 
-            {/* Soft Translucent Glass Overlay for Ultra-Bright Media Visibility */}
-            <div className="absolute inset-0 bg-gradient-to-r from-white/60 via-white/40 to-transparent dark:from-[#070512]/85 dark:via-[#070512]/60 dark:to-transparent" />
+            {/* High Contrast Dark Overlay matching Home & Products Hero */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/65 to-transparent" />
             
             {/* Top & Bottom Seamless Blending Gradients */}
-            <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-bg via-bg/70 to-transparent pointer-events-none z-10" />
-            <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-bg via-bg/70 to-transparent pointer-events-none z-10" />
+            <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#070512] via-[#070512]/70 to-transparent pointer-events-none z-10" />
+            <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#070512] via-[#070512]/70 to-transparent pointer-events-none z-10" />
 
             {/* Soft Ambient Glow */}
             <div className="absolute -left-20 top-1/3 w-[450px] h-[450px] bg-purple-500/25 rounded-full blur-[120px] pointer-events-none z-10" />
@@ -356,25 +354,25 @@ export default function About() {
             <div className="max-w-2xl text-left" data-aos="fade-right">
               {/* Slide Kicker Badge (Skip if empty) */}
               {(activeSlideData.kicker || heroSec?.kicker) && (
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-500/15 backdrop-blur-md border border-purple-500/40 text-purple-700 dark:text-purple-300 text-[11px] sm:text-xs font-extrabold tracking-[0.18em] uppercase mb-4 shadow-sm">
-                  <HiOutlineSparkles className="text-sm text-purple-600 dark:text-purple-400" />
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-500/20 backdrop-blur-md border border-purple-500/40 text-purple-300 text-[11px] sm:text-xs font-extrabold tracking-[0.18em] uppercase mb-4 shadow-sm">
+                  <HiOutlineSparkles className="text-sm text-purple-400" />
                   <span>{activeSlideData.kicker || heroSec?.kicker}</span>
                 </div>
               )}
 
               {/* Slide Main Headline Title (Never Collapses) */}
-              <h1 className="text-3xl sm:text-5xl md:text-6xl font-extralight tracking-tight text-slate-900 dark:text-white mb-5 leading-[1.12] drop-shadow-sm">
+              <h1 className="text-3xl sm:text-5xl md:text-6xl font-extralight tracking-tight text-white mb-5 leading-[1.12] drop-shadow-sm">
                 <FormattedTitle
                   title={activeSlideData.title || heroSec?.title}
                   defaultText="Where Deep Tech Meets A Human-Centric Mindset"
-                  accentClass="text-purple-600 dark:text-purple-400 font-normal"
+                  accentClass="text-purple-400 font-normal"
                   highlightWords={2}
                 />
               </h1>
 
               {/* Slide Subtitle Description (Skip if empty) */}
               {(activeSlideData.subtitle || heroSec?.subtitle) && (
-                <p className="text-base sm:text-lg text-slate-900 dark:text-slate-100 leading-relaxed font-normal tracking-tight mb-8 max-w-xl">
+                <p className="text-base sm:text-lg text-slate-200 leading-relaxed font-normal tracking-tight mb-8 max-w-xl">
                   {activeSlideData.subtitle || heroSec?.subtitle}
                 </p>
               )}
@@ -390,7 +388,7 @@ export default function About() {
                       className={
                         idx === 0
                           ? "group no-underline px-7 py-3.5 rounded-full bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:from-purple-500 hover:to-indigo-500 text-white font-extrabold text-xs sm:text-sm tracking-wide shadow-lg shadow-purple-600/35 hover:shadow-purple-600/55 hover:scale-[1.03] active:scale-95 transition-all duration-300 flex items-center gap-2"
-                          : "no-underline px-7 py-3.5 rounded-full bg-white/90 dark:bg-white/15 backdrop-blur-md text-slate-900 dark:text-white font-extrabold text-xs sm:text-sm tracking-wide hover:border-purple-500/60 transition-all duration-300 border border-slate-300 dark:border-white/30 hover:scale-[1.03] active:scale-95 flex items-center gap-2 shadow-md"
+                          : "no-underline px-7 py-3.5 rounded-full bg-white/15 backdrop-blur-md text-white font-extrabold text-xs sm:text-sm tracking-wide hover:border-purple-500/60 transition-all duration-300 border border-white/30 hover:scale-[1.03] active:scale-95 flex items-center gap-2 shadow-md"
                       }
                     >
                       <span>{btn.label}</span>
