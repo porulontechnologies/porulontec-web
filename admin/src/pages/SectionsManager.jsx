@@ -2655,27 +2655,32 @@ export default function SectionsManager() {
                     </div>
 
                     {/* Brand Names Marquee Items Array Editor */}
-                    <div className={`p-4 rounded-2xl border space-y-4 ${
+                    <div className={`p-4 sm:p-5 rounded-2xl border space-y-4 ${
                       isDark ? 'bg-[#1a2233]/40 border-[#1f293d]' : 'bg-slate-50 border-slate-200'
                     }`}>
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <h3 className="text-xs font-bold text-purple-400">Partner & Client Brand Names ({(formData.items || []).length})</h3>
-                          <p className={`text-[11px] ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-200/60 dark:border-slate-800">
+                        <div className="flex-1 pr-2">
+                          <h3 className="text-xs font-bold text-purple-600 dark:text-purple-400 flex items-center gap-1.5">
+                            <span>Partner & Client Brand Names</span>
+                            <span className="px-2 py-0.5 rounded-full bg-purple-500/15 text-[10px] font-extrabold">
+                              {(formData.items || []).length}
+                            </span>
+                          </h3>
+                          <p className={`text-[11px] mt-0.5 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                             Add, edit, or remove client & partner brand names displayed in the infinite running marquee ticker
                           </p>
                         </div>
                         <button
                           type="button"
                           onClick={() => addArrayItem('items', { title: 'New Partner Brand' })}
-                          className="px-3 py-1.5 bg-[#7c3aed] text-white rounded-xl text-xs font-semibold flex items-center gap-1 hover:bg-[#6d28d9] transition cursor-pointer"
+                          className="px-4 py-2 bg-[#7c3aed] hover:bg-[#6d28d9] text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shrink-0 shadow-sm transition whitespace-nowrap self-start sm:self-auto cursor-pointer"
                         >
-                          <Plus className="w-3.5 h-3.5" />
+                          <Plus className="w-4 h-4" />
                           <span>Add Brand</span>
                         </button>
                       </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[350px] overflow-y-auto pr-1">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 max-h-[360px] overflow-y-auto pr-1 pt-1">
                         {(formData.items && formData.items.length > 0 ? formData.items : [
                           { title: 'MedHealth Diagnostics Network' },
                           { title: 'GlobalLogistics AP' },
@@ -2684,11 +2689,13 @@ export default function SectionsManager() {
                           { title: 'CloudScale Networks' },
                           { title: 'FinTech Sentinel' },
                         ]).map((brand, idx) => (
-                          <div key={idx} className={`p-3 rounded-xl border flex items-center gap-3 ${
-                            isDark ? 'bg-[#121824] border-[#1f293d]' : 'bg-white border-slate-200'
+                          <div key={idx} className={`p-3.5 rounded-2xl border flex items-center gap-3 transition-all ${
+                            isDark ? 'bg-[#121824] border-[#1f293d] hover:border-purple-500/40' : 'bg-white border-slate-200 hover:border-purple-300 shadow-xs'
                           }`}>
-                            <div className="flex-1">
-                              <label className="text-[10px] font-semibold text-slate-400 block mb-0.5">Brand Name #{idx + 1}</label>
+                            <div className="flex-1 min-w-0">
+                              <label className="text-[10px] font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400 block mb-1">
+                                Brand Name #{idx + 1}
+                              </label>
                               <input
                                 type="text"
                                 value={brand.title || brand.name || ''}
@@ -2697,15 +2704,15 @@ export default function SectionsManager() {
                                   updateArrayField('items', idx, 'name', e.target.value);
                                 }}
                                 placeholder="Brand Name"
-                                className={`w-full rounded-lg px-3 py-1.5 text-xs font-bold border ${
-                                  isDark ? 'bg-[#1a2233] border-[#1f293d] text-white' : 'bg-slate-50 border-slate-200 text-slate-900'
+                                className={`w-full rounded-xl px-3.5 py-2 text-xs font-bold border transition ${
+                                  isDark ? 'bg-[#1a2233] border-[#1f293d] text-white focus:border-purple-500' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-purple-500'
                                 }`}
                               />
                             </div>
                             <button
                               type="button"
                               onClick={() => removeArrayItem('items', idx)}
-                              className="p-2 text-slate-400 hover:text-red-500 rounded-lg transition shrink-0 cursor-pointer"
+                              className="p-2.5 text-slate-400 hover:text-red-500 hover:bg-red-500/10 rounded-xl transition shrink-0 cursor-pointer self-end mb-0.5"
                               title="Delete Brand"
                             >
                               <Trash2 className="w-4 h-4" />
