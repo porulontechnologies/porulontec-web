@@ -392,7 +392,7 @@ export default function TrainingDetail() {
                 onClick={(e) => handleContactClick(e, '/contact')}
                 className="btn-primary w-full py-3.5 rounded-full text-xs font-extrabold tracking-wide inline-flex items-center justify-center gap-2 shadow-lg shadow-purple-600/25 hover:scale-105 transition-all no-underline"
               >
-                <span>Enroll Now</span>
+                <span>Enquire Now</span>
                 <GoArrowRight className="text-sm" />
               </a>
 
