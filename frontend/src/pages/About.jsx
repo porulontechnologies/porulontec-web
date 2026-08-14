@@ -454,13 +454,29 @@ export default function About() {
                     />
                   </h2>
                   
-                  <p className="text-base text-text-muted leading-relaxed font-light mb-6">
-                    {storySec?.subtitle || 'Porulon Technologies was founded with a clear conviction: that the transformative power of Artificial Intelligence and Machine Learning should be accessible to businesses of every size.'}
-                  </p>
+                  <div className="text-base text-text-muted leading-relaxed font-light mb-6 space-y-3 text-pretty">
+                    {(storySec?.subtitle || 'Porulon Technologies was founded with a clear conviction: that the transformative power of Artificial Intelligence and Machine Learning should be accessible to businesses of every size.')
+                      .split(/\n\n|\n/)
+                      .filter(Boolean)
+                      .map((para, pIdx) => (
+                        <p key={pIdx} className="leading-relaxed font-light text-pretty">
+                          {para.trim()}
+                        </p>
+                      ))}
+                  </div>
 
-                  <p className="text-base text-text-muted leading-relaxed font-light mb-8">
-                    {storySec?.content || 'We specialize in designing, developing, and deploying AI, ML, and automation-based software solutions and cloud-based systems.'}
-                  </p>
+                  {storySec?.content && (
+                    <div className="text-base text-text-muted leading-relaxed font-light mb-8 space-y-3 text-pretty">
+                      {storySec.content
+                        .split(/\n\n|\n/)
+                        .filter(Boolean)
+                        .map((para, pIdx) => (
+                          <p key={pIdx} className="leading-relaxed font-light text-pretty">
+                            {para.trim()}
+                          </p>
+                        ))}
+                    </div>
+                  )}
 
                   {/* Key Milestone Chips */}
                   <div className="grid sm:grid-cols-3 gap-3 pt-2 mb-8">

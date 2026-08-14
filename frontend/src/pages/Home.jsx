@@ -1549,10 +1549,19 @@ export default function Home() {
                 />
               </h2>
 
-              <p className="text-sm sm:text-base text-text-muted mb-6 leading-relaxed font-light tracking-tight">
-                {aboutSec?.subtitle ||
-                  "Porulon Technologies is a forward-thinking technology company specializing in AI, ML, and automation-based software solutions. Beyond software, we shape the future through consultancy, research, and training programs that prepare young minds for the careers of tomorrow."}
-              </p>
+              {/* Structured Clean Paragraph Formatting */}
+              <div className="text-sm sm:text-base text-text-muted mb-6 leading-relaxed font-light tracking-tight space-y-3 text-pretty">
+                {(aboutSec?.subtitle ||
+                  "Porulon Technologies is an engineering and technology solutions company helping organizations transform complex ideas into secure, scalable, and intelligent digital solutions. We bridge the gap between embedded systems, cybersecurity, AI, cloud computing, software engineering, and digital transformation to build technology that delivers real-world impact.\n\nFrom embedded systems and IoT security to AI-powered applications, cloud solutions, cybersecurity, LMS platforms, and enterprise software development, our multidisciplinary expertise enables businesses and institutions to innovate faster and operate smarter.\n\nWe specialize in end-to-end technology solutions, combining hardware engineering, firmware development, application software, cloud infrastructure, cybersecurity, and AI to solve complex technical challenges."
+                )
+                  .split(/\n\n|\n/)
+                  .filter(Boolean)
+                  .map((para, pIdx) => (
+                    <p key={pIdx} className="leading-relaxed font-light text-pretty">
+                      {para.trim()}
+                    </p>
+                  ))}
+              </div>
 
               {/* Dynamic Stats Grid (No Top Border Line) */}
               <div className="grid grid-cols-2 gap-5 sm:gap-6 mb-6">
