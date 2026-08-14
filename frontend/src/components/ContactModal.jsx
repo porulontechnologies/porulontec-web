@@ -59,11 +59,11 @@ export default function ContactModal() {
 
     // 3. Phone Number Validation
     const rawDigits = form.phone.replace(/\D/g, '');
-    const phoneFormatRegex = /^\+?[0-9\s\-()]{7,20}$/;
+    const phoneFormatRegex = /^\+?[0-9\s\-()]{10,20}$/;
     if (!form.phone.trim()) {
       newErrors.phone = 'Phone Number is required';
-    } else if (!phoneFormatRegex.test(form.phone.trim()) || rawDigits.length < 7 || rawDigits.length > 15) {
-      newErrors.phone = 'Please enter a valid phone number with 7 to 15 digits (e.g. +91 98765 43210)';
+    } else if (!phoneFormatRegex.test(form.phone.trim()) || rawDigits.length < 10 || rawDigits.length > 13) {
+      newErrors.phone = 'Please enter a valid 10-digit phone number (e.g. +91 98765 43210)';
     }
 
     // 4. Company Validation
