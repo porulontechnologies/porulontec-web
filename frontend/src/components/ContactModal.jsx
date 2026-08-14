@@ -9,6 +9,7 @@ export default function ContactModal() {
   const [form, setForm] = useState({
     name: '',
     email: '',
+    phone: '',
     company: '',
     message: '',
   });
@@ -19,7 +20,7 @@ export default function ContactModal() {
   useEffect(() => {
     if (isOpen) {
       setStatus('idle');
-      setForm({ name: '', email: '', company: '', message: '' });
+      setForm({ name: '', email: '', phone: '', company: '', message: '' });
       setErrors({});
       document.body.style.overflow = 'hidden';
     } else {
@@ -40,14 +41,45 @@ export default function ContactModal() {
 
   const validateForm = () => {
     const newErrors = {};
-    if (!form.name.trim()) newErrors.name = 'Name is required';
-    if (!form.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      newErrors.email = 'Please enter a valid email address';
+
+    // 1. Full Name Validation
+    if (!form.name.trim()) {
+      newErrors.name = 'Full Name is required';
+    } else if (form.name.trim().length < 2) {
+      newErrors.name = 'Full Name must be at least 2 characters';
     }
-    if (!form.message.trim()) newErrors.message = 'Message is required';
-    
+
+    // 2. Work Email Validation
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!form.email.trim()) {
+      newErrors.email = 'Work Email is required';
+    } else if (!emailRegex.test(form.email.trim())) {
+      newErrors.email = 'Please enter a valid email address (e.g. name@company.com)';
+    }
+
+    // 3. Phone Number Validation
+    const rawDigits = form.phone.replace(/\D/g, '');
+    const phoneFormatRegex = /^\+?[0-9\s\-()]{7,20}$/;
+    if (!form.phone.trim()) {
+      newErrors.phone = 'Phone Number is required';
+    } else if (!phoneFormatRegex.test(form.phone.trim()) || rawDigits.length < 7 || rawDigits.length > 15) {
+      newErrors.phone = 'Please enter a valid phone number with 7 to 15 digits (e.g. +91 98765 43210)';
+    }
+
+    // 4. Company Validation
+    if (!form.company.trim()) {
+      newErrors.company = 'Company Name is required';
+    } else if (form.company.trim().length < 2) {
+      newErrors.company = 'Company Name must be at least 2 characters';
+    }
+
+    // 5. Message Validation
+    if (!form.message.trim()) {
+      newErrors.message = 'Message is required';
+    } else if (form.message.trim().length < 10) {
+      newErrors.message = 'Message must be at least 10 characters long';
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -61,12 +93,13 @@ export default function ContactModal() {
       await submitContactInquiry({
         name: form.name.trim(),
         email: form.email,
+        phone: form.phone,
         company: form.company,
         interest: 'general',
         message: form.message,
       });
       setStatus('sent');
-      setForm({ name: '', email: '', company: '', message: '' });
+      setForm({ name: '', email: '', phone: '', company: '', message: '' });
       setErrors({});
       setTimeout(() => {
         setStatus('idle');
@@ -146,19 +179,36 @@ export default function ContactModal() {
                 {errors.email && <p className="text-red-500 text-[11px] mt-1 font-semibold">{errors.email}</p>}
               </div>
               <div>
-                <label htmlFor="modal-company" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                  Company
+                <label htmlFor="modal-phone" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                  Phone Number
                 </label>
                 <input
-                  id="modal-company"
-                  name="company"
-                  type="text"
-                  value={form.company}
+                  id="modal-phone"
+                  name="phone"
+                  type="tel"
+                  value={form.phone}
                   onChange={handleChange}
-                  className="w-full rounded-xl bg-slate-50 border border-slate-200 px-4 py-3 text-slate-900 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 transition-all font-medium"
-                  placeholder="Company Inc."
+                  className={`w-full rounded-xl bg-slate-50 border ${errors.phone ? 'border-red-400 focus:ring-red-500/50 focus:border-red-500' : 'border-slate-200 focus:ring-purple-500/50 focus:border-purple-500'} px-4 py-3 text-slate-900 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-all font-medium`}
+                  placeholder="+91 98765 43210"
                 />
+                {errors.phone && <p className="text-red-500 text-[11px] mt-1 font-semibold">{errors.phone}</p>}
               </div>
+            </div>
+
+            <div>
+              <label htmlFor="modal-company" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                Company
+              </label>
+              <input
+                id="modal-company"
+                name="company"
+                type="text"
+                value={form.company}
+                onChange={handleChange}
+                className={`w-full rounded-xl bg-slate-50 border ${errors.company ? 'border-red-400 focus:ring-red-500/50 focus:border-red-500' : 'border-slate-200 focus:ring-purple-500/50 focus:border-purple-500'} px-4 py-3 text-slate-900 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-all font-medium`}
+                placeholder="Company Inc."
+              />
+              {errors.company && <p className="text-red-500 text-[11px] mt-1 font-semibold">{errors.company}</p>}
             </div>
 
             <div>

@@ -90,7 +90,8 @@ app.use((req, res) => {
   res.status(404).json({ message: 'API Endpoint Not Found' });
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = parseInt(process.env.PORT || '5000', 10);
+const HOST = '0.0.0.0';
 
 const startServer = async () => {
   const isConnected = await connectDB();
@@ -103,10 +104,10 @@ const startServer = async () => {
     }
   }
   
-  app.listen(PORT, () => {
+  app.listen(PORT, HOST, () => {
     console.log(`=================================================`);
-    console.log(`🚀 PorulonStack Server running on port ${PORT}`);
-    console.log(`🌐 API Endpoint: http://localhost:${PORT}/api`);
+    console.log(`🚀 PorulonStack Server running on http://${HOST}:${PORT}`);
+    console.log(`🌐 API Endpoint: http://${HOST}:${PORT}/api`);
     console.log(`=================================================`);
   });
 };

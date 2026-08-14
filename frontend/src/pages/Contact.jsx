@@ -70,6 +70,7 @@ export default function Contact() {
     firstName: '',
     lastName: '',
     email: '',
+    phone: '',
     company: '',
     subject: '',
     message: '',
@@ -232,16 +233,62 @@ export default function Contact() {
 
   const validateForm = () => {
     const newErrors = {};
-    if (!form.firstName.trim()) newErrors.firstName = 'First Name is required';
-    if (!form.lastName.trim()) newErrors.lastName = 'Last Name is required';
-    if (!form.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      newErrors.email = 'Please enter a valid email address';
+
+    // 1. Topic / Project Area Validation
+    if (topicList.length > 0 && !selectedTopic) {
+      newErrors.selectedTopic = 'Please select a project area or interest';
     }
-    if (!form.subject.trim()) newErrors.subject = 'Subject is required';
-    if (!form.message.trim()) newErrors.message = 'Message is required';
-    
+
+    // 2. First Name Validation
+    if (!form.firstName.trim()) {
+      newErrors.firstName = 'First Name is required';
+    } else if (form.firstName.trim().length < 2) {
+      newErrors.firstName = 'First Name must be at least 2 characters';
+    }
+
+    // 3. Last Name Validation
+    if (!form.lastName.trim()) {
+      newErrors.lastName = 'Last Name is required';
+    }
+
+    // 4. Email Validation
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!form.email.trim()) {
+      newErrors.email = 'Work Email is required';
+    } else if (!emailRegex.test(form.email.trim())) {
+      newErrors.email = 'Please enter a valid email address (e.g. name@company.com)';
+    }
+
+    // 5. Phone Number Validation
+    const rawDigits = form.phone.replace(/\D/g, '');
+    const phoneFormatRegex = /^\+?[0-9\s\-()]{7,20}$/;
+    if (!form.phone.trim()) {
+      newErrors.phone = 'Phone Number is required';
+    } else if (!phoneFormatRegex.test(form.phone.trim()) || rawDigits.length < 7 || rawDigits.length > 15) {
+      newErrors.phone = 'Please enter a valid phone number with 7 to 15 digits (e.g. +91 98765 43210)';
+    }
+
+    // 6. Company Validation
+    if (!form.company.trim()) {
+      newErrors.company = 'Company Name is required';
+    } else if (form.company.trim().length < 2) {
+      newErrors.company = 'Company Name must be at least 2 characters';
+    }
+
+    // 7. Subject Validation
+    if (!form.subject.trim()) {
+      newErrors.subject = 'Subject is required';
+    } else if (form.subject.trim().length < 3) {
+      newErrors.subject = 'Subject must be at least 3 characters';
+    }
+
+    // 8. Message Validation
+    if (!form.message.trim()) {
+      newErrors.message = 'Message is required';
+    } else if (form.message.trim().length < 10) {
+      newErrors.message = 'Message must be at least 10 characters long';
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -254,6 +301,7 @@ export default function Contact() {
       await submitContactInquiry({
         name: `${form.firstName} ${form.lastName}`.trim(),
         email: form.email,
+        phone: form.phone,
         company: form.company,
         interest: selectedTopic,
         message: `${form.subject ? 'Subject: ' + form.subject + '\n\n' : ''}${form.message}`,
@@ -263,6 +311,7 @@ export default function Contact() {
         firstName: '',
         lastName: '',
         email: '',
+        phone: '',
         company: '',
         subject: '',
         message: '',
@@ -635,8 +684,11 @@ export default function Contact() {
                         id="projectArea"
                         name="projectArea"
                         value={selectedTopic}
-                        onChange={(e) => setSelectedTopic(e.target.value)}
-                        className={`w-full rounded-xl bg-slate-100/80 dark:bg-[#141028]/80 border border-slate-300/80 dark:border-purple-500/20 px-3.5 py-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-purple-500/40 focus:border-purple-500 transition-all font-medium appearance-none cursor-pointer pr-10 ${
+                        onChange={(e) => {
+                          setSelectedTopic(e.target.value);
+                          if (errors.selectedTopic) setErrors((prev) => ({ ...prev, selectedTopic: '' }));
+                        }}
+                        className={`w-full rounded-xl bg-slate-100/80 dark:bg-[#141028]/80 border ${errors.selectedTopic ? 'border-red-400 focus:ring-red-500/50 focus:border-red-500' : 'border-slate-300/80 dark:border-purple-500/20 focus:ring-purple-500/40 focus:border-purple-500'} px-3.5 py-2.5 text-xs focus:outline-none focus:ring-2 transition-all font-medium appearance-none cursor-pointer pr-10 ${
                           !selectedTopic ? 'text-text-muted/70' : 'text-text'
                         }`}
                       >
@@ -655,6 +707,7 @@ export default function Contact() {
                         </svg>
                       </div>
                     </div>
+                    {errors.selectedTopic && <p className="text-red-500 text-[11px] mt-1 font-semibold">{errors.selectedTopic}</p>}
                   </div>
                 )}
 
@@ -668,7 +721,6 @@ export default function Contact() {
                       id="firstName"
                       name="firstName"
                       type="text"
-                      required
                       value={form.firstName}
                       onChange={handleChange}
                       className={`w-full rounded-xl bg-slate-100/80 dark:bg-[#141028]/80 border ${errors.firstName ? 'border-red-400 focus:ring-red-500/50 focus:border-red-500' : 'border-slate-300/80 dark:border-purple-500/20 focus:ring-purple-500/40 focus:border-purple-500'} px-3.5 py-2.5 text-text text-xs placeholder:text-text-muted/60 focus:outline-none focus:ring-2 transition-all font-medium`}
@@ -684,7 +736,6 @@ export default function Contact() {
                       id="lastName"
                       name="lastName"
                       type="text"
-                      required
                       value={form.lastName}
                       onChange={handleChange}
                       className={`w-full rounded-xl bg-slate-100/80 dark:bg-[#141028]/80 border ${errors.lastName ? 'border-red-400 focus:ring-red-500/50 focus:border-red-500' : 'border-slate-300/80 dark:border-purple-500/20 focus:ring-purple-500/40 focus:border-purple-500'} px-3.5 py-2.5 text-text text-xs placeholder:text-text-muted/60 focus:outline-none focus:ring-2 transition-all font-medium`}
@@ -694,7 +745,7 @@ export default function Contact() {
                   </div>
                 </div>
 
-                {/* Work Email & Company */}
+                {/* Work Email & Phone Number */}
                 <div className="grid sm:grid-cols-2 gap-3.5">
                   <div>
                     <label htmlFor="email" className="block text-[11px] font-extrabold uppercase tracking-wider text-text mb-1">
@@ -704,7 +755,6 @@ export default function Contact() {
                       id="email"
                       name="email"
                       type="email"
-                      required
                       value={form.email}
                       onChange={handleChange}
                       className={`w-full rounded-xl bg-slate-100/80 dark:bg-[#141028]/80 border ${errors.email ? 'border-red-400 focus:ring-red-500/50 focus:border-red-500' : 'border-slate-300/80 dark:border-purple-500/20 focus:ring-purple-500/40 focus:border-purple-500'} px-3.5 py-2.5 text-text text-xs placeholder:text-text-muted/60 focus:outline-none focus:ring-2 transition-all font-medium`}
@@ -713,19 +763,37 @@ export default function Contact() {
                       {errors.email && <p className="text-red-500 text-[11px] mt-1 font-semibold">{errors.email}</p>}
                   </div>
                   <div>
-                    <label htmlFor="company" className="block text-[11px] font-extrabold uppercase tracking-wider text-text mb-1">
-                      Company
+                    <label htmlFor="phone" className="block text-[11px] font-extrabold uppercase tracking-wider text-text mb-1">
+                      Phone Number
                     </label>
                     <input
-                      id="company"
-                      name="company"
-                      type="text"
-                      value={form.company}
+                      id="phone"
+                      name="phone"
+                      type="tel"
+                      value={form.phone}
                       onChange={handleChange}
-                      className="w-full rounded-xl bg-slate-100/80 dark:bg-[#141028]/80 border border-slate-300/80 dark:border-purple-500/20 px-3.5 py-2.5 text-text text-xs placeholder:text-text-muted/60 focus:outline-none focus:ring-2 focus:ring-purple-500/40 focus:border-purple-500 transition-all font-medium"
-                      placeholder="Company Inc."
+                      className={`w-full rounded-xl bg-slate-100/80 dark:bg-[#141028]/80 border ${errors.phone ? 'border-red-400 focus:ring-red-500/50 focus:border-red-500' : 'border-slate-300/80 dark:border-purple-500/20 focus:ring-purple-500/40 focus:border-purple-500'} px-3.5 py-2.5 text-text text-xs placeholder:text-text-muted/60 focus:outline-none focus:ring-2 transition-all font-medium`}
+                      placeholder="+91 98765 43210"
                     />
+                    {errors.phone && <p className="text-red-500 text-[11px] mt-1 font-semibold">{errors.phone}</p>}
                   </div>
+                </div>
+
+                {/* Company Name */}
+                <div>
+                  <label htmlFor="company" className="block text-[11px] font-extrabold uppercase tracking-wider text-text mb-1">
+                    Company
+                  </label>
+                  <input
+                    id="company"
+                    name="company"
+                    type="text"
+                    value={form.company}
+                    onChange={handleChange}
+                    className={`w-full rounded-xl bg-slate-100/80 dark:bg-[#141028]/80 border ${errors.company ? 'border-red-400 focus:ring-red-500/50 focus:border-red-500' : 'border-slate-300/80 dark:border-purple-500/20 focus:ring-purple-500/40 focus:border-purple-500'} px-3.5 py-2.5 text-text text-xs placeholder:text-text-muted/60 focus:outline-none focus:ring-2 transition-all font-medium`}
+                    placeholder="Company Inc."
+                  />
+                  {errors.company && <p className="text-red-500 text-[11px] mt-1 font-semibold">{errors.company}</p>}
                 </div>
 
                 {/* Subject */}
