@@ -66,6 +66,11 @@ export default function ContactModal() {
         message: form.message,
       });
       setStatus('sent');
+      setForm({ name: '', email: '', company: '', message: '' });
+      setErrors({});
+      setTimeout(() => {
+        setStatus('idle');
+      }, 3500);
     } catch (err) {
       console.error(err);
       setErrors({ form: 'An error occurred. Please try again.' });

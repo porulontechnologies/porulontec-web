@@ -259,6 +259,16 @@ export default function Contact() {
         message: `${form.subject ? 'Subject: ' + form.subject + '\n\n' : ''}${form.message}`,
       });
       setStatus('sent');
+      setForm({
+        firstName: '',
+        lastName: '',
+        email: '',
+        company: '',
+        subject: '',
+        message: '',
+      });
+      setSelectedTopic('');
+      setErrors({});
     } catch (err) {
       console.error(err);
       setErrors({ form: 'An error occurred. Please try again.' });
