@@ -147,7 +147,6 @@ export const submitContactMessage = async (req, res) => {
           console.error('[SMTP Error] User confirmation email failed:', userErr.message);
         }
       }
-      }
     } catch (mailErr) {
       console.error('[SMTP Error] Failed to send email via SMTP:', mailErr.message);
       // We do NOT block contact submission if email sending fails, because inquiry is safely stored in Database
