@@ -1,0 +1,32 @@
+# ==============================================================================
+# Porulon Technologies - Robots.txt Rules for Search Engine Crawlers
+# Website: https://porulontech.com
+# Last Updated: August 14, 2026
+# ==============================================================================
+
+User-agent: *
+Allow: /
+Allow: /about
+Allow: /services
+Allow: /services/*
+Allow: /products
+Allow: /products/*
+Allow: /industries
+Allow: /training
+Allow: /training/*
+Allow: /blog
+Allow: /blog/*
+Allow: /contactus
+Allow: /privacy-policy
+Allow: /terms-of-service
+Allow: /cookie-policy
+
+# Disallow admin panel and internal backend API paths
+Disallow: /admin
+Disallow: /admin/*
+Disallow: /api/
+Disallow: /api/*
+
+# XML Sitemap Link
+Sitemap: https://porulontech.com/sitemap.xml
+Sitemap: https://porulon-frontend.onrender.com/sitemap.xml

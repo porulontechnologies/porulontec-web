@@ -65,6 +65,23 @@ if (fs.existsSync(frontendPublicDir)) {
   app.use('/videos', express.static(path.join(frontendPublicDir, 'videos')));
 }
 
+// Root SEO Files Fallbacks (robots.txt & sitemap.xml)
+app.get('/robots.txt', (req, res) => {
+  const robotsPath = path.join(process.cwd(), '../robots.txt');
+  const frontendRobots = path.join(process.cwd(), '../frontend/public/robots.txt');
+  if (fs.existsSync(robotsPath)) return res.sendFile(robotsPath);
+  if (fs.existsSync(frontendRobots)) return res.sendFile(frontendRobots);
+  return res.type('text/plain').send('User-agent: *\nAllow: /\nDisallow: /admin\nSitemap: https://porulontech.com/sitemap.xml');
+});
+
+app.get('/sitemap.xml', (req, res) => {
+  const sitemapPath = path.join(process.cwd(), '../sitemap.xml');
+  const frontendSitemap = path.join(process.cwd(), '../frontend/public/sitemap.xml');
+  if (fs.existsSync(sitemapPath)) return res.sendFile(sitemapPath);
+  if (fs.existsSync(frontendSitemap)) return res.sendFile(frontendSitemap);
+  return res.status(404).send('Sitemap not found');
+});
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({
