@@ -89,7 +89,7 @@ export default function PrivacyPolicy() {
             <div className="p-4 rounded-2xl bg-purple-500/10 border border-purple-500/20 text-xs sm:text-sm space-y-1">
               <p><strong>Porulon Technologies</strong></p>
               <p>Email: <a href="mailto:info@porulontech.com" className="text-purple-600 dark:text-purple-400 hover:underline">info@porulontech.com</a></p>
-              <p>Sales: +91 63851 86664 | General: +91 90470 99277 | Telephone: +91 422 714 1668</p>
+              <p>Sales: +91 90470 99277 | General: +91 90470 99277 | Telephone: +91 422 714 1668</p>
               <p>Address: 7/42, Kumaran Nagar, Keeranatham, Coimbatore 641035, Tamil Nadu, India</p>
             </div>
           </section>

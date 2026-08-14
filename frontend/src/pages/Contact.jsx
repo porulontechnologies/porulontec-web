@@ -147,9 +147,9 @@ export default function Contact() {
     {
       icon: 'HiOutlinePhone',
       title: 'Sales & General Support',
-      lines: ['Sales: +91 63851 86664', 'General: +91 90470 99277', 'Tel: +91 422 714 1668'],
+      lines: ['Sales: +91 90470 99277', 'General: +91 90470 99277', 'Tel: +91 422 714 1668'],
       sub: 'Mon-Fri, 9AM-6PM IST',
-      href: 'tel:+916385186664',
+      href: 'tel:+919047099277',
     },
     {
       icon: 'HiOutlineMapPin',
@@ -651,7 +651,7 @@ export default function Contact() {
                     <span className="text-[10px] font-extrabold text-purple-600 dark:text-purple-400 uppercase tracking-wider block">
                       NEED IMMEDIATE RESPONSE?
                     </span>
-                    <p className="text-text font-bold mt-0.5">Sales: +91 63851 86664 | General: +91 90470 99277 | info@porulontech.com</p>
+                    <p className="text-text font-bold mt-0.5">Sales: +91 90470 99277 | General: +91 90470 99277 | info@porulontech.com</p>
                   </div>
                   <a
                     href="mailto:info@porulontech.com"

@@ -55,7 +55,7 @@ export default function AIBot() {
     setIsTyping(true);
 
     setTimeout(() => {
-      let botResponse = 'Thank you for asking! Our engineering team specializes in AI, ML, and enterprise software. Feel free to contact us at info@porulontech.com, call Sales at +91 63851 86664, or General at +91 90470 99277.';
+      let botResponse = 'Thank you for asking! Our engineering team specializes in AI, ML, and enterprise software. Feel free to contact us at info@porulontech.com, call Sales at +91 90470 99277, or General at +91 90470 99277.';
       const lower = query.toLowerCase();
 
       if (lower.includes('ai') || lower.includes('machine learning') || lower.includes('ml') || lower.includes('solution')) {
@@ -65,7 +65,7 @@ export default function AIBot() {
       } else if (lower.includes('quote') || lower.includes('project') || lower.includes('price') || lower.includes('cost')) {
         botResponse = 'You can request a free project consultation and quote by visiting our Contact page or emailing info@porulontech.com. Our architects respond within 24 hours!';
       } else if (lower.includes('contact') || lower.includes('phone') || lower.includes('email') || lower.includes('sales')) {
-        botResponse = 'Reach our team directly:\n• tel: +914227141668\n• Sales: +91 63851 86664\n• HR: +91 90470 99277\n• \n• Email: info@porulontech.com';
+        botResponse = 'Reach our team directly:\n• tel: +914227141668\n• Sales: +91 90470 99277\n• HR: +91 90470 99277\n• \n• Email: info@porulontech.com';
       } else if (lower.includes('cloud') || lower.includes('devops') || lower.includes('aws') || lower.includes('azure')) {
         botResponse = 'Our Cloud Architecture services cover AWS/Azure/GCP cloud-native migrations, microservices, serverless scaling, and zero-downtime DevOps pipelines.';
       }
