@@ -134,7 +134,7 @@ export default function SettingsManager() {
           {/* Section 1: Branding & Identity */}
           <div className="space-y-4">
             <div className="flex items-center justify-between border-b border-slate-500/10 pb-2">
-              <h3 className="text-xs font-extrabold uppercase tracking-widest text-purple-400 flex items-center gap-2">
+              <h3 className={`text-xs font-extrabold uppercase tracking-widest flex items-center gap-2 ${isDark ? 'text-purple-400' : 'text-purple-700'}`}>
                 <Building className="w-4 h-4" />
                 <span>1. Company Branding & Logo Photo</span>
               </h3>
@@ -220,14 +220,16 @@ export default function SettingsManager() {
             </div>
           </div>
 
-          {/* Section 2: Global Website Typography & 500+ Google Fonts */}
+            {/* Section 2: Global Website Typography & 500+ Google Fonts */}
             <div className="space-y-4 pt-4 border-t border-slate-500/10">
               <div className="flex items-center justify-between border-b border-slate-500/10 pb-2">
-                <h3 className="text-xs font-extrabold uppercase tracking-widest text-purple-400 flex items-center gap-2">
+                <h3 className={`text-xs font-extrabold uppercase tracking-widest flex items-center gap-2 ${isDark ? 'text-purple-400' : 'text-purple-700'}`}>
                   <Type className="w-4 h-4" />
                   <span>2. Global Website Typography & 500+ Google Fonts</span>
                 </h3>
-                <span className="px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 font-mono text-[11px] font-bold shrink-0">
+                <span className={`px-3 py-1 rounded-full border font-mono text-[11px] font-bold shrink-0 ${
+                  isDark ? 'bg-purple-500/10 border-purple-500/20 text-purple-400' : 'bg-purple-100 border-purple-300 text-purple-800'
+                }`}>
                   Selected: {settings.fontFamily || 'Plus Jakarta Sans'}
                 </span>
               </div>
@@ -314,11 +316,13 @@ export default function SettingsManager() {
             {/* Section 3: Global Website 500+ Color Themes & Palette Picker */}
             <div className="space-y-4 pt-4 border-t border-slate-500/10">
               <div className="flex items-center justify-between border-b border-slate-500/10 pb-2">
-                <h3 className="text-xs font-extrabold uppercase tracking-widest text-purple-400 flex items-center gap-2">
+                <h3 className={`text-xs font-extrabold uppercase tracking-widest flex items-center gap-2 ${isDark ? 'text-purple-400' : 'text-purple-700'}`}>
                   <Palette className="w-4 h-4" />
                   <span>3. Global Website 500+ Color Themes & Palette Picker</span>
                 </h3>
-                <span className="px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 font-mono text-[11px] font-bold shrink-0 flex items-center gap-1.5">
+                <span className={`px-3 py-1 rounded-full border font-mono text-[11px] font-bold shrink-0 flex items-center gap-1.5 ${
+                  isDark ? 'bg-purple-500/10 border-purple-500/20 text-purple-400' : 'bg-purple-100 border-purple-300 text-purple-800'
+                }`}>
                   <span className="w-2.5 h-2.5 rounded-full inline-block" style={{ backgroundColor: settings.primaryColor || '#7c3aed' }}></span>
                   <span>Active: {settings.themePreset || 'Quantum Violet'}</span>
                 </span>
@@ -490,7 +494,7 @@ export default function SettingsManager() {
 
           {/* Section 4: Contact Channels & Footer Get In Touch */}
           <div className="space-y-4 pt-4 border-t border-slate-500/10">
-            <h3 className="text-xs font-extrabold uppercase tracking-widest text-purple-400 flex items-center gap-2">
+            <h3 className={`text-xs font-extrabold uppercase tracking-widest flex items-center gap-2 ${isDark ? 'text-purple-400' : 'text-purple-700'}`}>
               <Phone className="w-4 h-4" />
               <span>4. Contact Details & Address</span>
             </h3>
@@ -617,7 +621,7 @@ export default function SettingsManager() {
 
           {/* Section 5: Footer Copy & Newsletter */}
           <div className="space-y-4 pt-4 border-t border-slate-500/10">
-            <h3 className="text-xs font-extrabold uppercase tracking-widest text-purple-400 flex items-center gap-2">
+            <h3 className={`text-xs font-extrabold uppercase tracking-widest flex items-center gap-2 ${isDark ? 'text-purple-400' : 'text-purple-700'}`}>
               <Globe className="w-4 h-4" />
               <span>5. Footer Copy, Newsletter & Copyright</span>
             </h3>
