@@ -102,6 +102,33 @@ export default function ServiceDetail() {
       : [],
     icon: apiService.icon || 'AI',
     img: getCleanMediaUrl(apiService.img || apiService.mediaUrl),
+    processSteps: Array.isArray(apiService.processSteps) && apiService.processSteps.length > 0
+      ? apiService.processSteps
+      : [
+          { phase: 'Phase 01 • Discovery & Requirement Mapping', title: 'Strategic Audit & Architecture Blueprint', desc: 'We evaluate your business workflows, database schemas, and compliance constraints to establish a clear technical roadmap.' },
+          { phase: 'Phase 02 • Core Engineering & Pipeline Build', title: 'Custom Model Training & Systems Build', desc: 'Developing scalable microservices, training custom AI models, and establishing zero-trust security parameters.' },
+          { phase: 'Phase 03 • Production Launch & Operations', title: 'Deployment & 24/7 SLA Operations', desc: 'Continuous monitoring, real-time drift detection, and automated scaling backed by guaranteed 99.99% system SLAs.' }
+        ],
+    faqs: Array.isArray(apiService.faqs) && apiService.faqs.length > 0
+      ? apiService.faqs
+      : [
+          {
+            q: `How long does it take to deploy ${apiService.title || 'this capability'}?`,
+            a: `Initial proof-of-concept architectures are typically delivered within 2 to 4 weeks. Production enterprise rollouts with continuous SLA monitoring follow an agile deployment lifecycle.`,
+          },
+          {
+            q: `Can this capability integrate with existing enterprise infrastructure?`,
+            a: `Yes. Our solutions are engineered with decoupled APIs and middleware adapters that seamlessly bridge cloud-native engines with existing enterprise ERPs and databases.`,
+          },
+          {
+            q: `What security and compliance standards are enforced?`,
+            a: `All implementations comply with SOC 2 Type II, ISO 27001, and GDPR protocols. Data is encrypted in transit (TLS 1.3) and at rest (AES-256).`,
+          },
+          {
+            q: `What post-deployment SLA support is provided?`,
+            a: `We provide 24/7 dedicated engineering support, real-time drift monitoring, and guaranteed 99.99% system availability.`,
+          },
+        ],
   };
 
   const otherServices = allServices
@@ -111,25 +138,6 @@ export default function ServiceDetail() {
       slug: s.slug || s._id || s.id,
       title: s.title || 'Related Capability',
     }));
-
-  const faqs = [
-    {
-      q: `How long does it take to deploy ${service.title}?`,
-      a: `Initial proof-of-concept architectures are typically delivered within 2 to 4 weeks. Production enterprise rollouts with continuous SLA monitoring follow an agile deployment lifecycle.`,
-    },
-    {
-      q: `Can this capability integrate with existing enterprise infrastructure?`,
-      a: `Yes. Our solutions are engineered with decoupled APIs and middleware adapters that seamlessly bridge cloud-native engines with existing enterprise ERPs and databases.`,
-    },
-    {
-      q: `What security and compliance standards are enforced?`,
-      a: `All implementations comply with SOC 2 Type II, ISO 27001, and GDPR protocols. Data is encrypted in transit (TLS 1.3) and at rest (AES-256).`,
-    },
-    {
-      q: `What post-deployment SLA support is provided?`,
-      a: `We provide 24/7 dedicated engineering support, real-time drift monitoring, and guaranteed 99.99% system availability.`,
-    },
-  ];
 
   return (
     <main style={{ fontFamily: "'Inter', sans-serif" }} className="relative font-sans pt-28 sm:pt-36 pb-20">
@@ -271,78 +279,66 @@ export default function ServiceDetail() {
             )}
 
             {/* Engineering Lifecycle Timeline */}
-            <div className="space-y-6 pt-4">
-              <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
-                How We Engineer & Deploy
-              </h3>
+            {service.processSteps && service.processSteps.length > 0 && (
+              <div className="space-y-6 pt-4">
+                <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+                  How We Engineer & Deploy
+                </h3>
 
-              <div className="space-y-6 border-l border-slate-200 dark:border-white/10 ml-3 pl-6">
-                <div className="relative">
-                  <div className="absolute -left-[31px] top-1 w-3.5 h-3.5 rounded-full bg-purple-600 ring-4 ring-purple-600/20" />
-                  <span className="text-[10px] font-extrabold uppercase tracking-widest text-purple-600 dark:text-purple-400 block mb-1">
-                    Phase 01 • Discovery & Requirement Mapping
-                  </span>
-                  <h4 className="text-base font-bold text-slate-900 dark:text-white">Strategic Audit & Architecture Blueprint</h4>
-                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">
-                    We evaluate your business workflows, database schemas, and compliance constraints to establish a clear technical roadmap.
-                  </p>
-                </div>
-
-                <div className="relative">
-                  <div className="absolute -left-[31px] top-1 w-3.5 h-3.5 rounded-full bg-purple-600 ring-4 ring-purple-600/20" />
-                  <span className="text-[10px] font-extrabold uppercase tracking-widest text-purple-600 dark:text-purple-400 block mb-1">
-                    Phase 02 • Core Engineering & Pipeline Build
-                  </span>
-                  <h4 className="text-base font-bold text-slate-900 dark:text-white">Custom Model Training & Systems Build</h4>
-                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">
-                    Developing scalable microservices, training custom AI models, and establishing zero-trust security parameters.
-                  </p>
-                </div>
-
-                <div className="relative">
-                  <div className="absolute -left-[31px] top-1 w-3.5 h-3.5 rounded-full bg-purple-600 ring-4 ring-purple-600/20" />
-                  <span className="text-[10px] font-extrabold uppercase tracking-widest text-purple-600 dark:text-purple-400 block mb-1">
-                    Phase 03 • Production Launch & Operations
-                  </span>
-                  <h4 className="text-base font-bold text-slate-900 dark:text-white">Deployment & 24/7 SLA Operations</h4>
-                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">
-                    Continuous monitoring, real-time drift detection, and automated scaling backed by guaranteed 99.99% system SLAs.
-                  </p>
+                <div className="space-y-6 border-l border-slate-200 dark:border-white/10 ml-3 pl-6">
+                  {service.processSteps.map((step, idx) => (
+                    <div key={idx} className="relative">
+                      <div className="absolute -left-[31px] top-1 w-3.5 h-3.5 rounded-full bg-purple-600 ring-4 ring-purple-600/20" />
+                      <span className="text-[10px] font-extrabold uppercase tracking-widest text-purple-600 dark:text-purple-400 block mb-1">
+                        {step.phase || `Phase 0${idx + 1}`}
+                      </span>
+                      <h4 className="text-base font-bold text-slate-900 dark:text-white">
+                        {step.title || 'Engineering Lifecycle Step'}
+                      </h4>
+                      {step.desc && (
+                        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">
+                          {step.desc}
+                        </p>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </div>
-            </div>
+            )}
 
             {/* Frequently Asked Questions */}
-            <div className="space-y-4 pt-4">
-              <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
-                <GoQuestion className="text-purple-600 dark:text-purple-400" />
-                <span>Frequently Asked Questions</span>
-              </h3>
+            {service.faqs && service.faqs.length > 0 && (
+              <div className="space-y-4 pt-4">
+                <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+                  <GoQuestion className="text-purple-600 dark:text-purple-400" />
+                  <span>Frequently Asked Questions</span>
+                </h3>
 
-              <div className="space-y-3">
-                {faqs.map((faq, fIdx) => (
-                  <div key={fIdx} className="border-b border-slate-200 dark:border-white/10 pb-3">
-                    <button
-                      type="button"
-                      onClick={() => setActiveFaq(activeFaq === fIdx ? null : fIdx)}
-                      className="w-full text-left py-2 font-bold text-xs sm:text-sm text-slate-900 dark:text-white flex items-center justify-between gap-4 hover:text-purple-600 dark:hover:text-purple-300 transition-colors"
-                    >
-                      <span>{faq.q}</span>
-                      <HiOutlineChevronDown
-                        className={`text-base text-purple-600 dark:text-purple-400 shrink-0 transition-transform duration-300 ${
-                          activeFaq === fIdx ? 'rotate-180' : ''
-                        }`}
-                      />
-                    </button>
-                    {activeFaq === fIdx && (
-                      <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-normal pt-2">
-                        {faq.a}
-                      </p>
-                    )}
-                  </div>
-                ))}
+                <div className="space-y-3">
+                  {service.faqs.map((faq, fIdx) => (
+                    <div key={fIdx} className="border-b border-slate-200 dark:border-white/10 pb-3">
+                      <button
+                        type="button"
+                        onClick={() => setActiveFaq(activeFaq === fIdx ? null : fIdx)}
+                        className="w-full text-left py-2 font-bold text-xs sm:text-sm text-slate-900 dark:text-white flex items-center justify-between gap-4 hover:text-purple-600 dark:hover:text-purple-300 transition-colors"
+                      >
+                        <span>{faq.q || faq.question}</span>
+                        <HiOutlineChevronDown
+                          className={`text-base text-purple-600 dark:text-purple-400 shrink-0 transition-transform duration-300 ${
+                            activeFaq === fIdx ? 'rotate-180' : ''
+                          }`}
+                        />
+                      </button>
+                      {activeFaq === fIdx && (
+                        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-normal pt-2">
+                          {faq.a || faq.answer}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
           </div>
 

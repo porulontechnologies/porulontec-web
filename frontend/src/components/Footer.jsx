@@ -7,7 +7,7 @@ import { CiLocationOn } from 'react-icons/ci';
 import { FiPhone } from 'react-icons/fi';
 import { LuHeadset } from 'react-icons/lu';
 import { GoArrowUp, GoArrowRight } from 'react-icons/go';
-import { fetchSections } from '../api/client.js';
+import { fetchSections, fetchSiteSettings } from '../api/client.js';
 import { getCleanMediaUrl } from '../utils/media.js';
 
 const defaultServiceLinks = [
@@ -30,8 +30,7 @@ const defaultCompanyLinks = [
 const defaultSocialLinks = [
   { icon: <FaFacebook className="text-sm" />, href: 'https://www.facebook.com/share/1H1t8X4oKd/', label: 'Facebook' },
   { icon: <FaLinkedin className="text-sm" />, href: 'https://www.linkedin.com/company/porulon-technologies/', label: 'LinkedIn' },
-  //{ icon: <FaXTwitter className="text-sm" />, href: 'https://x.com/', label: 'X (Twitter)' },
-  { icon: <FaInstagram className="text-sm" />, href: 'https://www.instagram.com/porulon_technologies?utm_source=qr&igsh=YjZ4bjV0MzdsODNl', label: 'Instagram' },
+  { icon: <FaInstagram className="text-sm" />, href: 'https://www.instagram.com/porulon_technologies', label: 'Instagram' },
 ];
 
 const defaultContactRows = [
@@ -52,23 +51,68 @@ export default function Footer() {
   const [subscribed, setSubscribed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [footerSec, setFooterSec] = useState(null);
+  const [siteSettings, setSiteSettings] = useState(null);
 
-  // Requirement 5: Fetch Footer Section Settings Dynamically from Backend DB
+  // Requirement 5: Fetch Footer Section & Site Settings Dynamically from Backend DB
   useEffect(() => {
     let isMounted = true;
-    fetchSections()
-      .then((sections) => {
+    Promise.all([fetchSections(), fetchSiteSettings()])
+      .then(([sections, settings]) => {
         if (!isMounted) return;
         const found = sections?.find(
           (s) => (s?.sectionKey || '').toLowerCase() === 'footer' || (s?.name || '').toLowerCase().includes('footer')
         );
         if (found) setFooterSec(found);
+        if (settings) setSiteSettings(settings?.data || settings);
       })
       .catch(() => {});
     return () => {
       isMounted = false;
     };
   }, []);
+
+  // Compute Dynamic Contact Rows
+  const dynamicContactRows = [
+    siteSettings?.salesPhone && {
+      icon: <FiPhone className="text-base shrink-0 text-purple-600 dark:text-purple-400 mt-0.5" />,
+      label: siteSettings.salesPhone.startsWith('Sales:') ? siteSettings.salesPhone : `Sales: ${siteSettings.salesPhone}`,
+      href: `tel:${siteSettings.salesPhone.replace(/[^0-9+]/g, '')}`,
+    },
+    siteSettings?.generalPhone && {
+      icon: <FiPhone className="text-base shrink-0 text-purple-600 dark:text-purple-400 mt-0.5" />,
+      label: siteSettings.generalPhone.startsWith('General:') ? siteSettings.generalPhone : `General: ${siteSettings.generalPhone}`,
+      href: `tel:${siteSettings.generalPhone.replace(/[^0-9+]/g, '')}`,
+    },
+    (siteSettings?.telephoneNumber || siteSettings?.contactPhone) && {
+      icon: <LuHeadset className="text-base shrink-0 text-purple-600 dark:text-purple-400 mt-0.5" />,
+      label: (siteSettings.telephoneNumber || siteSettings.contactPhone).startsWith('Telephone:')
+        ? (siteSettings.telephoneNumber || siteSettings.contactPhone)
+        : `Telephone: ${siteSettings.telephoneNumber || siteSettings.contactPhone}`,
+      href: `tel:${(siteSettings.telephoneNumber || siteSettings.contactPhone).replace(/[^0-9+]/g, '')}`,
+    },
+    siteSettings?.contactEmail && {
+      icon: <IoIosMail className="text-base shrink-0 text-purple-600 dark:text-purple-400 mt-0.5" />,
+      label: siteSettings.contactEmail,
+      href: `mailto:${siteSettings.contactEmail}`,
+    },
+    siteSettings?.contactAddress && {
+      icon: <CiLocationOn className="text-base shrink-0 text-purple-600 dark:text-purple-400 mt-0.5" />,
+      label: siteSettings.contactAddress,
+      href: `https://maps.google.com/?q=${encodeURIComponent(siteSettings.contactAddress)}`,
+    },
+  ].filter(Boolean);
+
+  const activeContactRows = dynamicContactRows.length > 0 ? dynamicContactRows : defaultContactRows;
+
+  // Compute Dynamic Social Links
+  const dynamicSocialLinks = [];
+  const sLinks = siteSettings?.socialLinks || {};
+  if (sLinks.facebook) dynamicSocialLinks.push({ icon: <FaFacebook className="text-sm" />, href: sLinks.facebook, label: 'Facebook' });
+  if (sLinks.linkedin) dynamicSocialLinks.push({ icon: <FaLinkedin className="text-sm" />, href: sLinks.linkedin, label: 'LinkedIn' });
+  if (sLinks.instagram) dynamicSocialLinks.push({ icon: <FaInstagram className="text-sm" />, href: sLinks.instagram, label: 'Instagram' });
+  if (sLinks.twitter) dynamicSocialLinks.push({ icon: <FaXTwitter className="text-sm" />, href: sLinks.twitter, label: 'X (Twitter)' });
+
+  const activeSocialLinks = dynamicSocialLinks.length > 0 ? dynamicSocialLinks : defaultSocialLinks;
 
   // Requirement 3: Working Newsletter Subscription Handler
   const handleSubscribe = async (e) => {
@@ -77,7 +121,6 @@ export default function Footer() {
     setLoading(true);
 
     try {
-      // Send newsletter subscription to backend endpoint if available or simulate active success
       await new Promise((resolve) => setTimeout(resolve, 800));
       setSubscribed(true);
       setEmail('');
@@ -100,7 +143,7 @@ export default function Footer() {
 
   return (
     <footer className="relative w-full overflow-hidden bg-white/75 dark:bg-[#070512] transition-colors duration-500">
-      {/* Requirement 4: Ambient Video or Image Background in Footer for Light & Dark Modes */}
+      {/* Requirement 4: Ambient Video or Image Background in Footer */}
       {bgMediaUrl ? (
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none w-full h-full">
           {(() => {
@@ -129,12 +172,10 @@ export default function Footer() {
               </video>
             );
           })()}
-          {/* Dual-Theme Translucent Glass Overlay */}
           <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-white/55 to-white/40 dark:from-[#070512]/80 dark:via-[#070512]/92 dark:to-[#070512]/80 backdrop-blur-[1px]" />
           <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-bg via-bg/70 to-transparent pointer-events-none z-10" />
         </div>
       ) : (
-        /* Fallback Ambient Background Glowing Accents */
         <>
           <div className="absolute -top-32 -left-32 w-80 h-80 rounded-full bg-purple-500/10 blur-3xl pointer-events-none" />
           <div className="absolute -bottom-32 -right-32 w-80 h-80 rounded-full bg-indigo-500/10 blur-3xl pointer-events-none" />
@@ -145,17 +186,16 @@ export default function Footer() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
           {/* Left Column: Brand, Bio & Newsletter Form */}
           <div className="col-span-12 lg:col-span-4 space-y-3">
-            {/* Requirement 2: Prominent Footer Logo Size (68px) */}
             <Logo size={68} />
 
             <p className="text-slate-700 dark:text-slate-200 text-xs sm:text-xs leading-relaxed font-normal tracking-tight max-w-sm">
-              {footerSec?.subtitle || footerSec?.desc || "Architecting enterprise AI, cloud systems, and intelligent software ecosystems that accelerate digital transformation."}
+              {siteSettings?.footerText || footerSec?.subtitle || footerSec?.desc || "Architecting enterprise AI, cloud systems, and intelligent software ecosystems that accelerate digital transformation."}
             </p>
 
             {/* Newsletter Subscription Box */}
             <div className="pt-0.5">
               <span className="text-[11px] font-bold tracking-[0.16em] uppercase text-purple-700 dark:text-purple-300 block mb-1.5">
-                Stay Updated
+                {siteSettings?.newsletterHeading || 'Stay Updated'}
               </span>
               <form onSubmit={handleSubscribe} className="relative flex items-center max-w-sm">
                 <input
@@ -189,7 +229,7 @@ export default function Footer() {
 
             {/* Social Media Glass Icons */}
             <div className="flex items-center gap-2 pt-0.5">
-              {defaultSocialLinks.map((s) => (
+              {activeSocialLinks.map((s) => (
                 <a
                   key={s.label}
                   href={s.href}
@@ -244,13 +284,13 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* Requirement 1: Updated Contact Rows */}
+            {/* Contact Rows */}
             <div>
               <h4 className="text-[11px] font-bold tracking-[0.16em] uppercase text-purple-700 dark:text-purple-300 mb-2.5">
                 Get In Touch
               </h4>
               <ul className="space-y-2">
-                {defaultContactRows.map((c) => (
+                {activeContactRows.map((c) => (
                   <li key={c.label} className="flex items-start gap-2">
                     {c.icon}
                     <a
@@ -269,7 +309,7 @@ export default function Footer() {
         {/* Bottom Bar: Copyright, Legal Links & Back to Top */}
         <div className="mt-6 pt-4 border-t border-slate-200 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-[11.5px] text-slate-600 dark:text-slate-300 font-medium tracking-tight text-center sm:text-left">
-            © {year} Porulon Technologies Pvt. Ltd. All rights reserved.
+            {siteSettings?.copyrightText || `© ${year} Porulon Technologies Pvt. Ltd. All rights reserved.`}
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-5 text-[11.5px] text-slate-600 dark:text-slate-300 font-medium tracking-tight">

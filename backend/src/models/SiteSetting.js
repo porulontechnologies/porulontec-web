@@ -25,38 +25,59 @@ const SiteSetting = sequelize.define(
       type: DataTypes.STRING,
       defaultValue: 'Technologies',
     },
+    logoUrl: {
+      type: DataTypes.TEXT,
+      defaultValue: '',
+    },
+    salesPhone: {
+      type: DataTypes.STRING,
+      defaultValue: '+91 90470 99277',
+    },
+    generalPhone: {
+      type: DataTypes.STRING,
+      defaultValue: '+91 90470 99277',
+    },
+    telephoneNumber: {
+      type: DataTypes.STRING,
+      defaultValue: '+91 422 714 1668',
+    },
     contactPhone: {
       type: DataTypes.STRING,
-      defaultValue: '+1 (555) 019-2834',
+      defaultValue: '+91 90470 99277',
     },
     contactEmail: {
       type: DataTypes.STRING,
-      defaultValue: 'hello@porulon.tech',
+      defaultValue: 'info@porulontech.com',
     },
     contactAddress: {
       type: DataTypes.TEXT,
-      defaultValue: '100 Innovation Way, Tech District, CA 94107',
+      defaultValue: 'Porulon Technologies, Coimbatore, Tamil Nadu, India',
     },
     whatsappNumber: {
       type: DataTypes.STRING,
-      defaultValue: '+15550192834',
+      defaultValue: '+919047099277',
+    },
+    newsletterHeading: {
+      type: DataTypes.STRING,
+      defaultValue: 'Stay Updated',
     },
     socialLinks: {
       type: DataTypes.JSONB,
       defaultValue: {
-        linkedin: 'https://linkedin.com',
-        twitter: 'https://twitter.com',
-        github: 'https://github.com',
-        facebook: '',
+        linkedin: 'https://www.linkedin.com/company/porulon-technologies/',
+        facebook: 'https://www.facebook.com/share/1H1t8X4oKd/',
+        instagram: 'https://www.instagram.com/porulon_technologies',
+        twitter: '',
+        github: '',
       },
     },
     footerText: {
       type: DataTypes.TEXT,
-      defaultValue: 'Engineering intelligent futures through custom AI solutions, ML platforms, and enterprise automation.',
+      defaultValue: 'Architecting enterprise AI, cloud systems, and intelligent software ecosystems that accelerate digital transformation.',
     },
     copyrightText: {
       type: DataTypes.STRING,
-      defaultValue: 'Porulon Technologies Inc. All rights reserved.',
+      defaultValue: '© 2026 Porulon Technologies Pvt. Ltd. All rights reserved.',
     },
   },
   {

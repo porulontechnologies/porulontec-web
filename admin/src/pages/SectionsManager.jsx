@@ -1888,21 +1888,17 @@ export default function SectionsManager() {
       <Header title="Dynamic Page Sections Manager" subtitle="Manage layout content, hero media, and section blocks across all site pages" />
 
       <main className="p-6 md:p-8 max-w-7xl mx-auto space-y-6">
-        {/* Banner Action Bar */}
-        <div className={`p-6 rounded-3xl border shadow-xl transition-all ${
-          isDark ? 'bg-[#121824] border-[#1f293d]' : 'bg-white border-slate-200'
+        {/* Simple & Neat Header Bar */}
+        <div className={`p-5 rounded-2xl border transition-all ${
+          isDark ? 'bg-[#131927] border-[#1f2a3e]' : 'bg-white border-slate-200 shadow-2xs'
         }`}>
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 font-extrabold text-xs mb-2">
-                <Layers className="w-3.5 h-3.5" />
-                <span>Page Layout Builder</span>
-              </div>
-              <h1 className="text-xl font-extrabold tracking-tight">
-                Website Page Content & Layout Builder
+              <h1 className={`text-lg font-black tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                Dynamic Page Sections
               </h1>
-              <p className={`text-xs mt-1 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
-                Select a page tab below to manage hero banners, grid cards, CTA banners, and custom sections.
+              <p className={`text-xs font-medium mt-0.5 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                Configure layout blocks, content, and hero media across all website pages
               </p>
             </div>
 
@@ -1913,15 +1909,15 @@ export default function SectionsManager() {
                     try {
                       await restoreDefaultSections('projects');
                       await loadSections('projects');
-                      alert('✓ All Products Page reference sections successfully loaded into database!');
+                      alert('✓ All Products Page sections restored!');
                     } catch (err) {
-                      alert('Failed to load default sections: ' + (err.response?.data?.message || err.message));
+                      alert('Failed to restore sections: ' + (err.response?.data?.message || err.message));
                     }
                   }}
-                  className="flex items-center gap-2 px-4 py-2.5 bg-purple-600/15 hover:bg-purple-600/30 text-purple-300 font-extrabold text-xs rounded-xl border border-purple-500/30 transition"
+                  className="flex items-center gap-2 px-3.5 py-2 bg-purple-600/15 hover:bg-purple-600/30 text-purple-300 font-extrabold text-xs rounded-full border border-purple-500/30 transition"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
-                  <span>Restore Products Defaults</span>
+                  <span>Restore Defaults</span>
                 </button>
               )}
 
@@ -1946,7 +1942,7 @@ export default function SectionsManager() {
                     stats: [],
                   });
                 }}
-                className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:opacity-90 text-white font-extrabold text-xs rounded-xl shadow-md transition"
+                className="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-extrabold text-xs rounded-full shadow-sm shadow-purple-600/30 transition"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add Custom Section</span>
@@ -2094,12 +2090,12 @@ export default function SectionsManager() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-5">
+          <div className="grid grid-cols-1 gap-3">
             {currentTabSections.map((sec, idx) => {
               const secId = sec._id || sec.id;
               const guide = SECTION_GUIDES[sec.sectionKey] || {
                 label: sec.title || sec.sectionKey,
-                tag: 'Custom Section'
+                tag: 'Section'
               };
               const GuideIcon = guide.icon || Layers;
               const isActive = sec.isActive ?? true;
@@ -2107,123 +2103,76 @@ export default function SectionsManager() {
               return (
                 <div
                   key={secId || idx}
-                  className={`p-6 rounded-3xl border flex flex-col justify-between space-y-4 transition-all duration-300 hover:shadow-xl ${
+                  className={`p-4 rounded-2xl border flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-all duration-200 hover:shadow-md ${
                     isDark 
-                      ? 'bg-[#1a2233] border-[#222d42] text-slate-100 hover:border-purple-500/40' 
-                      : 'bg-white border-slate-200 text-slate-900 shadow-sm hover:border-purple-500/40'
+                      ? 'bg-[#131927] border-[#1f2a3e] hover:border-purple-500/40' 
+                      : 'bg-white border-slate-200 shadow-2xs hover:border-purple-300'
                   }`}
                 >
-                  {/* Card Header Bar */}
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-slate-500/10">
-                    <div className="flex items-center gap-3.5 min-w-0">
-                      <div className="w-12 h-12 rounded-2xl bg-purple-500/10 dark:bg-purple-500/20 border border-purple-500/20 text-purple-600 dark:text-purple-300 flex items-center justify-center font-bold shrink-0 shadow-xs">
-                        <GuideIcon className="w-5 h-5" />
-                      </div>
-                      <div className="min-w-0">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-extrabold bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/20 uppercase tracking-widest">
-                            #{getSectionOrder(sec)} {guide.tag || 'Block'}
-                          </span>
-                          <span className="text-xs font-mono font-bold text-purple-600 dark:text-purple-400">
-                            key: {sec.sectionKey}
-                          </span>
-                        </div>
-                        <h3 className="text-base sm:text-lg font-extrabold tracking-tight text-slate-950 dark:text-white mt-0.5 truncate">
+                  {/* Left: Icon & Section Info */}
+                  <div className="flex items-center gap-3.5 min-w-0">
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold shrink-0 ${
+                      isDark ? 'bg-purple-500/20 text-purple-300 border border-purple-500/20' : 'bg-purple-50 text-purple-700 border border-purple-100'
+                    }`}>
+                      <GuideIcon className="w-5 h-5" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h3 className={`text-sm font-extrabold truncate ${isDark ? 'text-white' : 'text-slate-900'}`}>
                           {guide.label}
                         </h3>
+                        <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider ${
+                          isDark ? 'bg-purple-500/20 text-purple-300' : 'bg-purple-100 text-purple-700'
+                        }`}>
+                          {guide.tag || sec.page}
+                        </span>
                       </div>
-                    </div>
-
-                    <div className="flex items-center gap-2.5 shrink-0">
-                      {/* Active Status Toggle Button */}
-                      <button
-                        type="button"
-                        onClick={() => toggleActive(sec)}
-                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-extrabold transition-all border cursor-pointer ${
-                          isActive
-                            ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20'
-                            : 'bg-slate-500/10 text-slate-600 dark:text-slate-400 border-slate-500/20 hover:bg-slate-500/20'
-                        }`}
-                        title={isActive ? 'Click to hide section on live site' : 'Click to activate section on live site'}
-                      >
-                        <span className={`w-2 h-2 rounded-full ${isActive ? 'bg-emerald-500 dark:bg-emerald-400 animate-pulse' : 'bg-slate-400'}`}></span>
-                        <span>{isActive ? 'Live Active' : 'Hidden (Draft)'}</span>
-                      </button>
-
-                      <button
-                        onClick={() => handleEdit(sec)}
-                        className="flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white rounded-xl text-xs font-extrabold shadow-md shadow-purple-600/30 transition hover:scale-105 cursor-pointer"
-                      >
-                        <Edit2 className="w-3.5 h-3.5" />
-                        <span>Edit Section</span>
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={() => {
-                          if (window.confirm(`Delete "${guide.label}" section? It will be removed from the live website output and moved to the Trash Bin.`)) {
-                            handleDelete(secId);
-                          }
-                        }}
-                        className="p-2.5 rounded-xl bg-red-500/10 hover:bg-red-600 text-red-600 dark:text-red-400 hover:text-white transition cursor-pointer"
-                        title="Delete section from live website output"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
+                      <p className={`text-xs font-medium truncate mt-0.5 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                        {sec.title || sec.subtitle || sec.kicker || 'Dynamic Section Block'}
+                      </p>
                     </div>
                   </div>
 
-                  {/* Structural Section Snippet & Features Preview */}
-                  <div className="space-y-2.5 pt-1">
-                    {/* Kicker Chip Badge */}
-                    {sec.kicker && (
-                      <div>
-                        <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[11px] font-extrabold text-purple-700 dark:text-purple-300 bg-purple-500/10 border border-purple-500/20 uppercase tracking-wider">
-                          <span>{sec.kicker}</span>
-                        </span>
-                      </div>
-                    )}
+                  {/* Right: Aligned Action Pill Buttons */}
+                  <div className="flex items-center gap-2 shrink-0">
+                    {/* Active Status Pill */}
+                    <button
+                      type="button"
+                      onClick={() => toggleActive(sec)}
+                      className={`px-3 py-1.5 rounded-full text-xs font-extrabold flex items-center gap-1.5 transition border ${
+                        isActive
+                          ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20'
+                          : 'bg-slate-500/10 text-slate-400 border-slate-500/20'
+                      }`}
+                      title={isActive ? 'Click to hide section' : 'Click to activate section'}
+                    >
+                      <span className={`w-2 h-2 rounded-full ${isActive ? 'bg-emerald-500 animate-pulse' : 'bg-slate-400'}`}></span>
+                      <span>{isActive ? 'Active' : 'Draft'}</span>
+                    </button>
 
-                    {/* Headline & Description */}
-                    <div className="space-y-1">
-                      <h4 className="text-sm sm:text-base font-extrabold text-slate-950 dark:text-white leading-snug">
-                        {sec.title || guide.label}
-                      </h4>
-                      {(sec.subtitle || guide.desc) && (
-                        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-normal line-clamp-2">
-                          {sec.subtitle || guide.desc}
-                        </p>
-                      )}
-                    </div>
+                    {/* Edit Button */}
+                    <button
+                      type="button"
+                      onClick={() => handleEdit(sec)}
+                      className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-purple-600 hover:bg-purple-700 text-white font-extrabold text-xs shadow-2xs transition cursor-pointer"
+                    >
+                      <Edit2 className="w-3.5 h-3.5" />
+                      <span>Edit</span>
+                    </button>
 
-                    {/* Structure Tags & Metrics Badges */}
-                    <div className="flex flex-wrap items-center gap-2 pt-1 font-bold text-slate-500 dark:text-slate-400">
-                      {sec.mediaUrl && (
-                        <span className="px-2.5 py-1 rounded-lg text-[11px] bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-500/20 flex items-center gap-1">
-                          🖼️ Media Attached
-                        </span>
-                      )}
-                      {Array.isArray(sec.items) && sec.items.length > 0 && (
-                        <span className="px-2.5 py-1 rounded-lg text-[11px] bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/20 flex items-center gap-1">
-                          <Layers className="w-3.5 h-3.5" /> {sec.items.length} Sub-Items / Cards
-                        </span>
-                      )}
-                      {Array.isArray(sec.buttons) && sec.buttons.length > 0 && (
-                        <span className="px-2.5 py-1 rounded-lg text-[11px] bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20 flex items-center gap-1">
-                          <ArrowUpRight className="w-3.5 h-3.5" /> {sec.buttons.length} Action Buttons
-                        </span>
-                      )}
-                      {Array.isArray(sec.stats) && sec.stats.length > 0 && (
-                        <span className="px-2.5 py-1 rounded-lg text-[11px] bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20 flex items-center gap-1">
-                          📊 {sec.stats.length} Stats Counters
-                        </span>
-                      )}
-                      {Array.isArray(sec.slides) && sec.slides.length > 0 && (
-                        <span className="px-2.5 py-1 rounded-lg text-[11px] bg-pink-500/10 text-pink-700 dark:text-pink-400 border border-pink-500/20 flex items-center gap-1">
-                          🎞️ {sec.slides.length} Hero Slides
-                        </span>
-                      )}
-                    </div>
+                    {/* Delete Button */}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (window.confirm(`Move "${guide.label}" section to Trash Bin?`)) {
+                          handleDelete(secId);
+                        }
+                      }}
+                      className="p-2 rounded-full text-slate-400 hover:text-red-500 hover:bg-red-500/10 transition cursor-pointer"
+                      title="Move to Trash Bin"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
                   </div>
                 </div>
               );

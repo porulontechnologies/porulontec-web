@@ -494,37 +494,36 @@ export default function BlogsManager() {
       <Header title="Blog Articles Manager" subtitle="Publish, edit, and manage technical insights and articles for the website" />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
-        <div className={`p-6 rounded-2xl border shadow-xs flex flex-col md:flex-row justify-between items-start md:items-center gap-4 ${
-          isDark ? 'bg-[#121824] border-[#1f293d]' : 'bg-white border-slate-200'
+        {/* Simple & Neat Top Action Bar */}
+        <div className={`p-5 rounded-2xl border transition-all flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 ${
+          isDark ? 'bg-[#131927] border-[#1f2a3e]' : 'bg-white border-slate-200 shadow-2xs'
         }`}>
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 text-purple-600 font-bold text-xs mb-2">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Thought Leadership Engine</span>
-            </div>
-            <h1 className="text-xl font-bold">Blog & Technical Articles</h1>
-            <p className={`text-xs mt-1 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
-              Publish AI research papers, cloud tutorials, and engineering articles for visitors.
+            <h1 className={`text-lg font-black tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
+              Blog & Technical Articles ({blogs.length})
+            </h1>
+            <p className={`text-xs font-medium mt-0.5 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+              Publish AI research papers, cloud tutorials, and engineering articles
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={handleRestoreDefaults}
-              className="flex items-center gap-2 px-4 py-2.5 bg-slate-700/80 hover:bg-slate-600 text-white font-semibold text-xs rounded-xl shadow-xs transition"
-              title="Recover deleted default articles and reset database"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-purple-500/10 hover:bg-purple-500/20 text-purple-600 dark:text-purple-400 font-extrabold text-xs rounded-full border border-purple-500/20 transition"
+              title="Restore default articles"
             >
-              <RotateCcw className="w-4 h-4" />
-              <span>Restore Default Articles</span>
+              <RotateCcw className="w-3.5 h-3.5" />
+              <span>Restore Defaults</span>
             </button>
 
             <button
               onClick={handleCreateNew}
-              className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#7c3aed] to-[#38bdf8] hover:opacity-90 text-white font-bold text-xs rounded-xl shadow-md transition"
+              className="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-extrabold text-xs rounded-full shadow-xs transition cursor-pointer"
             >
               <Plus className="w-4 h-4" />
-              <span>Create New Article</span>
+              <span>Create Article</span>
             </button>
           </div>
         </div>
@@ -572,7 +571,7 @@ export default function BlogsManager() {
                   <h3 className="text-sm font-bold line-clamp-2">{blog.title}</h3>
                   <p className={`text-xs line-clamp-3 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>{blog.excerpt}</p>
 
-                  <div className="flex flex-wrap items-center gap-2.5 text-[11px] text-slate-400 pt-2 border-t border-slate-500/10">
+                  <div className="flex flex-wrap items-center gap-2.5 text-[11px] text-slate-400 pt-2">
                     <div className="flex items-center gap-1">
                       <User className="w-3.5 h-3.5 text-[#7c3aed]" />
                       <span>{blog.authorName}</span>
@@ -590,7 +589,7 @@ export default function BlogsManager() {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between pt-4 mt-4 border-t border-slate-500/10">
+                <div className="flex items-center justify-between pt-3 mt-3">
                   <button
                     onClick={() => toggleActive(blog)}
                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border ${

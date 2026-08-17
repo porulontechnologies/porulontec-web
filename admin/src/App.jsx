@@ -11,14 +11,20 @@ import ContactManager from './pages/ContactManager.jsx';
 import MediaManager from './pages/MediaManager.jsx';
 import BlogsManager from './pages/BlogsManager.jsx';
 
+import { useTheme } from './context/ThemeContext.jsx';
+
 function ProtectedLayout() {
   const { user, loading } = useAuth();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#0a0d14] flex items-center justify-center text-slate-300 text-sm font-medium">
+      <div className={`min-h-screen flex items-center justify-center text-sm font-medium ${
+        isDark ? 'bg-[#0b0f19] text-slate-300' : 'bg-[#f8fafc] text-slate-700'
+      }`}>
         <div className="flex items-center gap-3">
-          <div className="w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+          <div className="w-5 h-5 border-2 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
           <span>Loading Admin Portal...</span>
         </div>
       </div>
@@ -30,7 +36,9 @@ function ProtectedLayout() {
   }
 
   return (
-    <div className="flex min-h-screen bg-[#0a0d14] text-slate-100 font-sans">
+    <div className={`flex min-h-screen font-sans transition-colors duration-300 ${
+      isDark ? 'bg-[#0b0f19] text-slate-100' : 'bg-[#f8fafc] text-slate-900'
+    }`}>
       <Sidebar />
       <div className="flex-1 overflow-x-hidden">
         <Outlet />
