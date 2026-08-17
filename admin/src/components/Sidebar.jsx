@@ -64,11 +64,11 @@ export default function Sidebar() {
           }`}>
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-2xl bg-gradient-to-br from-purple-600 via-indigo-600 to-purple-700 flex items-center justify-center font-extrabold text-white text-base shadow-md shadow-purple-600/30 border border-white/20">
-                P
+                PT
               </div>
               <div>
                 <h1 className={`font-extrabold text-sm tracking-tight ${isDark ? 'text-slate-100' : 'text-slate-900'}`}>
-                  Porulon Stack
+                  Porulon Technologies
                 </h1>
                 <span className="text-[10px] font-bold text-purple-500 uppercase tracking-widest block">
                   Admin Control Hub

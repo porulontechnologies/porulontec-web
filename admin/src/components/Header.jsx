@@ -30,12 +30,12 @@ export default function Header({ title, subtitle }) {
   }`;
 
   return (
-    <header className={`h-20 backdrop-blur-xl  px-6 sm:px-8 flex items-center justify-between sticky top-0 z-20 transition-colors duration-300 ${
-      isDark ? 'bg-[#0b0f19]/90 border-[#1f2a3e]' : 'bg-white/90 border-slate-200/80 shadow-2xs'
+    <header className={`h-20 backdrop-blur-xl px-6 sm:px-8 flex items-center justify-between sticky top-0 z-40  transition-colors duration-300 ${
+      isDark ? 'bg-[#0b0f19]/95 border-[#1f2a3e] shadow-md shadow-black/30' : 'bg-white/95 border-slate-200/90 shadow-2xs'
     }`}>
       {/* Left: Website Plus Jakarta Sans Font Heading */}
       <div className="flex flex-col justify-center">
-        <h2 className={`font-display text-xl sm:text-2xl font-black tracking-tight leading-tight ${
+        <h2 className={`font-display text-xl sm:text-xl font-black tracking-tight leading-tight ${
           isDark ? 'text-slate-100' : 'text-slate-900'
         }`}>
           {title}

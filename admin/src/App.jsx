@@ -40,7 +40,7 @@ function ProtectedLayout() {
       isDark ? 'bg-[#0b0f19] text-slate-100' : 'bg-[#f8fafc] text-slate-900'
     }`}>
       <Sidebar />
-      <div className="flex-1 overflow-x-hidden">
+      <div className="flex-1 min-w-0 flex flex-col min-h-screen">
         <Outlet />
       </div>
     </div>
