@@ -79,6 +79,22 @@ const SiteSetting = sequelize.define(
       type: DataTypes.STRING,
       defaultValue: '© 2026 Porulon Technologies Pvt. Ltd. All rights reserved.',
     },
+    fontFamily: {
+      type: DataTypes.STRING,
+      defaultValue: 'Plus Jakarta Sans',
+    },
+    primaryColor: {
+      type: DataTypes.STRING,
+      defaultValue: '#7c3aed',
+    },
+    secondaryColor: {
+      type: DataTypes.STRING,
+      defaultValue: '#3cddc7',
+    },
+    themePreset: {
+      type: DataTypes.STRING,
+      defaultValue: 'Quantum Violet',
+    },
   },
   {
     timestamps: true,

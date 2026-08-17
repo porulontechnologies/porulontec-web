@@ -14,12 +14,12 @@
   --text: #e5e2e1;
   --text-muted: #ccc3d8;
   --border: rgba(255, 255, 255, 0.1);
-  --primary: #d2bbff;
-  --primary-soft: rgba(124, 58, 237, 0.14);
-  --primary-strong: #7c3aed;
-  --teal: #3cddc7;
-  --teal-soft: rgba(60, 221, 199, 0.14);
-  --glow: rgba(124, 58, 237, 0.35);
+  --primary: var(--dyn-primary-soft-dark, #d2bbff);
+  --primary-soft: var(--dyn-primary-soft-bg-dark, rgba(124, 58, 237, 0.14));
+  --primary-strong: var(--dyn-primary-dark, #7c3aed);
+  --teal: var(--dyn-teal-dark, #3cddc7);
+  --teal-soft: var(--dyn-teal-soft-dark, rgba(60, 221, 199, 0.14));
+  --glow: var(--dyn-glow-dark, rgba(124, 58, 237, 0.35));
   color-scheme: dark;
 }
 
@@ -29,15 +29,15 @@
   --surface: rgba(255, 255, 255, 0.85);
   --surface-glass: rgba(109, 40, 217, 0.04);
   --surface-low: #ffffff;
-  --text: #0f172a;
+  --text: #0f172a; /* Slate Navy Black - Crisp, bright & legible, NOT harsh #000000! */
   --text-muted: #334155;
   --border: rgba(15, 23, 42, 0.12);
-  --primary: #6d28d9;
-  --primary-soft: rgba(109, 40, 217, 0.08);
-  --primary-strong: #6d28d9;
-  --teal: #0d9488;
-  --teal-soft: rgba(13, 148, 136, 0.1);
-  --glow: rgba(109, 40, 217, 0.18);
+  --primary: var(--dyn-primary-light, #6d28d9);
+  --primary-soft: var(--dyn-primary-soft-light, rgba(109, 40, 217, 0.08));
+  --primary-strong: var(--dyn-primary-light, #6d28d9);
+  --teal: var(--dyn-teal-light, #0d9488);
+  --teal-soft: var(--dyn-teal-soft-light, rgba(13, 148, 136, 0.1));
+  --glow: var(--dyn-glow-light, rgba(109, 40, 217, 0.18));
   color-scheme: light;
 }
 
@@ -53,16 +53,16 @@ body {
   transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-/* ============ GLOBAL UNIFIED FONT FAMILY: PLUS JAKARTA SANS ============ */
+/* ============ GLOBAL DYNAMIC FONT FAMILY ============ */
 *, *::before, *::after,
 html, body, h1, h2, h3, h4, h5, h6, p, a, button, input, select, textarea, label, span, div, li, nav, footer, header, main, section, article, aside, details, summary {
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-family: var(--global-font, 'Plus Jakarta Sans'), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 .hero-video-text {
-  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-family: var(--global-font, 'Plus Jakarta Sans'), sans-serif !important;
   font-weight: 200 !important;
   letter-spacing: -0.015em;
   -webkit-font-smoothing: antialiased;

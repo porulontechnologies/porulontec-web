@@ -21,6 +21,7 @@ import TermsOfService from './pages/TermsOfService.jsx';
 import CookiePolicy from './pages/CookiePolicy.jsx';
 import { ContactModalProvider } from './contexts/ContactModalContext.jsx';
 import ContactModal from './components/ContactModal.jsx';
+import DynamicFont from './components/DynamicFont.jsx';
 import SEO from './components/SEO.jsx';
 
 function ScrollToTop() {
@@ -75,6 +76,7 @@ export default function App() {
   return (
     <ContactModalProvider>
       <div className="min-h-screen bg-bg text-text">
+      <DynamicFont />
       <SEO />
       <ScrollToTop />
       <Navbar />
