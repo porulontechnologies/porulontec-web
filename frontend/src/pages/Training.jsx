@@ -427,7 +427,7 @@ export default function Training() {
                     </div>
 
                     {/* Footer Stats & Action Link */}
-                    <div className="pt-4 border-t border-slate-200/60 dark:border-purple-500/10 flex items-center justify-between mt-auto">
+                    <div className="pt-4  border-slate-200/60 dark:border-purple-500/10 flex items-center justify-between mt-auto">
                       <div className="flex items-center gap-4 text-xs text-slate-600 dark:text-text-muted font-medium tracking-tight">
                         {t.duration && (
                           <span className="flex items-center gap-1.5">

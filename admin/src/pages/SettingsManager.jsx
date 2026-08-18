@@ -133,18 +133,18 @@ export default function SettingsManager() {
         }`}>
           {/* Section 1: Branding & Identity */}
           <div className="space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-500/10 pb-2">
+            <div className="flex items-center justify-between  border-slate-500/10 pb-2">
               <h3 className={`text-xs font-extrabold uppercase tracking-widest flex items-center gap-2 ${isDark ? 'text-purple-400' : 'text-purple-700'}`}>
                 <Building className="w-4 h-4" />
                 <span>1. Company Branding & Logo Photo</span>
               </h3>
-              <span className="text-[10px] font-bold text-slate-400">Updates Header Navbar & Footer Logo live</span>
+              {/* <span className="text-[10px] font-bold text-slate-400">Updates Header Navbar & Footer Logo live</span> */}
             </div>
 
             {/* Logo Photo Upload & URL Field */}
             <div className={`p-4 rounded-2xl border space-y-3 ${isDark ? 'bg-[#1a2233] border-[#222d42]' : 'bg-slate-50 border-slate-200'}`}>
               <label className="block text-xs font-extrabold text-slate-900 dark:text-slate-100">Company Logo Photo / Image Asset</label>
-              <p className="text-[11px] text-slate-400">Upload a custom PNG/SVG logo photo or paste a URL below. When saved, it renders live in top Navbar & Footer.</p>
+              {/* <p className="text-[11px] text-slate-400">Upload a custom PNG/SVG logo photo or paste a URL below. When saved, it renders live in top Navbar & Footer.</p> */}
 
               <div className="flex items-center gap-2">
                 <input
@@ -221,22 +221,22 @@ export default function SettingsManager() {
           </div>
 
             {/* Section 2: Global Website Typography & 500+ Google Fonts */}
-            <div className="space-y-4 pt-4 border-t border-slate-500/10">
-              <div className="flex items-center justify-between border-b border-slate-500/10 pb-2">
+            <div className="space-y-4 pt-4  border-slate-500/10">
+              <div className="flex items-center justify-between  border-slate-500/10 pb-2">
                 <h3 className={`text-xs font-extrabold uppercase tracking-widest flex items-center gap-2 ${isDark ? 'text-purple-400' : 'text-purple-700'}`}>
                   <Type className="w-4 h-4" />
-                  <span>2. Global Website Typography & 500+ Google Fonts</span>
+                  <span>2. Global Website Typography</span>
                 </h3>
-                <span className={`px-3 py-1 rounded-full border font-mono text-[11px] font-bold shrink-0 ${
+                {/* <span className={`px-3 py-1 rounded-full border font-mono text-[11px] font-bold shrink-0 ${
                   isDark ? 'bg-purple-500/10 border-purple-500/20 text-purple-400' : 'bg-purple-100 border-purple-300 text-purple-800'
                 }`}>
                   Selected: {settings.fontFamily || 'Plus Jakarta Sans'}
-                </span>
+                </span> */}
               </div>
 
               {/* 500+ Google Fonts Selector & Live Typography Preview Card */}
               <div className={`p-5 rounded-2xl border space-y-4 ${isDark ? 'bg-[#1a2233] border-[#222d42]' : 'bg-slate-50 border-slate-200'}`}>
-                <p className="text-[11px] text-slate-400">Select any Google Font below. When saved, it dynamically changes the font of the entire live website.</p>
+                {/* <p className="text-[11px] text-slate-400">Select any Google Font below. When saved, it dynamically changes the font of the entire live website.</p> */}
 
                 {/* Search & Category Filter Bar */}
                 <div className="flex flex-col sm:flex-row items-center gap-3">
@@ -246,7 +246,7 @@ export default function SettingsManager() {
                       type="text"
                       value={searchFont}
                       onChange={(e) => setSearchFont(e.target.value)}
-                      placeholder="Search 500+ Google Fonts (e.g. Poppins, Outfit, Inter, Space Grotesk...)"
+                      placeholder="Search Google Fonts"
                       className={`w-full pl-9 pr-3 py-2 text-xs rounded-xl border ${isDark ? 'bg-[#0f172a] border-[#222d42] text-slate-100' : 'bg-white border-slate-300'}`}
                     />
                   </div>
@@ -293,12 +293,12 @@ export default function SettingsManager() {
                 <div className={`p-5 rounded-xl border space-y-2 transition-all ${
                   isDark ? 'bg-[#0f172a] border-purple-500/20' : 'bg-white border-purple-500/20 shadow-xs'
                 }`}>
-                  <div className="flex items-center justify-between border-b border-slate-500/10 pb-2">
+                  <div className="flex items-center justify-between  border-slate-500/10 pb-2">
                     <div className="flex items-center gap-2 text-xs font-extrabold text-purple-400">
                       <Sparkles className="w-4 h-4 animate-pulse" />
                       <span>Live Typography Preview (Font: {settings.fontFamily || 'Plus Jakarta Sans'})</span>
                     </div>
-                    <span className="text-[10px] font-mono text-emerald-400">Active Live Render</span>
+                    {/* <span className="text-[10px] font-mono text-emerald-400">Active Live Render</span> */}
                   </div>
 
                   <div style={{ fontFamily: `'${settings.fontFamily || 'Plus Jakarta Sans'}', sans-serif` }} className="space-y-1.5 pt-1">
@@ -314,18 +314,18 @@ export default function SettingsManager() {
             </div>
 
             {/* Section 3: Global Website 500+ Color Themes & Palette Picker */}
-            <div className="space-y-4 pt-4 border-t border-slate-500/10">
-              <div className="flex items-center justify-between border-b border-slate-500/10 pb-2">
+            <div className="space-y-4 pt-4  border-slate-500/10">
+              <div className="flex items-center justify-between border-slate-500/10 pb-2">
                 <h3 className={`text-xs font-extrabold uppercase tracking-widest flex items-center gap-2 ${isDark ? 'text-purple-400' : 'text-purple-700'}`}>
                   <Palette className="w-4 h-4" />
-                  <span>3. Global Website 500+ Color Themes & Palette Picker</span>
+                  <span>3. Global Website Color Themes & Palette Picker</span>
                 </h3>
-                <span className={`px-3 py-1 rounded-full border font-mono text-[11px] font-bold shrink-0 flex items-center gap-1.5 ${
+                {/* <span className={`px-3 py-1 rounded-full border font-mono text-[11px] font-bold shrink-0 flex items-center gap-1.5 ${
                   isDark ? 'bg-purple-500/10 border-purple-500/20 text-purple-400' : 'bg-purple-100 border-purple-300 text-purple-800'
                 }`}>
                   <span className="w-2.5 h-2.5 rounded-full inline-block" style={{ backgroundColor: settings.primaryColor || '#7c3aed' }}></span>
                   <span>Active: {settings.themePreset || 'Quantum Violet'}</span>
-                </span>
+                </span> */}
               </div>
 
               {/* 500+ Color Themes & Custom Color Wheel Picker Card */}
@@ -339,7 +339,7 @@ export default function SettingsManager() {
                     type="text"
                     value={searchTheme}
                     onChange={(e) => setSearchTheme(e.target.value)}
-                    placeholder="Search 500+ Color Themes (e.g. Violet, Cyber, Emerald, Amber, Cobalt, Gold...)"
+                    placeholder="Search Color Themes"
                     className={`w-full pl-9 pr-3 py-2 text-xs rounded-xl border ${isDark ? 'bg-[#0f172a] border-[#222d42] text-slate-100' : 'bg-white border-slate-300'}`}
                   />
                 </div>
@@ -453,9 +453,9 @@ export default function SettingsManager() {
               </div>
 
               {/* Dual Mode Live Rendering Color Preview Card */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+              {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1"> */}
                 {/* Dark Mode Preview */}
-                <div className="p-4 rounded-xl bg-[#050505] border border-white/10 space-y-2.5 text-slate-100">
+                {/* <div className="p-4 rounded-xl bg-[#050505] border border-white/10 space-y-2.5 text-slate-100">
                   <div className="flex items-center justify-between text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                     <span>🌙 Dark Theme Live Rendering</span>
                     <span className="w-2 h-2 rounded-full" style={{ backgroundColor: settings.primaryColor || '#7c3aed' }}></span>
@@ -468,10 +468,10 @@ export default function SettingsManager() {
                       Teal Badge
                     </span>
                   </div>
-                </div>
+                </div> */}
 
                 {/* Light Mode Preview */}
-                <div className="p-4 rounded-xl bg-[#f8f7fb] border border-slate-300 space-y-2.5">
+                {/* <div className="p-4 rounded-xl bg-[#f8f7fb] border border-slate-300 space-y-2.5">
                   <div className="flex items-center justify-between text-[10px] font-extrabold text-slate-700 uppercase tracking-wider">
                     <span>☀️ Light Theme Live Rendering (Vivid Pop)</span>
                     <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: settings.primaryColor || '#7c3aed' }}></span>
@@ -488,17 +488,17 @@ export default function SettingsManager() {
                     </span>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
 
           {/* Section 4: Contact Channels & Footer Get In Touch */}
-          <div className="space-y-4 pt-4 border-t border-slate-500/10">
+          <div className="space-y-4 pt-4  border-slate-500/10">
             <h3 className={`text-xs font-extrabold uppercase tracking-widest flex items-center gap-2 ${isDark ? 'text-purple-400' : 'text-purple-700'}`}>
               <Phone className="w-4 h-4" />
               <span>4. Contact Details & Address</span>
             </h3>
-            <p className="text-[11px] text-slate-400">Configure phone numbers, email, and address displayed in the Footer "Get In Touch" column & Contact pages.</p>
+            {/* <p className="text-[11px] text-slate-400">Configure phone numbers, email, and address displayed in the Footer "Get In Touch" column & Contact pages.</p> */}
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
@@ -620,7 +620,7 @@ export default function SettingsManager() {
           </div>
 
           {/* Section 5: Footer Copy & Newsletter */}
-          <div className="space-y-4 pt-4 border-t border-slate-500/10">
+          <div className="space-y-4 pt-4 border-slate-500/10">
             <h3 className={`text-xs font-extrabold uppercase tracking-widest flex items-center gap-2 ${isDark ? 'text-purple-400' : 'text-purple-700'}`}>
               <Globe className="w-4 h-4" />
               <span>5. Footer Copy, Newsletter & Copyright</span>
@@ -661,7 +661,7 @@ export default function SettingsManager() {
             </div>
           </div>
 
-          <div className="pt-4 border-t border-slate-500/10 flex justify-end">
+          <div className="pt-4 border-slate-500/10 flex justify-end">
             <button
               type="submit"
               className="px-8 py-3.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:opacity-90 text-white font-extrabold text-xs rounded-2xl shadow-lg shadow-purple-600/30 flex items-center gap-2 transition"
