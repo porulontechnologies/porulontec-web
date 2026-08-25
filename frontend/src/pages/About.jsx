@@ -243,7 +243,6 @@ export default function About() {
       }
       return true;
     }
-    if (hasPageConfig) return false;
     return true;
   };
 

@@ -396,7 +396,6 @@ export default function Products() {
       }
       return true;
     }
-    if (hasPageConfig) return false;
     return true;
   };
 

@@ -81,7 +81,6 @@ export default function Blog() {
       }
       return true;
     }
-    if (hasPageConfig) return false;
     return true;
   };
 

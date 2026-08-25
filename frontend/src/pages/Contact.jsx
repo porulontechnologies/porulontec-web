@@ -114,7 +114,6 @@ export default function Contact() {
       }
       return true;
     }
-    if (hasPageConfig) return false;
     return true;
   };
 
