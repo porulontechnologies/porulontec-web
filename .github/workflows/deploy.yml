@@ -1,0 +1,50 @@
+name: Auto Deploy to Linux Server on Push to Main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to Production Server
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Execute Deployment Script via SSH
+        uses: appleboy/ssh-action@1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: ${{ secrets.SERVER_PORT }}
+          script: |
+            echo '😀 [1/5] Pulling latest changes from main branch...'
+            cd /var/www/porulontech
+            git reset --hard HEAD
+            git pull origin main
+
+
+            echo 'ꐦ [2/5] Building Frontend...'
+            cd /var/www/porulontech/frontend
+            npm install
+            npm run build
+
+            echo '🛠 [3/5] Building Admin Dashboard...'
+            cd /var/www/porulontech/admin
+            npm install
+            npm run build
+
+            echo '’ [4/5] Updating Backend & Restarting PM2...'
+            cd /var/www/porulontech/backend
+            npm install
+            pm2 restart porulon-backend || pm2 start src/server.js --name "porulon-backend"
+            pm2 save
+
+            echo '🔄 [5/5] Testing & Reloading Nginx...'
+            nginx -t && systemctl reload nginx
+
+            echo '✅ Deployment Completed Successfully!'
