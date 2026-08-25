@@ -111,7 +111,7 @@ export default function Training() {
   const { openModal } = useContactModal();
 
   const handleContactClick = (e, link) => {
-    if (link === '/contact' || link === '/contact/') {
+    if (link === '/contactus' || link === '/contactus/') {
       e.preventDefault();
       openModal();
     }
@@ -314,7 +314,7 @@ export default function Training() {
             <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
               {(heroSec?.buttons?.length ? heroSec.buttons : [
                 { label: 'Explore Training Tracks', link: '#training-grid' },
-                { label: 'Talk to Our Team', link: '/contact' }
+                { label: 'Talk to Our Team', link: '/contactus' }
               ]).map((btn, bIdx) => (
                 <a
                   key={bIdx}
@@ -672,14 +672,14 @@ export default function Training() {
                   {(ctaSec?.buttons && ctaSec.buttons.length > 0
                     ? ctaSec.buttons
                     : [
-                        { label: 'Enroll Now', link: '/contact' },
-                        { label: 'Talk to Our Team', link: '/contact' },
+                        { label: 'Enroll Now', link: '/contactus' },
+                        { label: 'Talk to Our Team', link: '/contactus' },
                       ]
                   ).map((btn, bIdx) => (
                     <a
                       key={bIdx}
-                      href={btn.link || '/contact'}
-                      onClick={(e) => handleContactClick(e, btn.link || '/contact')}
+                      href={btn.link || '/contactus'}
+                      onClick={(e) => handleContactClick(e, btn.link || '/contactus')}
                       className={
                         bIdx === 0
                           ? 'group no-underline px-8 py-3.5 rounded-full bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:from-purple-500 hover:to-indigo-500 text-white font-extrabold text-xs sm:text-sm tracking-wide shadow-lg shadow-purple-600/35 hover:shadow-purple-600/55 hover:scale-[1.03] active:scale-95 transition-all duration-300 flex items-center gap-2'

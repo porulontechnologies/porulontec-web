@@ -1,4 +1,5 @@
 import Service from '../models/Service.js';
+import { sequelize } from '../config/db.js';
 
 const defaultServices = [
   {

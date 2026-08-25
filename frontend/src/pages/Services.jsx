@@ -197,7 +197,7 @@ export default function Services() {
   const { openModal } = useContactModal();
 
   const handleContactClick = (e, link) => {
-    if (link === '/contact' || link === '/contact/') {
+    if (link === '/contactus' || link === '/contactus/') {
       e.preventDefault();
       openModal();
     }
@@ -367,12 +367,12 @@ export default function Services() {
             <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
               {(heroSec?.buttons?.length ? heroSec.buttons : [
                 { label: 'Explore Service Capabilities', link: '#services-grid' },
-                { label: 'Schedule Consultation', link: '/contact' }
+                { label: 'Schedule Consultation', link: '/contactus' }
               ]).map((btn, idx) => (
                 <a
                   key={idx}
-                  href={btn.link || "/contact"}
-                  onClick={(e) => handleContactClick(e, btn.link || "/contact")}
+                  href={btn.link || "/contactus"}
+                  onClick={(e) => handleContactClick(e, btn.link || "/contactus")}
                   className={
                     idx === 0
                       ? "group no-underline px-8 py-4 rounded-full bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:from-purple-500 hover:to-indigo-500 text-white font-extrabold text-xs sm:text-sm tracking-wide shadow-lg shadow-purple-600/35 hover:shadow-purple-600/55 hover:scale-[1.03] active:scale-95 transition-all duration-300 flex items-center gap-2"
@@ -608,14 +608,14 @@ export default function Services() {
                   {(ctaSec?.buttons && ctaSec.buttons.length > 0
                     ? ctaSec.buttons
                     : [
-                        { label: 'Start Your Project', link: '/contact' },
-                        { label: 'Talk to Our Team', link: '/contact' },
+                        { label: 'Start Your Project', link: '/contactus' },
+                        { label: 'Talk to Our Team', link: '/contactus' },
                       ]
                   ).map((btn, bIdx) => (
                     <a
                       key={bIdx}
-                      href={btn.link || '/contact'}
-                      onClick={(e) => handleContactClick(e, btn.link || '/contact')}
+                      href={btn.link || '/contactus'}
+                      onClick={(e) => handleContactClick(e, btn.link || '/contactus')}
                       className={
                         bIdx === 0
                           ? 'group btn-primary px-8 py-3.5 rounded-full font-semibold tracking-tight text-xs sm:text-sm hover:scale-105 transition-all duration-300 shadow-lg shadow-purple-600/25 inline-flex items-center gap-2 no-underline'

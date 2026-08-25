@@ -1,6 +1,6 @@
+import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
@@ -15,7 +15,14 @@ import contactRoutes from './routes/contactRoutes.js';
 import mediaRoutes from './routes/mediaRoutes.js';
 import blogRoutes from './routes/blogRoutes.js';
 
-dotenv.config();
+// Global error handlers to prevent unhandled node process crashes
+process.on('uncaughtException', (err) => {
+  console.error('[Porulon Backend Uncaught Exception]:', err);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('[Porulon Backend Unhandled Rejection at]:', promise, 'reason:', reason);
+});
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -102,9 +109,17 @@ app.use('/api/contact', contactRoutes);
 app.use('/api/media', mediaRoutes);
 app.use('/api/blogs', blogRoutes);
 
-// Fallback Route
+// Fallback 404 Route
 app.use((req, res) => {
   res.status(404).json({ message: 'API Endpoint Not Found' });
+});
+
+// Global Express Error Handling Middleware
+app.use((err, req, res, next) => {
+  console.error('[Porulon Express Error]:', err);
+  res.status(err.status || 500).json({
+    message: err.message || 'Internal Server Error',
+  });
 });
 
 const PORT = parseInt(process.env.PORT || '5000', 10);
@@ -121,11 +136,20 @@ const startServer = async () => {
     }
   }
   
-  app.listen(PORT, HOST, () => {
+  const server = app.listen(PORT, HOST, () => {
     console.log(`=================================================`);
     console.log(`🚀 PorulonStack Server running on http://${HOST}:${PORT}`);
     console.log(`🌐 API Endpoint: http://${HOST}:${PORT}/api`);
     console.log(`=================================================`);
+  });
+
+  server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      console.error(`❌ [Port Conflict]: Port ${PORT} is already in use by another process.`);
+      console.error(`   To free port ${PORT}, terminate the process using it or change PORT in .env.`);
+    } else {
+      console.error(`❌ [Server Listen Error]:`, err.message);
+    }
   });
 };
 

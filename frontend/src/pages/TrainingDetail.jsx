@@ -43,7 +43,7 @@ export default function TrainingDetail() {
   const { openModal } = useContactModal();
 
   const handleContactClick = (e, link) => {
-    if (link === '/contact') {
+    if (link === '/contactus' || link === '/contactus/') {
       e.preventDefault();
       openModal();
     }
@@ -388,8 +388,8 @@ export default function TrainingDetail() {
               </p>
 
               <a
-                href="/contact"
-                onClick={(e) => handleContactClick(e, '/contact')}
+                href="/contactus"
+                onClick={(e) => handleContactClick(e, '/contactus')}
                 className="btn-primary w-full py-3.5 rounded-full text-xs font-extrabold tracking-wide inline-flex items-center justify-center gap-2 shadow-lg shadow-purple-600/25 hover:scale-105 transition-all no-underline"
               >
                 <span>Enquire Now</span>

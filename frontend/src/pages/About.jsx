@@ -163,7 +163,7 @@ const defaultHeroSlides = [
     mediaUrl: '',
     buttons: [
       { label: 'Explore Our Story', link: '#our-story' },
-      { label: 'Contact Leadership', link: '/contact' }
+      { label: 'Contact Leadership', link: '/contactus' }
     ]
   },
   {
@@ -173,7 +173,7 @@ const defaultHeroSlides = [
     mediaUrl: '',
     buttons: [
       { label: 'View Capabilities', link: '/services' },
-      { label: 'Talk to an Expert', link: '/contact' }
+      { label: 'Talk to an Expert', link: '/contactus' }
     ]
   },
   {
@@ -183,7 +183,7 @@ const defaultHeroSlides = [
     mediaUrl: '',
     buttons: [
       { label: 'Explore Academy', link: '/training' },
-      { label: 'Enroll In Cohort', link: '/contact' }
+      { label: 'Enroll In Cohort', link: '/contactus' }
     ]
   }
 ];
@@ -192,7 +192,7 @@ export default function About() {
   const { openModal } = useContactModal();
 
   const handleContactClick = (e, link) => {
-    if (link === '/contact' || link === '/contact/') {
+    if (link === '/contactus' || link === '/contactus/') {
       e.preventDefault();
       openModal();
     }
@@ -393,8 +393,8 @@ export default function About() {
                   {((activeSlideData.buttons?.length ? activeSlideData.buttons : heroSec?.buttons?.length ? heroSec.buttons : [])).map((btn, idx) => (
                     <a
                       key={idx}
-                      href={btn.link || "/contact"}
-                      onClick={(e) => handleContactClick(e, btn.link || "/contact")}
+                      href={btn.link || "/contactus"}
+                      onClick={(e) => handleContactClick(e, btn.link || "/contactus")}
                       className={
                         idx === 0
                           ? "group no-underline px-7 py-3.5 rounded-full bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:from-purple-500 hover:to-indigo-500 text-white font-extrabold text-xs sm:text-sm tracking-wide shadow-lg shadow-purple-600/35 hover:shadow-purple-600/55 hover:scale-[1.03] active:scale-95 transition-all duration-300 flex items-center gap-2"
@@ -493,8 +493,8 @@ export default function About() {
                     storySec.buttons.map((btn, bIdx) => (
                       <a
                         key={bIdx}
-                        href={btn.link || "/contact"}
-                        onClick={(e) => handleContactClick(e, btn.link || "/contact")}
+                        href={btn.link || "/contactus"}
+                        onClick={(e) => handleContactClick(e, btn.link || "/contactus")}
                         className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm tracking-wide shadow-lg shadow-purple-600/30 hover:scale-105 transition-all no-underline"
                       >
                         <span>{btn.label}</span>
@@ -503,8 +503,8 @@ export default function About() {
                     ))
                   ) : (
                     <a
-                      href="/contact"
-                      onClick={(e) => handleContactClick(e, "/contact")}
+                      href="/contactus"
+                      onClick={(e) => handleContactClick(e, "/contactus")}
                       className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm tracking-wide shadow-lg shadow-purple-600/30 hover:scale-105 transition-all no-underline"
                     >
                       <span>Talk to Leadership</span>
@@ -754,18 +754,18 @@ export default function About() {
 
                 {/* Action Buttons (100% DB-driven flex container, skip if empty) */}
                 {(ctaSec?.buttons && ctaSec.buttons.length > 0 ? ctaSec.buttons : (isLoaded ? [] : [
-                  { label: 'Explore Careers', link: '/contact' },
-                  { label: 'Contact Talent Team', link: '/contact' }
+                  { label: 'Explore Careers', link: '/contactus' },
+                  { label: 'Contact Talent Team', link: '/contactus' }
                 ])).length > 0 && (
                   <div className="flex flex-wrap gap-4 justify-center items-center mb-10">
                     {(ctaSec?.buttons && ctaSec.buttons.length > 0 ? ctaSec.buttons : (isLoaded ? [] : [
-                      { label: 'Explore Careers', link: '/contact' },
-                      { label: 'Contact Talent Team', link: '/contact' }
+                      { label: 'Explore Careers', link: '/contactus' },
+                      { label: 'Contact Talent Team', link: '/contactus' }
                     ])).map((btn, bIdx) => (
                       <a
                         key={bIdx}
-                        href={btn.link || '/contact'}
-                        onClick={(e) => handleContactClick(e, btn.link || '/contact')}
+                        href={btn.link || '/contactus'}
+                        onClick={(e) => handleContactClick(e, btn.link || '/contactus')}
                         className={
                           bIdx === 0
                             ? 'group no-underline px-8 py-3.5 rounded-full bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm tracking-wide shadow-lg shadow-purple-600/30 hover:scale-105 transition-all flex items-center gap-2'

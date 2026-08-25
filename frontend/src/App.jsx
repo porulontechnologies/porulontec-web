@@ -97,7 +97,8 @@ export default function App() {
         <Route path="/academy" element={<Navigate to="/training" replace />} />
         <Route path="/academy/:slug" element={<Navigate to="/training" replace />} />
         <Route path="/careers" element={<PlaceholderPage title="Careers" />} />
-        <Route path="/contactus" element={<Contact />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/contactus" element={<Navigate to="/contact" replace />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms-of-service" element={<TermsOfService />} />
         <Route path="/cookie-policy" element={<CookiePolicy />} />

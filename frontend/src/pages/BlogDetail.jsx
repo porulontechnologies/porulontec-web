@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import GlowImage from '../components/GlowImage.jsx';
 import { fetchBlogBySlug, fetchSections, fetchBlogs } from '../api/client.js';
+import { useContactModal } from '../contexts/ContactModalContext.jsx';
 import { GoArrowRight, GoArrowLeft, GoCopy, GoCheck } from 'react-icons/go';
 import { HiOutlineClock, HiOutlineSparkles, HiOutlineCheckCircle, HiOutlineQuestionMarkCircle, HiOutlineBookOpen } from 'react-icons/hi2';
 import { FaFacebookF, FaWhatsapp } from 'react-icons/fa';
@@ -116,6 +117,15 @@ function FormattedBlockContent({ content, excerpt, subtitle }) {
 }
 
 export default function BlogDetail() {
+  const { openModal } = useContactModal();
+
+  const handleContactClick = (e, link) => {
+    if (link === '/contactus' || link === '/contactus/') {
+      e.preventDefault();
+      openModal();
+    }
+  };
+
   const { slug } = useParams();
   const [post, setPost] = useState(null);
   const [recentBlogs, setRecentBlogs] = useState([]);
@@ -652,7 +662,8 @@ export default function BlogDetail() {
               Consult with our principal engineers and solution architects to design, scale, or audit your enterprise tech stack.
             </p>
             <a
-              href="/contact"
+              href="/contactus"
+              onClick={(e) => handleContactClick(e, '/contactus')}
               className="px-8 py-3.5 bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white rounded-full text-xs sm:text-sm font-extrabold inline-flex items-center gap-2 hover:scale-105 transition-all shadow-xl shadow-purple-600/40 no-underline relative z-10"
             >
               <span>Schedule Architecture Consultation</span>

@@ -16,6 +16,7 @@ Allow: /training
 Allow: /training/*
 Allow: /blog
 Allow: /blog/*
+Allow: /contact
 Allow: /contactus
 Allow: /privacy-policy
 Allow: /terms-of-service

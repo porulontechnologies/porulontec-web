@@ -203,7 +203,7 @@ export default function Industries() {
   const { openModal } = useContactModal();
 
   const handleContactClick = (e, link) => {
-    if (link === '/contact' || link === '/contact/') {
+    if (link === '/contactus' || link === '/contactus/') {
       e.preventDefault();
       openModal();
     }
@@ -218,51 +218,34 @@ export default function Industries() {
         if (data && Array.isArray(data)) {
           const secMap = {};
           data.forEach((s) => {
-            if (s.sectionKey) secMap[s.sectionKey] = s;
+            if (s.sectionKey && !s.isArchived) secMap[s.sectionKey] = s;
           });
           setDbSections(secMap);
-        } else {
-          setDbSections({});
         }
       })
-      .catch((err) => {
-        console.error('Failed to fetch industries sections:', err);
-        setDbSections({});
-      });
+      .catch((err) => console.error('Failed to fetch industries sections:', err));
   }, []);
 
-  const heroSec = dbSections?.industries_hero;
-  const gridSec = dbSections?.industries_grid;
-  const ctaSec = dbSections?.industries_cta;
+  const heroSec = dbSections?.industries_hero || dbSections?.hero;
+  const gridSec = dbSections?.industries_grid || dbSections?.grid;
+  const ctaSec = dbSections?.industries_cta || dbSections?.cta;
 
-  const hasPageConfig = dbSections && Object.keys(dbSections).length > 0;
-
-  const isSecVisible = (sec) => {
-    if (sec) {
-      if (sec.isActive === false || sec.visible === false || sec.enabled === false || sec.isArchived === true) {
-        return false;
-      }
-      return true;
-    }
-    if (hasPageConfig) return false;
-    return true;
-  };
-
-  const showHero = isSecVisible(heroSec);
-  const showGrid = isSecVisible(gridSec);
-  const showCta = isSecVisible(ctaSec);
+  const showHero = heroSec?.isVisible !== false;
+  const showGrid = gridSec?.isVisible !== false;
+  const showCta = ctaSec?.isVisible !== false;
 
   const displayIndustriesList = (gridSec?.items && gridSec.items.length > 0)
-    ? gridSec.items.map((item) => ({
-        title: item.title || item.name || 'Industry',
-        category: item.category || '',
-        tagline: item.tagline || '',
+    ? gridSec.items.map((item, idx) => ({
+        id: item._id || item.id || `db-ind-${idx + 1}`,
+        category: item.category || 'General',
+        title: item.title || item.name || '',
+        kicker: item.kicker || item.tag || 'Sector Solutions',
         desc: item.desc || '',
         points: item.points?.length ? item.points : [],
         img: (item.img && item.img.trim()) ? item.img : (item.mediaUrl && item.mediaUrl.trim()) ? item.mediaUrl : null,
         icon: item.icon,
         ctaText: item.ctaText || 'Discuss Solution',
-        ctaLink: item.ctaLink || '/contact',
+        ctaLink: item.ctaLink || '/contactus',
       }))
     : industries;
 
@@ -346,12 +329,12 @@ export default function Industries() {
               <div className="flex flex-wrap items-center gap-4">
                 {(heroSec?.buttons?.length ? heroSec.buttons : [
                   { label: 'Explore Industries', link: '#industries-list' },
-                  { label: 'Schedule Consultation', link: '/contact' }
+                  { label: 'Schedule Consultation', link: '/contactus' }
                 ]).map((btn, idx) => (
                   <a
                     key={idx}
-                    href={btn.link || "/contact"}
-                    onClick={(e) => handleContactClick(e, btn.link || "/contact")}
+                    href={btn.link || "/contactus"}
+                    onClick={(e) => handleContactClick(e, btn.link || "/contactus")}
                     className={
                       idx === 0
                         ? "group no-underline px-7 py-3.5 rounded-full bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:from-purple-500 hover:to-indigo-500 text-white font-extrabold text-xs sm:text-sm tracking-wide shadow-lg shadow-purple-600/35 hover:shadow-purple-600/55 hover:scale-[1.03] active:scale-95 transition-all duration-300 flex items-center gap-2"
@@ -543,8 +526,8 @@ export default function Industries() {
                     {/* Card Action Link Footer (Anchored at Bottom for Perfect Vertical Alignment) */}
                     <div className="px-6 pb-6 pt-0 relative z-10">
                       <a
-                        href={ind.ctaLink || '/contact'}
-                        onClick={(e) => handleContactClick(e, ind.ctaLink || '/contact')}
+                        href={ind.ctaLink || '/contactus'}
+                        onClick={(e) => handleContactClick(e, ind.ctaLink || '/contactus')}
                         className="pt-1 flex items-center justify-between group/link no-underline"
                       >
                         <span className="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover/link:text-purple-600 dark:group-hover/link:text-purple-400 transition-colors">
@@ -599,13 +582,13 @@ export default function Industries() {
 
                 <div className="flex flex-wrap gap-4 justify-center items-center">
                   {(ctaSec?.buttons?.length ? ctaSec.buttons : [
-                    { label: "Talk to Our Team", link: "/contact" },
+                    { label: "Talk to Our Team", link: "/contactus" },
                     { label: "View Our Services", link: "/services" }
                   ]).map((btn, idx) => (
                     <a
                       key={idx}
-                      href={btn.link || "/contact"}
-                      onClick={(e) => handleContactClick(e, btn.link || "/contact")}
+                      href={btn.link || "/contactus"}
+                      onClick={(e) => handleContactClick(e, btn.link || "/contactus")}
                       className={
                         idx === 0
                           ? "group px-8 py-3.5 rounded-full bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm tracking-wide shadow-lg shadow-purple-600/30 hover:shadow-purple-600/50 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2 no-underline"

@@ -1,8 +1,6 @@
+import 'dotenv/config';
 import { Sequelize } from 'sequelize';
 import pg from 'pg';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 const dbName = process.env.PG_DB || 'porulonstack';
 const dbUser = process.env.PG_USER || 'postgres';

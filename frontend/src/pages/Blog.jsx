@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import GlowImage from '../components/GlowImage.jsx';
 import { fetchSections, fetchBlogs } from '../api/client.js';
 import { getCleanMediaUrl } from '../utils/media.js';
+import { useContactModal } from '../contexts/ContactModalContext.jsx';
 import { GoArrowRight, GoSearch } from 'react-icons/go';
 import { HiOutlineCalendar, HiOutlineClock, HiOutlineSparkles, HiOutlineBookOpen } from 'react-icons/hi2';
 
@@ -33,6 +34,15 @@ function FormattedTitle({ title, defaultText, accentClass = 'text-purple-300 dar
 }
 
 export default function Blog() {
+  const { openModal } = useContactModal();
+
+  const handleContactClick = (e, link) => {
+    if (link === '/contactus' || link === '/contactus/') {
+      e.preventDefault();
+      openModal();
+    }
+  };
+
   const [sections, setSections] = useState([]);
   const [dbBlogs, setDbBlogs] = useState([]);
   const [activeCategory, setActiveCategory] = useState('All');
@@ -358,15 +368,16 @@ export default function Blog() {
 
                 {/* Action Buttons (100% Dynamic & Collapse-Proof) */}
                 {((ctaSec?.buttons && ctaSec.buttons.length > 0 ? ctaSec.buttons : (isLoaded && ctaSec ? [] : [
-                  { label: 'Talk to Our Team', link: '/contact' }
+                  { label: 'Talk to Our Team', link: '/contactus' }
                 ]))).length > 0 && (
                   <div className="pt-4 flex flex-wrap gap-4 justify-center items-center">
                     {((ctaSec?.buttons && ctaSec.buttons.length > 0 ? ctaSec.buttons : (isLoaded && ctaSec ? [] : [
-                      { label: 'Talk to Our Team', link: '/contact' }
+                      { label: 'Talk to Our Team', link: '/contactus' }
                     ]))).map((btn, bIdx) => (
                       <a
                         key={bIdx}
-                        href={btn.link || '/contact'}
+                        href={btn.link || '/contactus'}
+                        onClick={(e) => handleContactClick(e, btn.link || '/contactus')}
                         className="group no-underline px-8 py-3.5 rounded-full bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm tracking-wide shadow-lg shadow-purple-600/30 hover:scale-105 transition-all flex items-center gap-2 shrink-0 cursor-pointer"
                       >
                         <span>{btn.label || 'Talk to Our Team'}</span>

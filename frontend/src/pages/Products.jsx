@@ -345,7 +345,7 @@ export default function Products() {
   const { openModal } = useContactModal();
 
   const handleContactClick = (e, link) => {
-    if (link === '/contact' || link === '/contact/') {
+    if (link === '/contactus' || link === '/contactus/') {
       e.preventDefault();
       openModal();
     }
@@ -727,8 +727,8 @@ export default function Products() {
 
                         <div className="pt-1">
                           <a
-                            href="/contact"
-                            onClick={(e) => handleContactClick(e, "/contact")}
+                            href="/contactus"
+                            onClick={(e) => handleContactClick(e, "/contactus")}
                             className="btn-primary w-full py-3.5 rounded-2xl text-xs sm:text-sm font-semibold tracking-tight inline-flex items-center justify-center gap-2 group-hover:shadow-lg group-hover:shadow-purple-500/25 transition-all duration-300 no-underline"
                           >
                             <span>Explore Product & Request Demo</span>
@@ -1063,14 +1063,14 @@ export default function Products() {
                   {((ctaSec?.buttons !== undefined && Array.isArray(ctaSec.buttons))
                     ? ctaSec.buttons
                     : [
-                        { label: 'Schedule Live Demo', link: '/contact' },
-                        { label: 'Request Product Proposal', link: '/contact' },
+                        { label: 'Schedule Live Demo', link: '/contactus' },
+                        { label: 'Request Product Proposal', link: '/contactus' },
                       ]
                   ).map((btn, bIdx) => (
                     <a
                       key={bIdx}
-                      href={btn.link || '/contact'}
-                      onClick={(e) => handleContactClick(e, btn.link || '/contact')}
+                      href={btn.link || '/contactus'}
+                      onClick={(e) => handleContactClick(e, btn.link || '/contactus')}
                       className={
                         bIdx === 0
                           ? 'group btn-primary px-8 py-3.5 rounded-full font-light tracking-tight text-sm sm:text-base hover:scale-105 transition-all duration-300 shadow-lg shadow-primary-strong/25 inline-flex items-center gap-2'

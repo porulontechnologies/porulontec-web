@@ -504,7 +504,7 @@ export default function Navbar() {
 
             {/* Premium Contact Us Button */}
             <Link
-              to="/contactus"
+              to="/contact"
               className="hidden sm:inline-flex items-center justify-center h-9 px-5.5 sm:px-6 ml-2 sm:ml-3 rounded-full bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:from-purple-500 hover:to-indigo-500 text-white text-[11.5px] xl:text-[12px] font-extrabold uppercase tracking-[0.08em] shadow-md shadow-purple-600/25 hover:shadow-purple-600/45 hover:scale-[1.03] active:scale-95 transition-all duration-200 gap-2 shrink-0"
             >
               <span>CONTACT US</span>
@@ -627,7 +627,7 @@ export default function Navbar() {
             </Link>
 
             <Link
-              to="/contactus"
+              to="/contact"
               className={`text-xs font-bold uppercase tracking-wider py-1 transition-colors ${
                 location.pathname === '/contact' ? 'text-purple-600 dark:text-purple-400' : 'text-slate-800 dark:text-slate-200'
               }`}

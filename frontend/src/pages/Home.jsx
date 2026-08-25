@@ -1220,7 +1220,7 @@ export default function Home() {
   const { openModal } = useContactModal();
 
   const handleContactClick = (e, link) => {
-    if (link === '/contact' || link === '/contact/') {
+    if (link === '/contactus' || link === '/contactus/') {
       e.preventDefault();
       openModal();
     }
@@ -1364,14 +1364,14 @@ export default function Home() {
               {(heroSec?.buttons && heroSec.buttons.length > 0
                 ? heroSec.buttons
                 : [
-                    { label: 'Get Started', link: '/contact', primary: true },
+                    { label: 'Get Started', link: '/contactus', primary: true },
                     { label: 'Explore Services', link: '/services', primary: false },
                   ]
               ).map((btn, bIdx) => (
                 <a
                   key={bIdx}
-                  href={btn.link || btn.href || '/contact'}
-                  onClick={(e) => handleContactClick(e, btn.link || btn.href || '/contact')}
+                  href={btn.link || btn.href || '/contactus'}
+                  onClick={(e) => handleContactClick(e, btn.link || btn.href || '/contactus')}
                   className={
                     bIdx === 0
                       ? 'group px-7 py-3 sm:py-3.5 rounded-full bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm tracking-wide shadow-lg shadow-purple-600/30 hover:shadow-purple-600/50 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2'
@@ -1801,8 +1801,8 @@ export default function Home() {
                   const subtitle = ctaSec?.subtitle || ctaSec?.desc || "Join leading enterprise partners already leveraging Porulon's engineering mastery, AI innovation, and cloud scalability.";
 
                   const validButtons = (ctaSec?.buttons?.length ? ctaSec.buttons.filter(b => b?.label?.trim()) : null) || [
-                    { label: "Start Your Project", link: "/contact" },
-                    { label: "Talk to an Expert", link: "/contact" }
+                    { label: "Start Your Project", link: "/contactus" },
+                    { label: "Talk to an Expert", link: "/contactus" }
                   ];
 
                   return (
@@ -1827,8 +1827,8 @@ export default function Home() {
                           {validButtons.map((btn, idx) => (
                             <a
                               key={idx}
-                              href={btn.link || "/contact"}
-                              onClick={(e) => handleContactClick(e, btn.link || "/contact")}
+                              href={btn.link || "/contactus"}
+                              onClick={(e) => handleContactClick(e, btn.link || "/contactus")}
                               className={
                                 idx === 0
                                   ? "group btn-primary px-7 py-3.5 rounded-full font-semibold tracking-tight text-xs sm:text-sm text-white hover:scale-105 transition-all duration-300 shadow-xl shadow-purple-500/25 inline-flex items-center gap-2"
