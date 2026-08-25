@@ -89,6 +89,16 @@ app.get('/sitemap.xml', (req, res) => {
   return res.status(404).send('Sitemap not found');
 });
 
+// Root API Gateway status
+app.get(['/api', '/api/'], (req, res) => {
+  res.json({
+    status: 'active',
+    app: 'PorulonStack API Gateway',
+    version: '1.0.0',
+    timestamp: new Date().toISOString(),
+  });
+});
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({
