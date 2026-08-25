@@ -2,7 +2,7 @@ import axios from 'axios';
 import { services as defaultServices } from '../data/services';
 import { trainingPrograms as defaultTraining } from '../data/training';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'https://porulon-backend.onrender.com/api';
+const API_BASE = import.meta.env.VITE_API_URL || '/api';
 
 const api = axios.create({
   baseURL: API_BASE,

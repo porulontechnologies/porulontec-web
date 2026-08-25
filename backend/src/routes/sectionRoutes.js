@@ -14,6 +14,7 @@ import { protect } from '../middleware/auth.js';
 
 const router = express.Router();
 
+router.get('/', getSectionsByPage);
 router.get('/public', getSectionsByPage);
 router.get('/all', protect, getAllSections);
 router.get('/trash', protect, getArchivedSections);
