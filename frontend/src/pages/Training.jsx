@@ -166,7 +166,6 @@ export default function Training() {
       }
       return true;
     }
-    if (hasPageConfig) return false;
     return true;
   };
 

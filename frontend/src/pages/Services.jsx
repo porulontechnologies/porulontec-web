@@ -249,7 +249,6 @@ export default function Services() {
       }
       return true;
     }
-    if (hasPageConfig) return false;
     return true;
   };
 
