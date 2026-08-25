@@ -8,8 +8,6 @@ import Training from './models/Training.js';
 import Section from './models/Section.js';
 import Media from './models/Media.js';
 
-dotenv.config();
-
 const initialServices = [
   {
     slug: 'ai-solutions',
