@@ -20,7 +20,7 @@ const resolveMediaUrl = (url) => {
   const str = String(url).trim();
   if (!str) return '';
   if (str.startsWith('/uploads/')) {
-    const apiBase = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+    const apiBase = import.meta.env.VITE_API_URL || '/api';
     const serverHost = apiBase.replace(/\/api\/?$/, '');
     return `${serverHost}${str}`;
   }
