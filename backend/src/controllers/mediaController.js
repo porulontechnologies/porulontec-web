@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import Media from '../models/Media.js';
 
 const mapMedia = (m) => {
@@ -12,15 +14,8 @@ export const uploadMedia = async (req, res) => {
       return res.status(400).json({ message: 'No file uploaded' });
     }
 
-    // Support both Cloudinary secure HTTPS URLs and local disk relative paths
-    let fileUrl = `/uploads/${req.file.filename}`;
-    if (req.file.path && (req.file.path.startsWith('http://') || req.file.path.startsWith('https://'))) {
-      fileUrl = req.file.path;
-    } else if (req.file.secure_url) {
-      fileUrl = req.file.secure_url;
-    }
-
-    const filename = req.file.filename || req.file.originalname || `file-${Date.now()}`;
+    const fileUrl = `/uploads/${req.file.filename}`;
+    const filename = req.file.filename;
 
     const media = await Media.create({
       filename: filename,
@@ -53,8 +48,21 @@ export const deleteMedia = async (req, res) => {
     if (!media) {
       return res.status(404).json({ message: 'Media file not found' });
     }
+
+    // Attempt to delete local file from uploads directory if exists
+    if (media.filename) {
+      const localFilePath = path.join(process.cwd(), 'uploads', media.filename);
+      if (fs.existsSync(localFilePath)) {
+        try {
+          fs.unlinkSync(localFilePath);
+        } catch (unlinkErr) {
+          console.warn(`[Media Unlink Warning]: Failed to remove file from disk: ${unlinkErr.message}`);
+        }
+      }
+    }
+
     await media.destroy();
-    return res.json({ message: 'Media file deleted' });
+    return res.json({ message: 'Media file deleted successfully' });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

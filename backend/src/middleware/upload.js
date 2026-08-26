@@ -1,58 +1,41 @@
-import 'dotenv/config';
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
-import { v2 as cloudinary } from 'cloudinary';
-import { CloudinaryStorage } from 'multer-storage-cloudinary';
 
 const uploadDir = path.join(process.cwd(), 'uploads');
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-// Local disk storage engine (fallback)
-const localStorage = multer.diskStorage({
+// Local disk storage engine
+const storage = multer.diskStorage({
   destination(req, file, cb) {
     cb(null, uploadDir);
   },
   filename(req, file, cb) {
-    cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
+    const ext = path.extname(file.originalname).toLowerCase();
+    const cleanBase = path
+      .basename(file.originalname, ext)
+      .replace(/[^a-zA-Z0-9_-]/g, '_')
+      .slice(0, 40);
+    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+    cb(null, `${cleanBase || 'upload'}-${uniqueSuffix}${ext}`);
   },
 });
 
-let storage = localStorage;
-
-// If Cloudinary keys are configured, use Cloudinary Storage
-if (
-  process.env.CLOUDINARY_CLOUD_NAME &&
-  process.env.CLOUDINARY_API_KEY &&
-  process.env.CLOUDINARY_API_SECRET
-) {
-  cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-  });
-
-  storage = new CloudinaryStorage({
-    cloudinary: cloudinary,
-    params: {
-      folder: 'porulonstack_uploads',
-      resource_type: 'auto', // Automatically detect images or videos
-      allowed_formats: ['jpg', 'jpeg', 'png', 'svg', 'webp', 'gif', 'ico', 'mp4', 'webm', 'mov'],
-    },
-  });
-}
-
 function checkFileType(file, cb) {
-  const filetypes = /jpg|jpeg|png|svg|webp|gif|ico|mp4|webm|mov|avi|mkv/;
+  const filetypes = /jpg|jpeg|png|svg|webp|gif|ico|mp4|webm|mov|avi|mkv|pdf/;
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-  const mimetype = file.mimetype.startsWith('image/') || file.mimetype.startsWith('video/') || file.mimetype === 'application/octet-stream';
+  const mimetype =
+    file.mimetype.startsWith('image/') ||
+    file.mimetype.startsWith('video/') ||
+    file.mimetype === 'application/pdf' ||
+    file.mimetype === 'application/octet-stream';
 
   if (extname || mimetype) {
     return cb(null, true);
   } else {
-    cb(new Error('Only valid image and video files are allowed!'));
+    cb(new Error('Only valid image, video, and document files are allowed!'));
   }
 }
 

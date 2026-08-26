@@ -104,9 +104,11 @@ export default function MediaManager() {
             {media.map((m) => {
               const mId = m._id || m.id;
               const isVid = m.mimetype?.startsWith('video') || m.url?.endsWith('.mp4') || m.url?.endsWith('.webm');
+              const apiBase = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+              const serverHost = apiBase.replace(/\/api\/?$/, '');
               const srcUrl = m.url.startsWith('http') 
                 ? m.url 
-                : `http://localhost:5000${m.url.startsWith('/') ? '' : '/'}${m.url}`;
+                : `${serverHost}${m.url.startsWith('/') ? '' : '/'}${m.url}`;
 
               return (
                 <div key={mId} className={`group rounded-2xl border overflow-hidden transition-all flex flex-col justify-between ${
@@ -127,7 +129,7 @@ export default function MediaManager() {
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         onError={(e) => {
                           e.target.onerror = null;
-                          e.target.src = 'http://localhost:5000/images/service-ai.jpg';
+                          e.target.src = `${serverHost}/images/service-ai.jpg`;
                         }}
                       />
                     )}
