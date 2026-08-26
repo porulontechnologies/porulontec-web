@@ -350,6 +350,36 @@ async function seedData() {
     }
     console.log(`[Seed] Dynamic Home Sections check complete (all 6 industry cards synced)`);
 
+    // Sync Cloudinary Uploaded Media to Database
+    if (process.env.CLOUDINARY_CLOUD_NAME && process.env.CLOUDINARY_API_KEY && process.env.CLOUDINARY_API_SECRET) {
+      try {
+        const { v2: cloudinary } = await import('cloudinary');
+        cloudinary.config({
+          cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+          api_key: process.env.CLOUDINARY_API_KEY,
+          api_secret: process.env.CLOUDINARY_API_SECRET,
+        });
+        const cloudRes = await cloudinary.api.resources({ max_results: 100, resource_type: 'image' });
+        let newMediaCount = 0;
+        for (const item of cloudRes.resources) {
+          const exists = await Media.findOne({ where: { url: item.secure_url } });
+          if (!exists) {
+            await Media.create({
+              filename: item.public_id,
+              originalName: `${item.public_id.split('/').pop()}.${item.format || 'jpg'}`,
+              url: item.secure_url,
+              mimetype: `image/${item.format || 'jpeg'}`,
+              size: item.bytes || 0,
+            });
+            newMediaCount++;
+          }
+        }
+        console.log(`[Seed] Synced ${cloudRes.resources.length} Cloudinary images into PostgreSQL (${newMediaCount} newly added)`);
+      } catch (cErr) {
+        console.warn(`[Cloudinary Media Sync Notice]: ${cErr.message}`);
+      }
+    }
+
     console.log(`\n✅ PostgreSQL Database Sync Completed Successfully!`);
     process.exit(0);
   } catch (error) {
