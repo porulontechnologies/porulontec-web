@@ -367,9 +367,7 @@ export default function Navbar() {
           
           {/* Left: Brand Logo */}
           <div className="flex items-center shrink-0">
-            <Link to="/" aria-label="Porulon Tech Home">
-              <Logo height={54} />
-            </Link>
+            <Logo height={54} />
           </div>
 
           {/* Center: Desktop Clean Architecture Navigation */}

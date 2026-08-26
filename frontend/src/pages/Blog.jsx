@@ -56,10 +56,12 @@ export default function Blog() {
           fetchSections('blog'),
           fetchBlogs(),
         ]);
-        setSections(secData || []);
-        setDbBlogs(blogData || []);
+        setSections(Array.isArray(secData) ? secData : []);
+        setDbBlogs(Array.isArray(blogData) ? blogData : []);
       } catch (err) {
         console.error('Failed to load blog page data:', err);
+        setSections([]);
+        setDbBlogs([]);
       } finally {
         setIsLoaded(true);
       }
@@ -67,12 +69,12 @@ export default function Blog() {
     loadData();
   }, []);
 
-  const getSec = (key) => sections.find((s) => s.sectionKey === key && s.isActive !== false);
+  const getSec = (key) => (Array.isArray(sections) ? sections.find((s) => s.sectionKey === key && s.isActive !== false) : undefined);
   const heroSec = getSec('blog_hero');
   const gridSec = getSec('blog_grid');
   const ctaSec = getSec('blog_cta');
 
-  const hasPageConfig = sections !== null && sections.length > 0;
+  const hasPageConfig = Array.isArray(sections) && sections.length > 0;
 
   const isSecVisible = (sec) => {
     if (sec) {

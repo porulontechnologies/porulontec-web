@@ -83,7 +83,7 @@ export default function Contact() {
     fetchSections('contact')
       .then((data) => {
         if (isMounted) {
-          setSections(data || []);
+          setSections(Array.isArray(data) ? data : []);
           setLoading(false);
         }
       })
@@ -99,13 +99,13 @@ export default function Contact() {
     };
   }, []);
 
-  const getSec = (key) => sections?.find((s) => s.sectionKey === key && s.isActive && !s.isArchived);
+  const getSec = (key) => (Array.isArray(sections) ? sections.find((s) => s.sectionKey === key && s.isActive && !s.isArchived) : undefined);
 
   const heroSec = getSec('contact_hero');
   const infoSec = getSec('contact_info');
   const formSec = getSec('contact_form');
 
-  const hasPageConfig = sections !== null && sections.length > 0;
+  const hasPageConfig = Array.isArray(sections) && sections.length > 0;
 
   const isSecVisible = (sec) => {
     if (sec) {

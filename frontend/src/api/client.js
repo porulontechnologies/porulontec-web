@@ -21,7 +21,8 @@ export const fetchSiteSettings = async () => {
 export const fetchServices = async () => {
   try {
     const res = await api.get('/services');
-    return res.data && res.data.length > 0 ? res.data : defaultServices;
+    const list = Array.isArray(res.data) ? res.data : (Array.isArray(res.data?.services) ? res.data.services : (Array.isArray(res.data?.data) ? res.data.data : null));
+    return list && list.length > 0 ? list : defaultServices;
   } catch (err) {
     return defaultServices;
   }
@@ -38,7 +39,8 @@ export const fetchServiceBySlug = async (slug) => {
 export const fetchTraining = async () => {
   try {
     const res = await api.get('/training');
-    return res.data && res.data.length > 0 ? res.data : defaultTraining;
+    const list = Array.isArray(res.data) ? res.data : (Array.isArray(res.data?.training) ? res.data.training : (Array.isArray(res.data?.data) ? res.data.data : null));
+    return list && list.length > 0 ? list : defaultTraining;
   } catch (err) {
     return defaultTraining;
   }
@@ -55,7 +57,10 @@ export const fetchTrainingBySlug = async (slug) => {
 export const fetchSections = async (page = 'home') => {
   try {
     const res = await api.get(`/sections/public?page=${page}`);
-    return res.data || [];
+    if (Array.isArray(res.data)) return res.data;
+    if (Array.isArray(res.data?.sections)) return res.data.sections;
+    if (Array.isArray(res.data?.data)) return res.data.data;
+    return [];
   } catch (err) {
     return [];
   }
@@ -64,7 +69,10 @@ export const fetchSections = async (page = 'home') => {
 export const fetchBlogs = async (params = {}) => {
   try {
     const res = await api.get('/blogs', { params });
-    return res.data || [];
+    if (Array.isArray(res.data)) return res.data;
+    if (Array.isArray(res.data?.blogs)) return res.data.blogs;
+    if (Array.isArray(res.data?.data)) return res.data.data;
+    return [];
   } catch (err) {
     return [];
   }

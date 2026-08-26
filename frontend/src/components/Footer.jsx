@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Logo from './Logo.jsx';
 import { FaFacebook, FaLinkedin, FaInstagram } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
@@ -313,9 +314,9 @@ export default function Footer() {
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-5 text-[11.5px] text-slate-600 dark:text-slate-300 font-medium tracking-tight">
-            <a href="/privacy-policy" className="hover:text-purple-600 dark:hover:text-white transition-colors">Privacy Policy</a>
-            <a href="/terms-of-service" className="hover:text-purple-600 dark:hover:text-white transition-colors">Terms of Service</a>
-            <a href="/cookie-policy" className="hover:text-purple-600 dark:hover:text-white transition-colors">Cookie Policy</a>
+            <Link to="/privacy-policy" className="hover:text-purple-600 dark:hover:text-white transition-colors">Privacy Policy</Link>
+            <Link to="/terms-of-service" className="hover:text-purple-600 dark:hover:text-white transition-colors">Terms of Service</Link>
+            <Link to="/cookie-policy" className="hover:text-purple-600 dark:hover:text-white transition-colors">Cookie Policy</Link>
           </div>
 
           <button

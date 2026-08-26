@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { fetchSiteSettings } from '../api/client.js';
 import { getCleanMediaUrl } from '../utils/media.js';
 
-export default function Logo({ className = '', height = 36, size }) {
+export default function Logo({ className = '', height = 36, size, asLink = true }) {
   const actualHeight = size || height || 36;
   const [logoUrl, setLogoUrl] = useState('');
   const [logoText, setLogoText] = useState('Porulon');
@@ -21,8 +22,8 @@ export default function Logo({ className = '', height = 36, size }) {
     return () => { isMounted = false; };
   }, []);
 
-  return (
-    <a href="/" className={`flex items-center gap-2 group no-underline ${className}`} aria-label="Porulon Technologies home">
+  const imageElements = (
+    <>
       {logoUrl ? (
         <img
           src={logoUrl}
@@ -42,7 +43,21 @@ export default function Logo({ className = '', height = 36, size }) {
         style={{ height: `${actualHeight}px`, display: logoUrl ? 'none' : 'block' }}
         className="w-auto max-w-[280px] sm:max-w-[360px] object-contain shrink-0 transition-transform duration-300 group-hover:scale-[1.03]"
       />
-    </a>
+    </>
+  );
+
+  if (!asLink) {
+    return (
+      <div className={`flex items-center gap-2 group ${className}`}>
+        {imageElements}
+      </div>
+    );
+  }
+
+  return (
+    <Link to="/" className={`flex items-center gap-2 group no-underline ${className}`} aria-label="Porulon Technologies home">
+      {imageElements}
+    </Link>
   );
 }
 
