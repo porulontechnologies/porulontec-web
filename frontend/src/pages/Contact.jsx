@@ -112,7 +112,9 @@ export default function Contact() {
       if (sec.isActive === false || sec.visible === false || sec.enabled === false || sec.isArchived === true) {
         return false;
       }
+      return true;
     }
+    if (hasPageConfig) return false;
     return true;
   };
 
