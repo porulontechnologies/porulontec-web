@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { Lock, Mail, ArrowRight, Shield } from 'lucide-react';
+import { Lock, Mail, ArrowRight } from 'lucide-react';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -64,7 +64,7 @@ export default function Login() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 className="w-full bg-[#1a2233] border border-[#1f293d] rounded-xl pl-10 pr-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-blue-500 transition"
-                placeholder="admin@porulon.com"
+                placeholder="Enter your email"
               />
             </div>
           </div>
@@ -99,13 +99,6 @@ export default function Login() {
             )}
           </button>
         </form>
-
-        <div className="mt-6 pt-6 border-t border-[#1f293d] text-center">
-          <div className="inline-flex items-center gap-2 text-xs text-slate-400 bg-[#1a2233] px-3 py-1.5 rounded-full border border-[#1f293d]">
-            <Shield className="w-3.5 h-3.5 text-blue-400" />
-            <span>Default Seed Credentials: admin@porulon.com / admin123</span>
-          </div>
-        </div>
       </div>
     </div>
   );
