@@ -106,7 +106,6 @@ export default function App() {
         <Route path="*" element={<PlaceholderPage title="Page Not Found" />} />
       </Routes>
       <FloatingAssistant />
-      <WhatsAppWidget />
       <Footer />
       <ContactModal />
     </div>
