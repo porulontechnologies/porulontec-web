@@ -1,50 +1,236 @@
-import { useState } from 'react';
-import { FaWhatsapp } from 'react-icons/fa';
+﻿import { useState } from "react";
+
+const AVATAR_URL = "https://cdn.jotfor.ms/assets/agent-avatars/avatar_icon_323.png";
+const WHATSAPP_LINK =
+  "https://agent.jotform.com/01a056e106987000826993ddb18c1240fc04/whatsapp";
+
+const WhatsAppIcon = ({ size = 24 }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="currentColor"
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    width={size}
+    height={size}
+  >
+    <path
+      fillRule="evenodd"
+      d="M12 3a8.5 8.5 0 0 0-8.5 8.5c0 1.835.58 3.532 1.568 4.92.227.319.283.69.304.926.023.27.012.562-.014.844A15.032 15.032 0 0 1 5.055 20L5 20.24l.312-.127a17.83 17.83 0 0 1 1.785-.623 5.67 5.67 0 0 1 .83-.173c.228-.027.595-.05.942.088A8.475 8.475 0 0 0 12 20a8.5 8.5 0 0 0 0-17ZM2.543 21.709l.003-.01.01-.033a22.762 22.762 0 0 0 .173-.606c.11-.4.25-.936.373-1.492.124-.562.225-1.116.264-1.557a2.994 2.994 0 0 0 .01-.52A10.456 10.456 0 0 1 1.5 11.5C1.5 5.701 6.201 1 12 1s10.5 4.701 10.5 10.5S17.799 22 12 22a10.47 10.47 0 0 1-3.782-.702c-.015 0-.035.003-.059.005-.123.015-.3.051-.53.115a15.92 15.92 0 0 0-1.574.552 37.308 37.308 0 0 0-1.95.85l-.129.06-.033.016-.01.005a1 1 0 0 1-1.39-1.192Zm5.715-.412h-.002.002Z"
+      clipRule="evenodd"
+    />
+    <path d="M16.885 13.823c-.042-.02-1.616-.795-1.895-.896a1.089 1.089 0 0 0-.367-.081c-.212 0-.391.106-.53.314-.157.233-.633.79-.78.956-.02.022-.046.048-.062.048-.014 0-.257-.1-.33-.132-1.69-.733-2.971-2.497-3.147-2.795-.025-.042-.026-.062-.026-.062a.492.492 0 0 1 .092-.109c.086-.085.179-.196.269-.305.042-.05.085-.102.127-.15.13-.152.188-.27.255-.406l.036-.071a.732.732 0 0 0-.022-.691c-.037-.075-.702-1.679-.772-1.847C9.563 7.189 9.338 7 9.026 7c-.029 0 0 0-.121.005-.148.006-.953.112-1.309.337-.377.238-1.016.996-1.016 2.33 0 1.201.762 2.335 1.09 2.766l.044.065c1.253 1.83 2.814 3.185 4.398 3.818 1.524.609 2.246.679 2.656.679.173 0 .31-.014.432-.026l.078-.007c.526-.047 1.684-.646 1.947-1.378.207-.576.262-1.205.124-1.434-.095-.155-.258-.233-.464-.332Z" />
+  </svg>
+);
 
 export default function WhatsAppWidget() {
-  const [isHidden, setIsHidden] = useState(false);
-  const phoneNumber = '919047099277';
-  const defaultMessage = encodeURIComponent(
-    'Hello Porulon Technologies! I would like to know more about your AI solutions and services.'
-  );
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${defaultMessage}`;
-
-  if (isHidden) return null;
+  const [chatOpen, setChatOpen] = useState(false);
 
   return (
-    <div style={{ fontFamily: "'Inter', sans-serif" }} className="fixed bottom-6 right-6 z-50 font-sans">
-      <div className="relative group flex items-center gap-2">
-        {/* Tooltip Badge on hover */}
-        <div className="hidden sm:block opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-slate-900/95 dark:bg-[#0e0c1f]/95 text-white text-xs font-light px-3 py-1.5 rounded-xl shadow-xl border border-white/10 whitespace-nowrap">
-          Chat on WhatsApp
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-end",
+        justifyContent: "center",
+        borderRadius: "30px",
+        width: "360px",
+        position: "fixed",
+        right: "1.5rem",
+        bottom: "4rem",
+        zIndex: 9999,
+      }}
+    >
+      {/* Chat Panel */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+          width: "100%",
+          backgroundColor: "#ffffff",
+          borderRadius: "0.375rem",
+          fontFamily: "sans-serif",
+          paddingBottom: "1rem",
+          border: "1px solid #E3E5F5",
+          opacity: chatOpen ? 1 : 0,
+          transform: chatOpen ? "translateY(0%)" : "translateY(100%)",
+          visibility: chatOpen ? "visible" : "hidden",
+          transition:
+            "transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+          marginBottom: "0.5rem",
+        }}
+      >
+        {/* Header */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-start",
+            alignItems: "center",
+            width: "100%",
+            padding: "1rem",
+            gap: "1.25rem",
+            position: "relative",
+            boxSizing: "border-box",
+          }}
+        >
+          {/* Avatar */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "3rem",
+              height: "3rem",
+              backgroundColor: "#f8fafc",
+              borderRadius: "9999px",
+              position: "relative",
+              padding: "0.125rem",
+              flexShrink: 0,
+            }}
+          >
+            <img
+              src={AVATAR_URL}
+              alt="agent-avatar"
+              style={{ width: "2.75rem", height: "2.75rem", borderRadius: "9999px" }}
+            />
+            <div
+              style={{
+                width: "1rem",
+                height: "1rem",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "#ffffff",
+                borderRadius: "9999px",
+                position: "absolute",
+                bottom: 0,
+                right: "-0.125rem",
+              }}
+            >
+              <div
+                style={{
+                  width: "0.75rem",
+                  height: "0.75rem",
+                  backgroundColor: "#22c55e",
+                  borderRadius: "9999px",
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Status */}
+          <div style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
+            <p style={{ fontWeight: 700, color: "#334155", margin: "0.25rem" }}></p>
+            <p style={{ fontWeight: 500, color: "#334155", margin: "0.25rem" }}>Online</p>
+          </div>
+
+          {/* Close Button */}
+          <button
+            type="button"
+            onClick={() => setChatOpen(false)}
+            style={{
+              position: "absolute",
+              top: 0,
+              right: 0,
+              display: "inline-flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "2rem",
+              padding: "0 0.5rem",
+              border: "none",
+              cursor: "pointer",
+              backgroundColor: "transparent",
+              color: "#334155",
+              fontSize: "0.875rem",
+            }}
+          >
+            ✕
+          </button>
         </div>
 
-        {/* Close / Dismiss X Button Badge */}
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            setIsHidden(true);
-          }}
-          title="Hide WhatsApp Widget"
-          aria-label="Hide WhatsApp Widget"
-          className="absolute -top-1.5 -right-1.5 z-20 w-5 h-5 rounded-full bg-slate-900 text-slate-300 hover:text-white hover:bg-red-500 border border-white/20 flex items-center justify-center text-[10px] font-bold shadow-md transition-all cursor-pointer opacity-90 group-hover:opacity-100"
-        >
-          ✕
-        </button>
+        {/* Divider */}
+        <div style={{ width: "100%", borderTop: "1px solid #E3E5F5", marginBottom: "0.5rem" }} />
 
-        {/* WhatsApp Action Button */}
-        <a
-          href={whatsappUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Chat on WhatsApp with Porulon Technologies"
-          className="relative w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#20ba5a] text-white flex items-center justify-center shadow-[0_8px_30px_rgba(37,211,102,0.45)] hover:shadow-[0_12px_40px_rgba(37,211,102,0.7)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
+        {/* Greeting */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "flex-start",
+            width: "100%",
+            padding: "1rem",
+            gap: "1.25rem",
+            boxSizing: "border-box",
+          }}
         >
-          <FaWhatsapp className="text-3xl text-white" />
-          <span className="absolute inset-0 rounded-full bg-[#25D366]/30 animate-ping pointer-events-none -z-10" />
-        </a>
+          <img
+            src={AVATAR_URL}
+            alt="agent-avatar"
+            style={{ width: "2.5rem", height: "2.5rem", borderRadius: "9999px", flexShrink: 0 }}
+          />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              flexGrow: 1,
+              borderRadius: "0.375rem",
+              backgroundColor: "#fafafa",
+              paddingLeft: "1rem",
+            }}
+          >
+            <p style={{ color: "#334155", margin: "0.25rem" }}>Hi there! 🌟</p>
+            <p style={{ color: "#334155", margin: "0.25rem" }}>How can I help you?</p>
+          </div>
+        </div>
+
+        {/* WhatsApp CTA */}
+        <button
+          type="button"
+          onClick={() => window.open(WHATSAPP_LINK, "_blank", "noopener,noreferrer")}
+          style={{
+            borderRadius: "9999px",
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "3rem",
+            padding: "0 0.75rem",
+            border: "none",
+            cursor: "pointer",
+            color: "#ffffff",
+            backgroundColor: "#3b82f6",
+            fontWeight: 500,
+          }}
+        >
+          <WhatsAppIcon size={24} />
+          <span style={{ padding: "0 0.75rem", fontSize: "1.125rem" }}>Message on Whatsapp</span>
+        </button>
       </div>
+
+      {/* Trigger Button */}
+      <button
+        type="button"
+        onClick={() => setChatOpen(true)}
+        style={{
+          borderRadius: "9999px",
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "3rem",
+          padding: "0 0.75rem",
+          cursor: "pointer",
+          backgroundColor: "#ffffff",
+          color: "#4b5563",
+          border: "1px solid #E3E5F5",
+          opacity: chatOpen ? 0 : 1,
+          visibility: chatOpen ? "hidden" : "visible",
+          transform: chatOpen ? "translateY(100%)" : "translateY(0%)",
+          transition:
+            "transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+          marginLeft: "auto",
+        }}
+      >
+        <WhatsAppIcon size={24} />
+      </button>
     </div>
   );
 }
