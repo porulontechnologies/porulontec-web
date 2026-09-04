@@ -5,7 +5,7 @@ import 'aos/dist/aos.css';
 import Navbar from './components/Navbar.jsx';
 import Footer from './components/Footer.jsx';
 import FloatingAssistant from './components/FloatingAssistant.jsx';
-import WhatsAppWidget from './components/WhatsAppWidget.jsx';
+//import WhatsAppWidget from './components/WhatsAppWidget.jsx';
 import Home from './pages/Home.jsx';
 import About from './pages/About.jsx';
 import Industries from './pages/Industries.jsx';
